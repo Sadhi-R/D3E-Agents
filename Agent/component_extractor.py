@@ -4,7 +4,8 @@ from file_manager import create_or_update_file
 from sync_manager import update_code, Context
 from config import remote_config
 
-def save_components_from_d3e_output(d3e_output, project=None):
+def save_components_from_d3e_output(d3e_output, project):
+    """Extract and save D3E components in the specified project's folders."""
     component_types = ['Model', 'OptionSet', 'Widget', 'Page', 'Style', 'Theme', 'StyleTheme']
     d3e_type_map = {
         'model': 'Model',
@@ -73,6 +74,9 @@ def save_components_from_d3e_output(d3e_output, project=None):
             if key in processed:
                 continue
             processed.add(key)
+            if not project:
+                print("❌ Project must be specified for saving components.")
+                continue
             success = create_or_update_file(component_type.lower(), name, block, project=project)
             if success:
                 components_found += 1

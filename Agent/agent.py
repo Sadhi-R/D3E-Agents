@@ -2,86 +2,159 @@
 import requests
 import json
 import re
+
+# Improved project selection logic (must come first)
+from project_manager import list_projects, create_project
+projects = list_projects()
+if not projects:
+    print("No projects found. Please enter a name for your new project:")
+    while True:
+        new_name = input("Project name: ").strip()
+        if new_name:
+            create_project(new_name)
+            current_project = new_name
+            break
+        print("Project name cannot be empty.")
+elif len(projects) == 1:
+    current_project = projects[0]
+    print(f"Automatically selected the only available project: {current_project}")
+else:
+    print("Available Projects:")
+    for idx, proj in enumerate(projects, 1):
+        print(f"  {idx}. {proj}")
+    while True:
+        choice = input(f"Select a project [1-{len(projects)}]: ").strip()
+        if choice.isdigit():
+            choice = int(choice)
+            if 1 <= choice <= len(projects):
+                current_project = projects[choice-1]
+                break
+        print("Invalid selection. Try again.")
+print(f"\n📁 Using project: {current_project}")
+
+# ✅ Context Manager Setup
+import requests
+import json
+import re
 import time
 import asyncio
 import threading
 import os
-from context_manager import ContextManager
+from context_loader import ContextManager
 from file_manager import create_or_update_file
 from sync_manager import update_code, Context, start_file_watcher
 from component_extractor import save_components_from_d3e_output
 from project_manager import select_project
 from config import CLAUDE_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY, remote_config
 
-
-print("🤖 D3E Programming Language Assistant (Claude → ChatGPT → Gemini fallback)")
-print("📝 Note: This assistant ONLY generates D3E language code (NO web code)")
-
-# ✅ Utility: Multiline input
-def multiline_input(prompt=""):
-    print(prompt)
-    lines = []
+# Improved project selection logic (must come first)
+from project_manager import list_projects, create_project
+projects = list_projects()
+if not projects:
+    print("No projects found. Please enter a name for your new project:")
     while True:
-        line = input()
-        if line.strip() == "END":
+        new_name = input("Project name: ").strip()
+        if new_name:
+            create_project(new_name)
+            current_project = new_name
             break
-        lines.append(line)
-    return "\n".join(lines)
-
+        print("Project name cannot be empty.")
+elif len(projects) == 1:
+    current_project = projects[0]
+    print(f"Automatically selected the only available project: {current_project}")
+else:
+    print("Available Projects:")
+    for idx, proj in enumerate(projects, 1):
+        print(f"  {idx}. {proj}")
+    while True:
+        choice = input(f"Select a project [1-{len(projects)}]: ").strip()
+        if choice.isdigit():
+            choice = int(choice)
+            if 1 <= choice <= len(projects):
+                current_project = projects[choice-1]
+                break
+        print("Invalid selection. Try again.")
+print(f"\n📁 Using project: {current_project}")
 
 # ✅ Context Manager Setup
 context_manager = ContextManager()
 
-
 # Dynamic structure files to load
 structure_files = []
 
-# Load existing themes, styles, and models
+# Load existing themes, styles, and models (after project selection)
 def load_workspace_context():
     try:
-        # Load themes
-        if os.path.exists("StyleTheme"):
-            themes = os.listdir("StyleTheme")
-            print("✅ Loaded themes:", ", ".join([t.replace(".d3e", "") for t in themes if t.endswith(".d3e")]))
-        
-        # Load styles
-        if os.path.exists("Style"):
-            styles = os.listdir("Style")
-            print("✅ Loaded styles:", ", ".join([s.replace(".d3e", "") for s in styles if s.endswith(".d3e")]))
-        
-        # Load models
-        if os.path.exists("Model"):
-            models = os.listdir("Model")
-            print("✅ Loaded models:", ", ".join([m.replace(".json", "") for m in models if m.endswith(".json")]))
+        if 'current_project' in globals() and current_project:
+            base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Projects', current_project)
+            # Themes
+            theme_dir = os.path.join(base_dir, 'StyleTheme')
+            if os.path.exists(theme_dir):
+                themes = os.listdir(theme_dir)
+                print("✅ Loaded themes:", ", ".join([t.replace(".d3e", "") for t in themes if t.endswith(".d3e")]))
+            # Styles
+            style_dir = os.path.join(base_dir, 'Style')
+            if os.path.exists(style_dir):
+                styles = os.listdir(style_dir)
+                print("✅ Loaded styles:", ", ".join([s.replace(".d3e", "") for s in styles if s.endswith(".d3e")]))
+            # Models
+            model_dir = os.path.join(base_dir, 'Model')
+            if os.path.exists(model_dir):
+                models = os.listdir(model_dir)
+                print("✅ Loaded models:", ", ".join([m.replace(".json", "") for m in models if m.endswith(".json")]))
+        else:
+            print("⚠️ No project selected. Nothing loaded.")
     except Exception as e:
         print(f"⚠️ Error loading workspace context: {str(e)}")
 
-
 context_manager.set_structure_files(structure_files)
 load_workspace_context()
-
-# Prompt for project selection at startup
-current_project = select_project()
+projects = list_projects()
+if not projects:
+    print("No projects found. Please enter a name for your new project:")
+    while True:
+        new_name = input("Project name: ").strip()
+        if new_name:
+            create_project(new_name)
+            current_project = new_name
+            break
+        print("Project name cannot be empty.")
+elif len(projects) == 1:
+    current_project = projects[0]
+    print(f"Automatically selected the only available project: {current_project}")
+else:
+    print("Available Projects:")
+    for idx, proj in enumerate(projects, 1):
+        print(f"  {idx}. {proj}")
+    while True:
+        choice = input(f"Select a project [1-{len(projects)}]: ").strip()
+        if choice.isdigit():
+            choice = int(choice)
+            if 1 <= choice <= len(projects):
+                current_project = projects[choice-1]
+                break
+        print("Invalid selection. Try again.")
 print(f"\n📁 Using project: {current_project}")
+context_manager.set_structure_files(structure_files)
+load_workspace_context()
 
 def build_system_message():
     ctx = context_manager.build_context()
     
     # Add theme information
     try:
-        if os.path.exists("StyleTheme"):
-            theme_files = [t for t in os.listdir("StyleTheme") if t.endswith(".d3e")]
-            if theme_files:
-                ctx["Available Themes"] = "\n".join([f"- {t.replace('.d3e', '')}" for t in theme_files])
-    except Exception:
-        pass
-        
-    # Add style information
-    try:
-        if os.path.exists("Style"):
-            style_files = [s for s in os.listdir("Style") if s.endswith(".d3e")]
-            if style_files:
-                ctx["Available Styles"] = "\n".join([f"- {s.replace('.d3e', '')}" for s in style_files])
+        if 'current_project' in globals() and current_project:
+            base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Projects', current_project)
+            theme_dir = os.path.join(base_dir, 'StyleTheme')
+            if os.path.exists(theme_dir):
+                theme_files = [t for t in os.listdir(theme_dir) if t.endswith('.d3e')]
+                if theme_files:
+                    ctx["Available Themes"] = "\n".join([f"- {t.replace('.d3e', '')}" for t in theme_files])
+            style_dir = os.path.join(base_dir, 'Style')
+            if os.path.exists(style_dir):
+                style_files = [s for s in os.listdir(style_dir) if s.endswith('.d3e')]
+                if style_files:
+                    ctx["Available Styles"] = "\n".join([f"- {s.replace('.d3e', '')}" for s in style_files])
     except Exception:
         pass
 
@@ -191,9 +264,19 @@ def call_with_fallback(user_prompt):
         except Exception as e:
             print(f"⚠️ {name} failed: {e}")
     return "❌ All APIs failed."
+# ✅ Utility: Multiline input
+def multiline_input(prompt=""):
+    print(prompt)
+    lines = []
+    while True:
+        line = input()
+        if line.strip() == "END":
+            break
+        lines.append(line)
+    return "\n".join(lines)
 
 # ✅ Start file watcher in background
-watcher_thread = threading.Thread(target=start_file_watcher, daemon=True)
+watcher_thread = threading.Thread(target=lambda: start_file_watcher(project=current_project), daemon=True)
 watcher_thread.start()
 
 # ✅ Main Conversation Loop
@@ -248,24 +331,28 @@ while True:
         component_name = component_match.group(2)
         component_content = component_match.group(3).strip()
 
-        # For widgets and pages, ensure theme and style references (unchanged logic)
+        # For widgets and pages, ensure theme and style references (project-based)
         if component_type in ['widget', 'page']:
             try:
                 has_theme = '@c' in component_content
                 has_style = 'styles [' in component_content
                 if not (has_theme and has_style):
                     print("⚠️ Adding theme and style references...")
-                    if not has_theme:
-                        theme_files = [t for t in os.listdir("StyleTheme") if t.endswith(".d3e")]
-                        if theme_files:
-                            with open(os.path.join("StyleTheme", theme_files[0])) as f:
-                                theme_content = f.read()
-                                if '@c' in theme_content:
-                                    print("ℹ️ Using theme colors from", theme_files[0])
-                    if not has_style and os.path.exists("Style"):
-                        style_files = [s.replace(".d3e", "") for s in os.listdir("Style") if s.endswith(".d3e")]
-                        if style_files:
-                            print("ℹ️ Available styles:", ", ".join(style_files))
+                    if 'current_project' in globals() and current_project:
+                        base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Projects', current_project)
+                        theme_dir = os.path.join(base_dir, 'StyleTheme')
+                        style_dir = os.path.join(base_dir, 'Style')
+                        if not has_theme and os.path.exists(theme_dir):
+                            theme_files = [t for t in os.listdir(theme_dir) if t.endswith('.d3e')]
+                            if theme_files:
+                                with open(os.path.join(theme_dir, theme_files[0]), encoding='utf-8') as f:
+                                    theme_content = f.read()
+                                    if '@c' in theme_content:
+                                        print("ℹ️ Using theme colors from", theme_files[0])
+                        if not has_style and os.path.exists(style_dir):
+                            style_files = [s.replace('.d3e', '') for s in os.listdir(style_dir) if s.endswith('.d3e')]
+                            if style_files:
+                                print("ℹ️ Available styles:", ", ".join(style_files))
             except Exception as e:
                 print(f"⚠️ Error checking theme/style context: {str(e)}")
 

@@ -1,20 +1,24 @@
 import os
 import asyncio
 import aiohttp
-from config import remote_config
+import threading
 import time
+from config import remote_config
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
+# Component types and their directory mapping
 DIR_TYPE_MAP = {
     'Pages': 'Page',
     'Widgets': 'Widget',
     'Model': 'Model',
     'Style': 'Style',
     'StyleTheme': 'StyleTheme',
-    'optionSets': 'OptionSet'
+    'OptionSets': 'OptionSet'
 }
-SYNC_DIRS = ['Pages', 'Widgets', 'Model', 'Style', 'StyleTheme', 'optionSets']
+
+# All component directories to watch for .d3e files
+SYNC_DIRS = ['Pages', 'Widgets', 'Model', 'Style', 'StyleTheme', 'OptionSets']
 
 # Set BASE_DIR to the project root
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -45,9 +49,10 @@ async def update_code(ctx, type_, name, content):
     except Exception as e:
         return False, f"Exception: {str(e)}"
 
-def find_d3e_files():
+def find_d3e_files(project):
+    """Find all D3E files in the project directory."""
     files = []
-    base_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = get_base_dir(project)  # Project is required
     for base in SYNC_DIRS:
         dir_path = os.path.join(base_dir, base)
         if os.path.isdir(dir_path):
@@ -56,11 +61,11 @@ def find_d3e_files():
                     files.append((os.path.join(dir_path, fname), base))
     return files
 
-async def sync_all_d3e_files():
+async def sync_all_d3e_files(project):
+    """Sync all .d3e files in the specified project."""
     ctx = Context(remote_config)
-    files = find_d3e_files()
+    files = find_d3e_files(project=project)
     if not files:
-        print("No .d3e files found to sync.")
         return
     for fpath, base in files:
         d3e_type = DIR_TYPE_MAP.get(base)
@@ -76,10 +81,10 @@ async def sync_all_d3e_files():
         except Exception as e:
             print(f"❌ FAILED {name} - Error: {str(e)}")
 
-def get_base_dir():
+def get_base_dir(project=None):
+    if project:
+        return os.path.join(BASE_DIR, 'Projects', project)
     return BASE_DIR
-
-import threading
 
 class D3EFileChangeHandler(FileSystemEventHandler):
     def __init__(self, ctx, debounce_seconds=2.0):
@@ -153,16 +158,16 @@ class D3EFileChangeHandler(FileSystemEventHandler):
                     print(f"[Watcher] ❌ FAILED {name} - Error: {str(e)}")
                 break
 
-def start_file_watcher():
+def start_file_watcher(project):
+    """Start watching project's .d3e files for changes."""
     ctx = Context(remote_config)
     event_handler = D3EFileChangeHandler(ctx)
     observer = Observer()
-    base_dir = get_base_dir()
+    base_dir = get_base_dir(project=project)
     for base in SYNC_DIRS:
         dir_path = os.path.join(base_dir, base)
         if os.path.isdir(dir_path):
             observer.schedule(event_handler, dir_path, recursive=False)
-    print("[Watcher] Starting file watcher for .d3e files...")
     observer.start()
     try:
         while True:

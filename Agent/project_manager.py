@@ -9,36 +9,36 @@ def list_projects():
     return [d for d in os.listdir(PROJECTS_DIR) if os.path.isdir(os.path.join(PROJECTS_DIR, d))]
 
 def select_project():
-    """Prompt the user to select or create a project. Returns the project name."""
+    """Select project - auto if one exists, prompt if multiple, create if none."""
     projects = list_projects()
-    print("\nAvailable Projects:")
-    for idx, proj in enumerate(projects, 1):
-        print(f"  {idx}. {proj}")
-    print(f"  {len(projects)+1}. Create new project")
-    while True:
-        choice = input(f"Select a project [1-{len(projects)+1}]: ").strip()
-        if choice.isdigit():
-            choice = int(choice)
-            if 1 <= choice <= len(projects):
-                return projects[choice-1]
-            elif choice == len(projects)+1:
-                new_name = input("Enter new project name: ").strip()
-                if new_name:
-                    create_project(new_name)
-                    return new_name
-        print("Invalid selection. Try again.")
+    if not projects:
+        new_name = input("No projects found. Enter new project name: ").strip()
+        if new_name:
+            create_project(new_name)
+            return new_name
+        return None
+    elif len(projects) == 1:
+        return projects[0]
+    else:
+        print("\nAvailable Projects:")
+        for idx, proj in enumerate(projects, 1):
+            print(f"  {idx}. {proj}")
+        while True:
+            choice = input(f"Select a project [1-{len(projects)}]: ").strip()
+            if choice.isdigit():
+                choice = int(choice)
+                if 1 <= choice <= len(projects):
+                    return projects[choice-1]
+            print("Invalid selection. Try again.")
 
 def create_project(name):
-    """Create a new project directory structure."""
+    """Create a new project directory structure if it doesn't exist."""
     proj_path = os.path.join(PROJECTS_DIR, name)
     if not os.path.exists(proj_path):
         os.makedirs(proj_path)
-        # Create subfolders for D3E types
         for sub in ['Model', 'OptionSets', 'Widgets', 'Pages', 'Style', 'StyleTheme']:
             os.makedirs(os.path.join(proj_path, sub), exist_ok=True)
-        print(f"✅ Created new project: {name}")
-    else:
-        print(f"Project '{name}' already exists.")
+    return True
 
 def cleanup_project(name):
     """Remove all files in a project (use with caution)."""
