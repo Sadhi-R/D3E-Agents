@@ -1,0 +1,112 @@
+StyleTheme {
+    name 'NeonCraft'
+    description 'Futuristic, neon-colored theme with glowing UI accents'
+    color '00000000' // Default background color
+    font 'Roboto'
+    fontSize 14.0
+    colors [
+        {
+            color '@c1'
+            hexCode 'FF00FF00' // Neon Green
+            description 'Neon Green'
+        }
+        {
+            color '@c2'
+            hexCode 'FFFF00FF' // Neon Magenta
+            description 'Neon Magenta'
+        }
+        {
+            color '@c3'
+            hexCode 'FF00FFFF' // Neon Cyan
+            description 'Neon Cyan'
+        }
+        {
+            color '@c4'
+            hexCode 'FFFF0000' // Neon Red
+            description 'Neon Red'
+        }
+        {
+            color '@c5'
+            hexCode 'FFFFFF00' // Neon Yellow
+            description 'Neon Yellow'
+        }
+        {
+            color '@c6'
+            hexCode 'FFFFA500' // Neon Orange
+            description 'Neon Orange'
+        }
+        {
+            color '@c7'
+            hexCode 'FF3B5998' // Neon Blue
+            description 'Neon Blue'
+        }
+        {
+            color '@c8'
+            hexCode 'FF4B0082' // Neon Indigo
+            description 'Neon Indigo'
+        }
+        {
+            color '@c9'
+            hexCode 'FF933AB6' // Neon Lavender
+            description 'Neon Lavender'
+        }
+        {
+            color '@c10'
+            hexCode 'FF6A5ACD' // Neon Slate Blue
+            description 'Neon Slate Blue'
+        }
+        {
+            color '@c11'
+            hexCode 'FF7FFF00' // Neon Chartreuse
+            description 'Neon Chartreuse'
+        }
+        {
+            color '@c12'
+            hexCode 'FFD2691E' // Neon Chocolate
+            description 'Neon Chocolate'
+        }
+        {
+            color '@c13'
+            hexCode 'FF8B008B' // Neon Dark Magenta
+            description 'Neon Dark Magenta'
+        }
+        {
+            color '@c14'
+            hexCode 'FFB22222' // Neon Firebrick
+            description 'Neon Firebrick'
+        }
+        {
+            color '@c15'
+            hexCode 'FFFFD700' // Neon Gold
+            description 'Neon Gold'
+        }
+        {
+            color '@c16'
+            hexCode 'FFADFF2F' // Neon Green Yellow
+            description 'Neon Green Yellow'
+        }
+        {
+            color '@c17'
+            hexCode 'FF8A2BE2' // Neon Blue Violet
+            description 'Neon Blue Violet'
+        }
+        {
+            color '@c18'
+            hexCode 'FFFF1493' // Neon Deep Pink
+            description 'Neon Deep Pink'
+        }
+        {
+            color '@c19'
+            hexCode 'FF9370DB' // Neon Medium Purple
+            description 'Neon Medium Purple'
+        }
+        {
+            color '@c20'
+            hexCode 'FFB0E0E6' // Neon Powder Blue
+            description 'Neon Powder Blue'
+        }
+    ]
+    textColor '@c1' // Default text color
+    tooltipBackgroundColor '@c2' // Default tooltip background color
+    tooltipTextColor '@c5' // Default tooltip text color
+}

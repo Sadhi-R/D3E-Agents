@@ -1,0 +1,10 @@
+(Struct SubjectChapterData) {
+    properties [
+        (expanded) {
+            type Boolean
+        }
+        (chapter){
+            type Chapter
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "LabelDropdown",
+  "properties": [
+    { "name": "label", "type": "String", "required": true },
+    { "name": "items", "type": "List<String>", "required": true },
+    { "name": "selected", "type": "String", "internal": true },
+    { "name": "isOpen", "type": "Boolean", "internal": true }
+  ],
+  "components": [
+    "TextView",
+    "IconButton",
+    "DropdownList"
+  ],
+  "slots": [],
+  "events": [
+    { "name": "onSelectionChanged", "params": ["String"] }
+  ],
+  "eventHandlers": [
+    { "name": "onInit" },
+    { "name": "onToggle", "on": "ToggleButton", "event": "onPressed" },
+    { "name": "onItemSelected", "on": "DropdownList", "event": "onItemTap" }
+  ]
+}

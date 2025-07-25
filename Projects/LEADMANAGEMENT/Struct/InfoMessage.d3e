@@ -1,0 +1,9 @@
+Struct {
+    name 'InfoMessage'
+    properties [
+        {
+            name 'Message'
+            type String
+        }
+    ]
+}

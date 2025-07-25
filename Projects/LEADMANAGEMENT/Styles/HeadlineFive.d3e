@@ -1,0 +1,13 @@
+Style {
+    package 'lead.management'
+    name 'Headline Five'
+    component TextView
+    items [
+        {
+            values {
+                fontSize '16'
+                fontWeight 'w600'
+            }
+        }
+    ]
+}

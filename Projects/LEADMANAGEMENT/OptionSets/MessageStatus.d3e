@@ -1,0 +1,17 @@
+OptionSet {
+    name 'MessageStatus'
+    options [
+        {
+            name 'Sent'
+        }
+        {
+            name 'Delivered'
+        }
+        {
+            name 'Failed'
+        }
+        {
+            name 'Unknown'
+        }
+    ]
+}

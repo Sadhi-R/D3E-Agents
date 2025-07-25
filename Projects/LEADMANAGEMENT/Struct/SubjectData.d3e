@@ -1,0 +1,14 @@
+(Struct SubjectData) {
+    properties [
+        {
+            name 'chapters'
+            type SubjectChapterData
+            collection true
+        }
+        {
+            name 'topics'
+            type ChapterTopicData
+            collection true
+        }
+    ]
+}

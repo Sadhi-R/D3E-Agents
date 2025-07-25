@@ -1,0 +1,13 @@
+Style {
+    package 'lead.management'
+    name 'headline Four'
+    component TextView
+    items [
+        {
+            values {
+                fontSize '15'
+                fontWeight 'bold'
+            }
+        }
+    ]
+}

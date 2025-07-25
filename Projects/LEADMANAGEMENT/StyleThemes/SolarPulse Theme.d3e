@@ -1,0 +1,110 @@
+(StyleTheme SolarPulseTheme) {
+    name 'SolarPulse Theme'
+    colors [
+        {
+            color '@c1'
+            hexCode 'FF5733'
+            description 'Solar Flare Orange'
+        }
+        {
+            color '@c2'
+            hexCode 'FFC300'
+            description 'Radiant Yellow'
+        }
+        {
+            color '@c3'
+            hexCode 'DAF7A6'
+            description 'Cosmic Green'
+        }
+        {
+            color '@c4'
+            hexCode '581845'
+            description 'Nebula Purple'
+        }
+        {
+            color '@c5'
+            hexCode '900C3F'
+            description 'Dazzling Maroon'
+        }
+        {
+            color '@c6'
+            hexCode 'C70039'
+            description 'Galactic Red'
+        }
+        {
+            color '@c7'
+            hexCode 'FF0E0E'
+            description 'Crimson Burst'
+        }
+        {
+            color '@c8'
+            hexCode 'FFC0CB'
+            description 'Stellar Pink'
+        }
+        {
+            color '@c9'
+            hexCode '2C3E50'
+            description 'Deep Space Blue'
+        }
+        {
+            color '@c10'
+            hexCode '2980B9'
+            description 'Solar System Teal'
+        }
+        {
+            color '@c11'
+            hexCode '27AE60'
+            description 'Astral Green'
+        }
+        {
+            color '@c12'
+            hexCode 'F39C12'
+            description 'Energy Wave Orange'
+        }
+        {
+            color '@c13'
+            hexCode '8E44AD'
+            description 'Galaxy Violet'
+        }
+        {
+            color '@c14'
+            hexCode '3498DB'
+            description 'Spaceship Blue'
+        }
+        {
+            color '@c15'
+            hexCode 'E74C3C'
+            description 'Supernova Red'
+        }
+        {
+            color '@c16'
+            hexCode 'F1C40F'
+            description 'Luminous Gold'
+        }
+        {
+            color '@c17'
+            hexCode '34495E'
+            description 'Interstellar Grey'
+        }
+        {
+            color '@c18'
+            hexCode 'BDC3C7'
+            description 'Starry Silver'
+        }
+        {
+            color '@c19'
+            hexCode 'F2F4F4'
+            description 'Void White'
+        }
+        {
+            color '@c20'
+            hexCode '7D3C98'
+            description 'Planetary Orchid'
+        }
+        {
+            color '@c21'
+            hexCode 'D35400'
+            description 'Comet's Tail'
+        }
+    ]
+}

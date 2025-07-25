@@ -1,0 +1,23 @@
+{
+  "name": "SearchJobTitles",
+  "properties": [
+    { "name": "titles", "type": "List<String>", "required": true },
+    { "name": "searchText", "type": "String", "internal": true },
+    { "name": "filteredTitles", "type": "List<String>", "internal": true }
+  ],
+  "components": [
+    "Column",
+    "SearchComponent",
+    "ListView",
+    "TextView"
+  ],
+  "slots": [],
+  "events": [
+    { "name": "onTitleSelected", "params": ["String"] }
+  ],
+  "eventHandlers": [
+    { "name": "onInit" },
+    { "name": "onSearch", "on": "SearchComponent", "event": "onSearchChanged" },
+    { "name": "onTitleTap", "on": "TitleItem", "event": "onTap" }
+  ]
+}

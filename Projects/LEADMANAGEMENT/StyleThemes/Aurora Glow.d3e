@@ -1,0 +1,38 @@
+(StyleTheme AuroraGlow) {
+    name 'Aurora Glow'
+    color 'ffffffff'
+    font 'Nunito Sans'
+    fontSize 14.0
+    colors [
+        {
+            color '@c1'
+            hexCode 'FF0099FF'
+            description 'Vibrant Purple'
+        }
+        {
+            color '@c2'
+            hexCode 'FF00FF99'
+            description 'Bright Green'
+        }
+        {
+            color '@c3'
+            hexCode 'FFFF0099'
+            description 'Radiant Yellow'
+        }
+        {
+            color '@c4'
+            hexCode 'FFFF9900'
+            description 'Warm Orange'
+        }
+        {
+            color '@c5'
+            hexCode 'FF3300FF'
+            description 'Deep Blue'
+        }
+        {
+            color '@c6'
+            hexCode 'FF00CCFF'
+            description 'Cool Cyan'
+        }
+    ]
+}

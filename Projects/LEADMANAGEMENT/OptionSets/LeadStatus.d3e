@@ -1,0 +1,18 @@
+OptionSet {
+    package 'lead.management'
+    name 'LeadStatus'
+    options [
+        {
+            name 'New'
+        }
+        {
+            name 'Contacted'
+        }
+        {
+            name 'Inprogress'
+        }
+        {
+            name 'Closed'
+        }
+    ]
+}

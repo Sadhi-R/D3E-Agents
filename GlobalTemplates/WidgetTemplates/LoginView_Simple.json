@@ -1,0 +1,23 @@
+{
+  "name": "LoginView",
+  "properties": [
+    { "name": "email", "type": "String", "internal": true },
+    { "name": "password", "type": "String", "internal": true },
+    { "name": "isLoading", "type": "Boolean", "internal": true }
+  ],
+  "components": [
+    "TextView",
+    "LabelWithInputField",
+    "PasswordField",
+    "Button",
+    "Loader"
+  ],
+  "slots": [],
+  "events": [
+    { "name": "onLoginSuccess", "params": ["User"] }
+  ],
+  "eventHandlers": [
+    { "name": "onInit" },
+    { "name": "onLoginButtonPressed", "on": "LoginButton", "event": "onPressed" }
+  ]
+}

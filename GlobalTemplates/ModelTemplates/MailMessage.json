@@ -1,0 +1,25 @@
+{
+  "name": "Mail Message",
+  "properties": [
+    { "name": "Sent Date Time", "type": "DateTime" },
+    { "name": "Received Date Time", "type": "DateTime" },
+    { "name": "Conversation Id", "type": "String" },
+    { "name": "Lead", "type": "Lead" },
+    { "name": "Sender Email", "type": "String" },
+    { "name": "Recipient Email", "type": "String" },
+    { "name": "Sender Name", "type": "String" },
+    { "name": "Recipient Name", "type": "String" },
+    { "name": "Subject", "type": "String" },
+    { "name": "Body", "type": "String", "longText": true },
+    { "name": "Inbound", "type": "Boolean" },
+    { "name": "Attachments", "type": "DFile", "collection": true },
+    { "name": "toRecipients", "type": "String", "collection": true },
+    { "name": "ccRecipients", "type": "String", "collection": true },
+    { "name": "bccRecipients", "type": "String", "collection": true },
+    { "name": "hasAttachments", "type": "Boolean" },
+    { "name": "isRead", "type": "Boolean" },
+    { "name": "isDraft", "type": "Boolean" },
+    { "name": "Created Date", "type": "DateTime" },
+    { "name": "Content", "type": "String", "longText": true }
+  ]
+} 

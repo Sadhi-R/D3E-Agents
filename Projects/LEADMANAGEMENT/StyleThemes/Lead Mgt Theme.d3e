@@ -1,0 +1,119 @@
+(StyleTheme LeadMgtTheme) {
+    package 'lead.management'
+    name 'Lead Mgt Theme'
+    color 'fff4f5f7'
+    font 'Nunito Sans'
+    fontSize 13.0
+    colors [
+        {
+            color '@c1'
+            hexCode 'ff299d91'
+            description 'Primary Color'
+        }
+        {
+            color '@c2'
+            hexCode 'ff191919'
+            description 'Secondary/Black'
+        }
+        {
+            color '@c3'
+            hexCode 'ffdfefff'
+            description 'Light Blue'
+        }
+        {
+            color '@c4'
+            hexCode 'ffe5a000'
+            description 'Accent/Yellow'
+        }
+        {
+            color '@c5'
+            hexCode 'ffd732a8'
+            description 'Pink'
+        }
+        {
+            color '@c6'
+            hexCode 'ff6c73ff'
+            description 'Blue'
+        }
+        {
+            color '@c7'
+            hexCode 'ff14ae5c'
+            description 'Success/Green'
+        }
+        {
+            color '@c8'
+            hexCode 'ffe8e8e8'
+            description 'Top Divider Color'
+        }
+        {
+            color '@c9'
+            hexCode 'ffba2a92'
+            description 'Recording Icon Color'
+        }
+        {
+            color '@c10'
+            hexCode 'ffff1313'
+            description 'Priority Status Color'
+        }
+        {
+            color '@c11'
+            hexCode 'fffee9e7'
+            description 'Profile Background Color'
+        }
+        {
+            color '@c12'
+            hexCode 'fff5f5f5'
+            description 'Background Icon'
+        }
+        {
+            color '@c13'
+            hexCode 'ffe8e1e1'
+            description 'Box Shadow'
+        }
+        {
+            color '@c14'
+            hexCode 'ffffffff'
+            description 'White'
+        }
+        {
+            color '@c15'
+            hexCode 'ffc20f2f'
+            description 'Error Color'
+        }
+        {
+            color '@c16'
+            hexCode 'ffdcdcdc'
+            description 'Inputfield Border Color'
+        }
+        {
+            color '@c17'
+            hexCode 'ffdee2e6'
+            description 'Borders'
+        }
+        {
+            color '@c18'
+            hexCode 'fff4f5f7'
+            description 'Page Background Color'
+        }
+        {
+            color '@c19'
+            hexCode 'ff8a8787'
+            description 'Gray Text Color'
+        }
+        {
+            color '@c21'
+            hexCode 'ffd2d2d2'
+            description 'Light Gray'
+        }
+        {
+            color '@c22'
+            hexCode 'ff828282'
+            description 'Medium Gray'
+        }
+        {
+            color '@c23'
+            hexCode 'ffff0000'
+            description 'Red'
+        }
+    ]
+}

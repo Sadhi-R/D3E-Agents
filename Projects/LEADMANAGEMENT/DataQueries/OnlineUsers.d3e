@@ -1,0 +1,6 @@
+DataQuery {
+    name 'OnlineUsers'
+    enableSync true
+    query `User.all
+    .where((u) => u.online == true)`
+}

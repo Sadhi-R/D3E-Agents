@@ -1,0 +1,13 @@
+{
+  "name": "Family Info",
+  "creatable": false,
+  "properties": [
+    { "name": "Spouse Name", "type": "String" },
+    { "name": "Children", "type": "Child", "collection": true, "child": true },
+    { "name": "Marrital Status", "type": "MaritalStatus" },
+    { "name": "Family Income", "type": "Double" },
+    { "name": "Family Members", "type": "Integer" },
+    { "name": "has Elderly Care Responsibility", "type": "Boolean" },
+    { "name": "annisversary Date", "type": "Date" }
+  ]
+} 

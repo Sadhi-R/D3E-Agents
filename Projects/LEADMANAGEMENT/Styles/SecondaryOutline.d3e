@@ -1,0 +1,47 @@
+Style {
+    package 'lead.management'
+    name 'Secondary Outline'
+    component Button
+    items [
+        {
+            values {
+                decoration {
+                    color '@c14'
+                    border {
+                        color '@c1'
+                        width '2.0'
+                    }
+                    borderRadius '3'
+                }
+                padding '10 15'
+                textStyle {
+                    fontSize '16'
+                    color '@c1'
+                }
+                constraints {
+                    minHeight '30'
+                }
+            }
+        }
+        {
+            selector ':hover'
+            values {
+                padding '10 15'
+                decoration {
+                    border {
+                        color '@c18'
+                        width '1.0'
+                    }
+                    borderRadius '3'
+                    color '@c4'
+                }
+                constraints {
+                    minHeight '30'
+                }
+                textStyle {
+                    color '@c1'
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,395 @@
+Widget {
+    package 'lead.management'
+    name 'Collection Company View'
+    category 'UserDefined'
+    properties [
+        {
+            name 'Name'
+            type String
+            required true
+        }
+        {
+            name 'Is Required'
+            type Boolean
+            defaultValue `false`
+        }
+        {
+            name 'Value'
+            collection true
+            type CompanySearchItem
+            required true
+        }
+        {
+            name 'internalValue'
+            collection true
+            type CompanySearchItem
+            computed true
+            computation `[...value]`
+            internal true
+        }
+        {
+            name 'Items'
+            collection true
+            type CompanySearchItem
+            required true
+        }
+        {
+            name 'Place Holder'
+            type String
+            required true
+        }
+        {
+            name 'Errors'
+            collection true
+            type String
+        }
+        {
+            name 'PopUpWidth'
+            type Double
+            defaultValue `150.0`
+            internal true
+            stylable true
+        }
+        {
+            name 'Focused'
+            type Boolean
+            internal true
+        }
+        {
+            name 'FocusNode'
+            type FocusNode
+            internal true
+        }
+        {
+            name 'FieldType'
+            type InputFieldType
+        }
+        {
+            name 'disable'
+            type Boolean
+            defaultValue `false`
+        }
+        {
+            name 'SearchValue'
+            type String
+            internal true
+        }
+        {
+            name 'Data'
+            collection true
+            type CompanySearchItem
+            internal true
+        }
+    ]
+    build Column {
+        name 'column'
+        data {
+            crossAxisAlignment 'start'
+        }
+        children [
+            Row {
+                name 'id'
+                children [
+                    TextView {
+                        name 'Nameview'
+                        data {
+                            data `this.name`
+                        }
+                    }
+                    CIf {
+                        name 'id'
+                        condition `isRequired`
+                        then TextView {
+                            name 'id'
+                            data {
+                                data '*'
+                            }
+                        }
+                    }
+                ]
+            }
+            Row {
+                name 'rowEmpty'
+                data {
+                    mainAxisAlignment 'spaceBetween'
+                }
+                children [
+                    InputField {
+                        name 'Empty'
+                        data {
+                            activeColor '@c1'
+                            inActiveColor 'FFD9D9D9'
+                            focusNode `focusNode`
+                            padding '4 4'
+                            disable `disable`
+                            placeHolder `placeHolder`
+                            expand 'true'
+                            height '36'
+                            textStyle {
+                                fontSize '15'
+                                fontWeight 'w500'
+                            }
+                            cornerRadius '4'
+                        }
+                    }
+                ]
+                conditionals [
+                    {
+                        condition `fieldType == InputFieldType.Circle && focused`
+                        values {
+                            decoration {
+                                border {
+                                    color '@c1'
+                                    width '1'
+                                }
+                                borderRadius '0'
+                            }
+                        }
+                    }
+                    {
+                        condition `fieldType == InputFieldType.Circle && !focused`
+                        values {
+                            decoration {
+                                border {
+                                    color '@c15'
+                                    width '1'
+                                }
+                                borderRadius '0'
+                            }
+                        }
+                    }
+                    {
+                        condition `fieldType == InputFieldType.Underline && !focused`
+                        values {
+                            decoration {
+                                border {
+                                    bottom {
+                                        color '@c15'
+                                        width '1'
+                                        style 'solid'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    {
+                        condition `fieldType == InputFieldType.Underline && focused`
+                        values {
+                            decoration {
+                                border {
+                                    bottom {
+                                        color '@c1'
+                                        width '1'
+                                        style 'solid'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    {
+                        condition `fieldType == InputFieldType.Rectangle && focused`
+                        values {
+                            decoration {
+                                border {
+                                    color '@c1'
+                                }
+                                borderRadius '4.0'
+                            }
+                        }
+                    }
+                    {
+                        condition `fieldType == InputFieldType.Rectangle && !focused`
+                        values {
+                            decoration {
+                                border {
+                                    color 'FFD9D9D9'
+                                }
+                                borderRadius '4.0'
+                            }
+                        }
+                    }
+                ]
+                behaviours [
+                    LayoutAware
+                ]
+            }
+            Column {
+                name 'DataView'
+                data {
+                    margin '5 0 0'
+                }
+                children [
+                    Wrap {
+                        name 'id'
+                        data {
+                            spacing '5'
+                            runSpacing '5'
+                        }
+                        children [
+                            CFor {
+                                name 'Value'
+                                var 'val'
+                                items `internalValue`
+                                type CompanySearchItem
+                                item Chip {
+                                    name 'Data1'
+                                    data {
+                                        title `val.name`
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+            CIf {
+                name 'id4'
+                condition `this.errors.isNotEmpty`
+                then Column {
+                    name 'id5'
+                    data {
+                        crossAxisAlignment 'start'
+                    }
+                    children [
+                        CFor {
+                            name 'item'
+                            var 'item'
+                            items `this.errors`
+                            type String
+                            item TextView {
+                                name 'id6'
+                                styles [
+                                    ErrorText
+                                ]
+                                data {
+                                    data `item`
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+    eventHandlers [
+        {
+            name 'OnInit'
+            block ```
+                focusNode = FocusNode();
+                focusNode.addListener(onChangeFocus);
+                searchValue = '';
+            ```
+        }
+        {
+            name 'OnEmptyClick'
+            type OnEvent
+            on empty
+            event onTap
+            block ```
+                if(!disable){
+                    data = items;
+                    showResults(
+                        autoClose: true,
+                        takeFocus : false
+                    );
+                    searchValue = '';
+                    focused = true;
+                }
+            ```
+        }
+        {
+            name 'OnSelectListTile'
+            type OnEvent
+            popup results
+            event onSelectItem
+            block ```
+                if(onChanged != null){
+                    if(!this.internalValue.contains(item)){
+                        this.internalValue.add(item);
+                    }
+                    onChanged(internalValue);
+                    
+                }
+                hideResults();
+                focused = false;
+                searchValue = '';
+            ```
+        }
+        {
+            name 'OnDropDownBoundsChanges'
+            type OnBehaviour
+            on rowEmpty
+            behaviour LayoutAware
+            event onBoundsChange
+            block ```
+                this.popUpWidth = bounds.width - 12;
+            ```
+        }
+        {
+            name 'OnDeletePressed'
+            type OnEvent
+            on data1
+            event onCancel
+            block ```
+                if(onChanged != null) {
+                   internalValue.remove(val);
+                   onChanged(internalValue);
+                }
+                if(onCancel != null){
+                    onCancel();
+                }
+            ```
+        }
+        {
+            name 'OnChangeFocus'
+            block ```
+                focused = focusNode.hasFocus;
+            ```
+        }
+        {
+            name 'OnChangeText'
+            type OnEvent
+            on empty
+            event onChanged
+            block ```
+                String val = text != null ? text : '';
+                data =  RPCServices.getApolloRPCService().getOrgCompanies(val).await;
+                if(val != '' || val.isNotEmpty){
+                    showResults(
+                        autoClose: true,
+                        takeFocus : false
+                    );
+                }
+            ```
+        }
+    ]
+    popups [
+        {
+            name 'Results'
+            component SearchCompanies
+            side Bottom
+            data {
+                items `data`
+                height '200'
+                width `popUpWidth`
+            }
+            target rowEmpty
+        }
+    ]
+    events [
+        {
+            name 'OnChanged'
+            params [
+                {
+                    name 'Value'
+                    type CompanySearchItem
+                    collection true
+                }
+            ]
+        }
+        {
+            name 'OnCancel'
+        }
+    ]
+    twoWayBinding true
+}

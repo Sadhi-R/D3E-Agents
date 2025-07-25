@@ -1,0 +1,24 @@
+(Struct SemesterSubject) {
+    properties [
+        {
+            name 'Subject'
+            type Subject
+        }
+        {
+            name 'Semester'
+            type Semester
+        }
+        {
+            name 'Is Program'
+            type Boolean
+        }
+        {
+            name 'Is Elective'
+            type Boolean
+        }
+        {
+            name 'Is Subject'
+            type Boolean
+        }
+    ]
+}

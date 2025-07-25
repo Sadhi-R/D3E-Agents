@@ -1,0 +1,20 @@
+OptionSet {
+    name 'MaritalStatus'
+    options [
+        {
+            name 'Single'
+        }
+        {
+            name 'Married'
+        }
+        {
+            name 'Divorced'
+        }
+        {
+            name 'Widowed'
+        }
+        {
+            name 'Prefer Not To Say'
+        }
+    ]
+}

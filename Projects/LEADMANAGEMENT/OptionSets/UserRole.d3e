@@ -1,0 +1,15 @@
+OptionSet {
+    package 'lead.management'
+    name 'UserRole'
+    options [
+        {
+            name 'Sales Person'
+        }
+        {
+            name 'Manager'
+        }
+        {
+            name 'Admin'
+        }
+    ]
+}

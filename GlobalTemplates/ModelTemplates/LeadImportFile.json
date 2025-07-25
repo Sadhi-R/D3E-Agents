@@ -1,0 +1,13 @@
+{
+  "name": "LeadImportFile",
+  "transient": true,
+  "properties": [
+    { "name": "File", "type": "DFile" }
+  ],
+  "actions": [
+    {
+      "name": "CreateLead",
+      "block": "ImportCSVFileUtils.createLeadData(this.file);"
+    }
+  ]
+} 

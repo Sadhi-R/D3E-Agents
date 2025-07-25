@@ -1,0 +1,12 @@
+DataQuery {
+    name 'UsersList'
+    enableSync true
+    query `User.all
+    .where((u) => inputs.searchText == null || inputs.searchText.isEmpty || u.firstName.toLowerCase().contains(inputs.searchText.toLowerCase()) || u.lastName.toLowerCase().contains(inputs.searchText.toLowerCase()))`
+    inputs [
+        {
+            name 'SearchText'
+            type String
+        }
+    ]
+}

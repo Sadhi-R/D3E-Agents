@@ -1,0 +1,39 @@
+OptionSet {
+    package 'lead.management'
+    name 'InteractionType'
+    options [ 
+        {
+            name 'Call'
+        }
+        {
+            name 'SMS'
+        }
+        {
+            name 'WhatsApp'
+        }
+        {
+            name 'Video Call'
+        }
+        {
+            name 'Email'
+        }
+        {
+            name 'Meeting'
+        }
+        {
+            name 'Demo'
+        }
+        {
+            name 'Webinar'
+        }
+        {
+            name 'Conference'
+        }
+        {
+            name 'Other'
+        }
+        {
+            name 'Voicemail'
+        }
+    ]
+}

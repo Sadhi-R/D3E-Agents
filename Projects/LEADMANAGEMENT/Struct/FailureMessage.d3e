@@ -1,0 +1,9 @@
+Struct {
+    name 'FailureMessage'
+    properties [
+        {
+            name 'Message'
+            type String
+        }
+    ]
+}

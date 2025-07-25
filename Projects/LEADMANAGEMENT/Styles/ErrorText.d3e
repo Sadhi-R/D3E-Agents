@@ -1,0 +1,14 @@
+Style {
+    package 'lead.management'
+    name 'Error Text'
+    component TextView
+    items [
+        {
+            values {
+                color 'FFC20F2F'
+                textAlign 'start'
+                margin '5 0 5 0'
+            }
+        }
+    ]
+}

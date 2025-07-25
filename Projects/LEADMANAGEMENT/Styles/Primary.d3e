@@ -1,0 +1,46 @@
+Style {
+    package 'lead.management'
+    name 'Primary'
+    component Button
+    items [
+        {
+            values {
+                decoration {
+                    color '@c1'
+                    border {
+                        color '@c1'
+                        width '1.0'
+                    }
+                    borderRadius '3'
+                }
+                padding '8 12'
+                textStyle {
+                    color '@c14'
+                }
+                constraints {
+                    minHeight '30'
+                }
+            }
+        }
+        {
+            selector ':hover'
+            values {
+                decoration {
+                    border {
+                        color 'ff108075'
+                        width '1.0'
+                    }
+                    borderRadius '3'
+                    color 'ff108075'
+                }
+                padding '8 12'
+                constraints {
+                    minHeight '30'
+                }
+                textStyle {
+                    color '@c14'
+                }
+            }
+        }
+    ]
+}

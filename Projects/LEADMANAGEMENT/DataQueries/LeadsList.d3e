@@ -1,0 +1,57 @@
+DataQuery {
+    name 'LeadsList'
+    query `Lead.all
+     .where((l) => inputs.user == null || l.leadAssignment.assignedTo == inputs.user || (inputs.user.subordinates != null && inputs.user.subordinates.contains(l.leadAssignment.assignedTo)))
+     .where((l) => inputs.applyStatus == false || inputs.status == l.status)
+     .where((l) => inputs.fromDate == null || l.createdDate >= inputs.fromDate)
+     .where((l) => inputs.toDate == null || l.createdDate <= inputs.toDate)
+     .orderBy(e => switch(inputs.orderBy) {
+         case 'name' : e.name
+         case 'phone' : e.phone
+         case 'email' : e.email
+         case 'status' : e.status
+         case 'createdDate' : e.createdDate  
+         default : e.createdDate
+     }, asc : inputs.ascending)
+     .slice(inputs.offset, inputs.pageSize)
+`
+    inputs [
+        {
+            name 'Status'
+            type LeadStatus
+        }
+        {
+            name 'ApplyStatus'
+            type Boolean
+        }
+        {
+            name 'User'
+            type User
+        }
+        {
+            name 'Page Size'
+            type Integer
+        }
+        {
+            name 'Offset'
+            type Integer
+        }
+        {
+            name 'orderBy'
+            type String
+        }
+        {
+            name 'ascending'
+            type Boolean
+        }
+        {
+            name 'ToDate'
+            type DateTime
+        }
+        {
+            name 'FromDate'
+            type DateTime
+        }
+    ]
+    needCount true
+}

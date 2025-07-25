@@ -1,0 +1,48 @@
+(StyleTheme ImbusDark) {
+    name 'Imbus Dark'
+    color '000000'
+    font 'Roboto'
+    fontSize 14.0
+    colors [
+        {
+            color '@c1'
+            hexCode 'FFBDBDBD'
+            description 'Primary Element Color'
+        }
+        {
+            color '@c2'
+            hexCode 'FF757575'
+            description 'Secondary Element Color'
+        }
+        {
+            color '@c3'
+            hexCode 'FF616161'
+            description 'Tertiary Element Color'
+        }
+        {
+            color '@c4'
+            hexCode 'FF424242'
+            description 'Background Color'
+        }
+        {
+            color '@c5'
+            hexCode 'FF121212'
+            description 'Surface Color'
+        }
+        {
+            color '@c6'
+            hexCode 'FFD7D7D7'
+            description 'Text Color'
+        }
+        {
+            color '@c7'
+            hexCode 'FF1DE9B6'
+            description 'Accent Color'
+        }
+        {
+            color '@c8'
+            hexCode 'FFB2EBF2'
+            description 'Link Color'
+        }
+    ]
+}

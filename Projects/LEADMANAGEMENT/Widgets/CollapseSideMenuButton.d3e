@@ -1,0 +1,168 @@
+Widget {
+    package 'lead.management'
+    name 'CollapseSideMenuButton'
+    properties [
+        {
+            name 'Title'
+            type String
+            required true
+        }
+        {
+            name 'Icon'
+            type IconData
+            required true
+        }
+        {
+            name 'selectedMenu'
+            type String
+            required true
+        }
+    ]
+    build Button {
+        name 'Button11111111'
+        data {
+            padding '8 12'
+            margin '5 0'
+            width 'infinity'
+            decoration {
+                borderRadius  {
+                    topLeft {
+                        x '18'
+                        y '18'
+                    }
+                    topRight {
+                        x '0'
+                        y '0'
+                    }
+                    bottomLeft {
+                        x '18'
+                        y '18'
+                    }
+                    bottomRight {
+                        x '0'
+                        y '0'
+                    }
+                }
+                color 'ff000000'
+            }
+            textStyle {
+                fontSize '14'
+                fontWeight 'w500'
+                color '@c14'
+            }
+        }
+        child Row {
+            name 'Row2'
+            data {
+                mainAxisSize 'max'
+            }
+            children [
+                ToolTipWrapper {
+                    name 'id'
+                    data {
+                        message `this.title`
+                    }
+                    child IconView {
+                        name 'Icon1'
+                        data {
+                            size '18'
+                            icon `icon`
+                            margin '0 7 0 0'
+                        }
+                    }
+                }
+            ]
+        }
+        states [
+            {
+                name 'hover'
+                type Boolean
+            }
+        ]
+        conditionals [
+            {
+                condition `button11111111.hover`
+                values {
+                    padding '8'
+                    decoration {
+                        color 'ff2B2B2B'
+                        borderRadius  {
+                            topLeft {
+                                x '18'
+                                y '18'
+                            }
+                            topRight {
+                                x '0'
+                                y '0'
+                            }
+                            bottomLeft {
+                                x '18'
+                                y '18'
+                            }
+                            bottomRight {
+                                x '0'
+                                y '0'
+                            }
+                        }
+                    }
+                    textStyle {
+                        fontSize '14'
+                        fontWeight 'w500'
+                        color '@c14'
+                    }
+                }
+            }
+            {
+                condition `selectedMenu.equals(title)`
+                values {
+                    decoration {
+                        borderRadius  {
+                            topLeft {
+                                x '18'
+                                y '18'
+                            }
+                            topRight {
+                                x '0'
+                                y '0'
+                            }
+                            bottomLeft {
+                                x '18'
+                                y '18'
+                            }
+                            bottomRight {
+                                x '0'
+                                y '0'
+                            }
+                        }
+                        color '@c1'
+                    }
+                    textStyle {
+                        color '@c14'
+                        fontSize '14'
+                        fontWeight 'w500'
+                    }
+                    padding '8'
+                }
+            }
+        ]
+    }
+    eventHandlers [
+        {
+            name 'onPressedButton'
+            type OnEvent
+            on button11111111
+            event onPressed
+            block ```
+                if (this.onPressed != null) {
+                    this.onPressed();
+                    button11111111.hover = false;
+                }
+            ```
+        }
+    ]
+    events [
+        {
+            name 'OnPressed'
+        }
+    ]
+}

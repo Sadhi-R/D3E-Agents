@@ -1,0 +1,95 @@
+Page {
+    package 'lead.management'
+    name 'ConnectionsPage'
+    category 'UserDefined'
+    properties [
+        {
+            name 'User'
+            type User
+            required true
+        }
+        {
+            name 'client'
+            type TwilioClient
+            required true
+        }
+        {
+            name 'Data'
+            type CallData
+            required true
+        }
+        {
+            name 'RecentLead'
+            type Lead
+            internal true
+        }
+    ]
+    build Column {
+        name 'Column'
+        data {
+            decoration {
+                color '@c14'
+            }
+            padding '10 0 0 20'
+        }
+        children [
+            Row {
+                name 'Row'
+                data {
+                    expand 'true'
+                }
+                children [
+                    RecentConnectionView {
+                        name 'RecentConnectionView'
+                        data {
+                            user `user`
+                            width '300'
+                            client `client`
+                            data `data`
+                        }
+                    }
+                    CIf {
+                        name 'CIf'
+                        condition `recentLead != null`
+                        then RecentInteractionView {
+                            name 'RecentInteractionView'
+                            data {
+                                user `user`
+                                lead `recentLead`
+                                expand 'true'
+                                client `client`
+                                data `data`
+                            }
+                        } else Container {
+                            name 'Container'
+                            data {
+                                expand 'true'
+                            }
+                            child TextView {
+                                name 'TextView'
+                                styles [
+                                    HeadlineFour
+                                ]
+                                data {
+                                    data 'Select a Contact to view interactions'
+                                    textAlign 'center'
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+    eventHandlers [
+        {
+            name 'OnRecentLeadButtonPressed'
+            type OnEvent
+            on recentConnectionView
+            event onLeadClick
+            block ```
+                recentLead = lead;
+            ```
+        }
+    ]
+}

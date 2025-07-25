@@ -1,0 +1,15 @@
+OptionSet {
+    package 'lead.management'
+    name 'Lead Priority'
+    options [
+        {
+            name 'High'
+        }
+        {
+            name 'Medium'
+        }
+        {
+            name 'Low'
+        }
+    ]
+}

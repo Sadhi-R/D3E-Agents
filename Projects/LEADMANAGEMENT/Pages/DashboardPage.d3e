@@ -1,0 +1,36 @@
+Page {
+    package 'lead.management'
+    name 'Dashboard Page'
+    category 'UserDefined'
+    properties [
+        {
+            name 'User'
+            type User
+            required true
+        }
+        {
+            name 'client'
+            type TwilioClient
+            required true
+        }
+        {
+            name 'Data'
+            type CallData
+            required true
+        }
+    ]
+    build Column {
+        name 'Column'
+        children [
+            DashboardView {
+                name 'DashboardView'
+                data {
+                    expand 'true'
+                    client `client`
+                    data `data`
+                    user `user`
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,55 @@
+Page {
+    name 'ChartTest'
+    properties [
+        {
+            name 'Request'
+            type LeadsListRequest
+            internal true
+        }
+        {
+            name 'LeadsList'
+            type LeadsList
+            computed true
+            computation `Query.getLeadsList(request).await`
+            internal true
+        }
+        {
+            name 'Leads'
+            collection true
+            type Lead
+            computed true
+            computation `leadsList.items.isNotEmpty? leadsList.items : []`
+            internal true
+        }
+        {
+            name 'Doughnut2DChart'
+            type DataSet
+            computed true
+            computation `ChartDataHelper.getStatusBasedChartData(leads).await`
+            internal true
+            collection true
+        }
+    ]
+    build Row {
+        name 'Row6'
+        children [
+            Container {
+                name 'Container'
+                data {
+                    alignment 'center'
+                    width '500'
+                    margin '15'
+                }
+                child Doughnut2DChart {
+                    name 'Doughnut2DChartRef'
+                    data {
+                        data `doughnut2DChart`
+                        height '400'
+                        width '500'
+                        canvasPadding '40'
+                    }
+                }
+            }
+        ]
+    }
+}
