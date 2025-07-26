@@ -5,7 +5,10 @@ class ContextManager:
     def __init__(self, base_dir=None):
         self.base_dir = base_dir or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         self.readme_path = os.path.join(self.base_dir, 'README.md')
-        self.structure_files = []  # Additional structure files to load
+        self.structure_files = [
+            'Documentation/Models/STRUCTURE.md',
+            'Documentation/OptionSets/STRUCTURE.md'
+        ]  # Default structure files to load
 
     def set_structure_files(self, structure_files):
         """Set the list of additional structure/context files to include."""

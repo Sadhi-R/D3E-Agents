@@ -4,35 +4,7 @@ import json
 import re
 
 # Improved project selection logic (must come first)
-from project_manager import list_projects, create_project
-projects = list_projects()
-if not projects:
-    print("No projects found. Please enter a name for your new project:")
-    while True:
-        new_name = input("Project name: ").strip()
-        if new_name:
-            create_project(new_name)
-            current_project = new_name
-            break
-        print("Project name cannot be empty.")
-elif len(projects) == 1:
-    current_project = projects[0]
-    print(f"Automatically selected the only available project: {current_project}")
-else:
-    print("Available Projects:")
-    for idx, proj in enumerate(projects, 1):
-        print(f"  {idx}. {proj}")
-    while True:
-        choice = input(f"Select a project [1-{len(projects)}]: ").strip()
-        if choice.isdigit():
-            choice = int(choice)
-            if 1 <= choice <= len(projects):
-                current_project = projects[choice-1]
-                break
-        print("Invalid selection. Try again.")
-print(f"\n📁 Using project: {current_project}")
-
-# ✅ Context Manager Setup
+# Imports for project management and APIs
 import requests
 import json
 import re
@@ -44,11 +16,10 @@ from context_loader import ContextManager
 from file_manager import create_or_update_file
 from sync_manager import update_code, Context, start_file_watcher
 from component_extractor import save_components_from_d3e_output
-from project_manager import select_project
+from project_manager import select_project, list_projects, create_project
 from config import CLAUDE_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY, remote_config
 
-# Improved project selection logic (must come first)
-from project_manager import list_projects, create_project
+# Improved project selection logic
 projects = list_projects()
 if not projects:
     print("No projects found. Please enter a name for your new project:")
@@ -107,34 +78,6 @@ def load_workspace_context():
     except Exception as e:
         print(f"⚠️ Error loading workspace context: {str(e)}")
 
-context_manager.set_structure_files(structure_files)
-load_workspace_context()
-projects = list_projects()
-if not projects:
-    print("No projects found. Please enter a name for your new project:")
-    while True:
-        new_name = input("Project name: ").strip()
-        if new_name:
-            create_project(new_name)
-            current_project = new_name
-            break
-        print("Project name cannot be empty.")
-elif len(projects) == 1:
-    current_project = projects[0]
-    print(f"Automatically selected the only available project: {current_project}")
-else:
-    print("Available Projects:")
-    for idx, proj in enumerate(projects, 1):
-        print(f"  {idx}. {proj}")
-    while True:
-        choice = input(f"Select a project [1-{len(projects)}]: ").strip()
-        if choice.isdigit():
-            choice = int(choice)
-            if 1 <= choice <= len(projects):
-                current_project = projects[choice-1]
-                break
-        print("Invalid selection. Try again.")
-print(f"\n📁 Using project: {current_project}")
 context_manager.set_structure_files(structure_files)
 load_workspace_context()
 
