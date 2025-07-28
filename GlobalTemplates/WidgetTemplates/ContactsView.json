@@ -1,7 +1,7 @@
 {
   "name": "ContactsView",
   "properties": [
-    { "name": "contacts", "type": "List<User>", "required": true },
+    { "name": "contacts", "type": "User","collection": "true", "required": true },
     { "name": "searchText", "type": "String", "internal": true },
     { "name": "selectedContact", "type": "User", "internal": true }
   ],

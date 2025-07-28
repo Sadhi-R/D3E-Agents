@@ -2,7 +2,7 @@
   "name": "LabelDropdown",
   "properties": [
     { "name": "label", "type": "String", "required": true },
-    { "name": "items", "type": "List<String>", "required": true },
+    { "name": "items", "type": "String","collection": "true", "required": true },
     { "name": "selected", "type": "String", "internal": true },
     { "name": "isOpen", "type": "Boolean", "internal": true }
   ],

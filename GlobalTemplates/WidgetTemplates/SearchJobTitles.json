@@ -1,9 +1,9 @@
 {
   "name": "SearchJobTitles",
   "properties": [
-    { "name": "titles", "type": "List<String>", "required": true },
+    { "name": "titles", "type": "String","collection":"collection", "required": true },
     { "name": "searchText", "type": "String", "internal": true },
-    { "name": "filteredTitles", "type": "List<String>", "internal": true }
+    { "name": "filteredTitles", "type": "String","collection":"collection", "internal": true }
   ],
   "components": [
     "Column",

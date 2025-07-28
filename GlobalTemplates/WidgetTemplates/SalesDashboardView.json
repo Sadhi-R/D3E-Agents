@@ -1,7 +1,7 @@
 {
   "name": "SalesDashboardView",
   "properties": [
-    { "name": "salesData", "type": "List<Sale>", "required": true },
+    { "name": "salesData", "type": "Sale","collection": "true", "required": true },
     { "name": "timeRange", "type": "String", "internal": true },
     { "name": "selectedMetric", "type": "String", "internal": true }
   ],
