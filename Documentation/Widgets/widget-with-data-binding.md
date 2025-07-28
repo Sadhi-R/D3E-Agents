@@ -22,7 +22,7 @@ Widget {
             internal true
         }
     ]
-    build LabelWithInputField {
+    build LabelField {
         data {
             value `value`
             placeHolder 'Enter text'
@@ -34,10 +34,10 @@ Widget {
 
 ## More Real-World Examples
 
-### Example 1: LabelWithInputField
+### Example 1: LabelField
 ```d3e
 Widget {
-    name 'LabelWithInputField'
+    name 'LabelField'
     category 'UserDefined'
     properties [
         {

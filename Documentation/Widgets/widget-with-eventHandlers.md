@@ -298,10 +298,10 @@ Widget {
 }
 ```
 
-### Example 3: LabelWithInputField
+### Example 3: LabelField
 ```d3e
 Widget {
-    name 'LabelWithInputField'
+    name 'LabelField'
     category 'UserDefined'
     properties [
         {

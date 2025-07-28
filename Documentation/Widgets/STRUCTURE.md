@@ -244,7 +244,7 @@ properties [
         internal true
     }
 ]
-build LabelWithInputField {
+build LabelField {
     data {
         value `firstName`
         placeHolder 'enter firstname'
@@ -444,7 +444,7 @@ Widget {
                     fontWeight 'w600'
                 }
             }
-            LabelWithInputField {
+            LabelField {
                 data {
                     name 'First Name'
                     value `firstName`
@@ -452,7 +452,7 @@ Widget {
                 }
                 twoWayBinding true
             }
-            LabelWithInputField {
+            LabelField {
                 data {
                     name 'Last Name'
                     value `lastName`
@@ -460,7 +460,7 @@ Widget {
                 }
                 twoWayBinding true
             }
-            LabelWithInputField {
+            LabelField {
                 data {
                     name 'Email'
                     value `email`

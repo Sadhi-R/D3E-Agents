@@ -798,7 +798,7 @@ Widget {
                         expand 'true'
                     }
                     children [
-                        LabelWithInputField {
+                        LabelField {
                             name 'Name InputField'
                             data {
                                 name 'Name'
@@ -808,7 +808,7 @@ Widget {
                             }
                             twoWayBinding true
                         }
-                        LabelWithInputField {
+                        LabelField {
                             name 'Phone Number InputField'
                             data {
                                 name 'Phone Number'
@@ -819,7 +819,7 @@ Widget {
                             }
                             twoWayBinding true
                         }
-                        LabelWithInputField {
+                        LabelField {
                             name 'Email InputField'
                             data {
                                 name 'Email ID'
@@ -910,7 +910,7 @@ TwoWayBinding:
 - No need to handle the OnChange event to set the value to that property.
 - Any widget can support it by saying twoWayBinding true in side a widget.
 - While useing the widget in another widget, we can use that benifit by marking twoWayBinding true.
-LabelWithInputField {
+LabelField {
     name 'Name InputField'
     data {
         name 'Name'
@@ -920,7 +920,7 @@ LabelWithInputField {
     }
     twoWayBinding true
 }
-- Here LabelWithInputField supports twoWayBinding, and we use that in another build.
+- Here LabelField supports twoWayBinding, and we use that in another build.
 - When there is a change in NameInputField, that value will automatically set to the property customer.name
 
 Reference:

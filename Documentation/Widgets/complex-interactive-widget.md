@@ -92,8 +92,8 @@ Widget {
                                 GestureDetector
                             ]
                         }
-                        LabelWithInputField {
-                            name 'LabelWithInputField'
+                        LabelField {
+                            name 'LabelField'
                             data {
                                 name 'First Name'
                                 placeHolder 'Enter First Name'
@@ -103,8 +103,8 @@ Widget {
                             }
                             twoWayBinding true
                         }
-                        LabelWithInputField {
-                            name 'LabelWithInputField1'
+                        LabelField {
+                            name 'LabelField1'
                             data {
                                 name 'Last Name'
                                 placeHolder 'Enter Last Name'
@@ -133,8 +133,8 @@ Widget {
                             }
                             twoWayBinding true
                         }
-                        LabelWithInputField {
-                            name 'LabelWithInputField2'
+                        LabelField {
+                            name 'LabelField2'
                             data {
                                 name 'Email Address'
                                 placeHolder 'Enter Email Address'
@@ -144,8 +144,8 @@ Widget {
                             }
                             twoWayBinding true
                         }
-                        LabelWithInputField {
-                            name 'LabelWithInputField4'
+                        LabelField {
+                            name 'LabelField4'
                             data {
                                 name 'Password'
                                 placeHolder 'Enter Password'
@@ -156,8 +156,8 @@ Widget {
                             }
                             twoWayBinding true
                         }
-                        LabelWithInputField {
-                            name 'LabelWithInputField3'
+                        LabelField {
+                            name 'LabelField3'
                             data {
                                 name 'Phone Number ( Enter with country code )'
                                 placeHolder 'Enter Phone Number'

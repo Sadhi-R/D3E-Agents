@@ -195,7 +195,7 @@ Page {
                     data 'Login'
                 }
             }
-            LabelWithInputField {
+            LabelField {
                 name 'Email Field'
                 data {
                     name 'Email'
@@ -203,7 +203,7 @@ Page {
                 }
                 twoWayBinding true
             }
-            LabelWithInputField {
+            LabelField {
                 name 'Password Field'
                 data {
                     name 'Password'
@@ -417,7 +417,7 @@ Page {
                             margin '0 5 10 5'
                         }
                     }
-                    LabelWithInputField {
+                    LabelField {
                         name 'Email Field'
                         data {
                             name 'Email'
@@ -431,7 +431,7 @@ Page {
                         }
                         twoWayBinding true
                     }
-                    LabelWithInputField {
+                    LabelField {
                         name 'PasswordField'
                         data {
                             name 'Password'
