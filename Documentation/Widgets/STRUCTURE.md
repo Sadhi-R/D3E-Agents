@@ -13,62 +13,72 @@ In D3E Studio, **widgets** are the core building blocks of the user interface. W
     -   D3E provides wide range of widgets for buttons, inputs, lists, tables, etc. So, we can use them directly. No need to create a new widget for that.
 
 ---
+# Core Components
 
-## Core Reusable Widgets
+Properties listed in brackets () for each component indicate all available properties. Properties marked with (Required) must be provided when using the component, while others are optional.
 
-The following widgets are core components used throughout most widgets and pages in this project. They provide essential UI building blocks and are recommended for reuse:
+## Buttons
+- TextButton (lable (Required), disable)
+- IconButton (icon (Required), disable)
+- LoadingButton (label, loading, disable)
+- TextIconButton (icon (Required), text (Required), iconRight, disable)
+- SideMenuButton (title (Required), selectedMenu (Required), icon)
 
-- Button
-- BarRatingField
-- BasicDropdown
-- BasicDropdownPopup
+## Input Fields
+- BarRatingField (value (Required), localValue)
+- BasicDropdown (value, items (Required), placeHolder, errors, disable, popUpWidth)
+- DateField (value (Required), placeHolder, format, disable)
+- PasswordField (value (Required), placeHolder, errors, visiblePassword)
+- SearchableInputField (value (Required), items (Required), popUpWidth)
+
+## Date & Time
+- DateTimeCalender (value (Required), format)
+- DateTimeField (value (Required), placeHolder, format, disable)
+- DateTimeView (value (Required), format)
+- DateView (value (Required), format)
+- TimeField (value (Required), placeHolder, format)
+- TimePicker (value (Required), militryTime)
+- TimePickerWithInputfield (value (Required), militryTime)
+- TimeView (value (Required), format)
+
+## Toggle & Selection
+- CardCheckbox (value, label)
+- IconCheckbox (value, icon)
+- IconToggle (icon, value)
+- LabledToggle (label, value)
+- StatusToggle (value)
+- SwitchToggle (value)
+- TextCheckbox (value, text)
+- Toggle (value)
+- ToggleBase (value)
+
+## Layout & Display
 - BasicSideBarView
-- CalenderView
-- CardCheckbox
-- DateAndTimeCalendar
-- DateCell
-- DateField
-- DateTimeCalender
-- DateTimeField
-- DateTimeView
-- DateView
 - Divider
-- DoubleView
-- IconButton
-- IconCheckbox
-- IconToggle
-- IntegerView
-- LabelField
-- LabelWithDescriptionField
-- LabledToggle
-- LoadingButton
-- MonthOrYearCell
-- PasswordField
-- ProgressBar
-- QuantityCounter
-- RatingView
-- SearchableDropdown
-- SearchableInputField
-- SearchComponent
-- SearchFilter
-- SearchResultView
-- SideMenuButton
-- Slider
-- StatusToggle
-- SwitchToggle
-- TextButton
-- TextCheckbox
-- TextIconButton
-- Table
-- TimeField
-- TimePicker
-- TimePickerWithInputfield
-- TimeView
-- TextView
-- Toggle
-- ToggleBase
-- ToolTipWrapper
+- DoubleView (value)
+- IntegerView (value)
+- LabelField (label)
+- LabelWithDescriptionField (label, description)
+- ProgressBar (value, total)
+- RatingView (value)
+- SearchResultView (items)
+
+## Search & Filter
+- SearchComponent (value, onSearch)
+- SearchFilter (filters)
+- SearchableDropdown (value, items)
+
+## Special Components
+- QuantityCounter (value)
+- Slider (value, min, max)
+- ToolTipWrapper (tooltip)
 - VoiceBasedSearch
+
+## Calendar Components
+- CalenderView (value (Required))
+- DateCell (date (Required), isSelected)
+- MonthOrYearCell (value (Required), isSelected)
+
 
 ---
 
