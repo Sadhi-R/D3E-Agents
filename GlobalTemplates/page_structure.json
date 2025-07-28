@@ -1,0 +1,295 @@
+[
+    {
+        "name": "Page Name",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Property Name",
+                "type": "Property Type",
+                "required": true
+            },
+            {
+                "name": "Property Name",
+                "type": "Property Type",
+                "internal": true
+            },
+            {
+                "name": "Property Name",
+                "type": "Property Type",
+                "stylable": true
+            },
+            {
+                "name": "Property Name",
+                "type": "Property Type",
+                "collection": true
+            },
+            {
+                "name": "Property Name",
+                "type": "Property Type",
+                "computed": true,
+                "computation": "Computation Logic"
+            },
+            {
+                "name": "Property Name",
+                "type": "Property Type",
+                "collection": true,
+                "computed": true,
+                "computation": "`Computation Logic`"
+            },
+            {
+                "name": "Property Name",
+                "type": "Property Type",
+                "fetchData": true,
+                "synchronise": true
+            },
+            {
+                "name": "Property Name",
+                "type": "Property Type",
+                "required": true,
+                "fetchData": true
+            },
+            {
+                "name": "Property Name",
+                "type": "Property Type",
+                "internal": true,
+                "onChange": "Custom Handler Logic Call"
+            },
+            {
+                "name": "Property Name",
+                "type": "Property Type",
+                "internal": true,
+                "default": "Default Value"
+            },
+            {
+                "name": "Property Name",
+                "type": "Property Type",
+                "fetchData": true
+            }
+        ],
+        "build": {
+            "component": "ComponentName",
+            "styles": [
+                "Style1",
+                "Style2"
+            ],
+            "data": {
+                "property1": "value1",
+                "property2": "value2"
+            },
+            "children": [
+                {
+                    "type": "ChildComponent",
+                    "name": "ChildName",
+                    "styles": [
+                        "ChildStyle"
+                    ],
+                    "data": {
+                        "childProperty1": "value1",
+                        "childProperty2": "value2"
+                    },
+                    "twoWayBinding": "BooleanProperty",
+                    "behaviours": [
+                        "Behaviour1",
+                        "Behaviour2"
+                    ],
+                    "children": [
+                        {
+                            "type": "GrandChildComponent",
+                            "name": "GrandChildName",
+                            "data": {
+                                "grandChildProperty1": "value1"
+                            },
+                            "states": [
+                                {
+                                    "name": "StateName",
+                                    "value": "StateValue"
+                                }
+                            ],
+                            "child": {
+                                "type": "GrandChildChildComponent",
+                                "name": "GrandChildChildName",
+                                "data": {
+                                    "grandChildChildProperty1": "value1"
+                                },
+                                "key": "UniqueKey",
+                                "conditionals": [
+                                    {
+                                        "condition": "`conditionExpression`",
+                                        "values": {
+                                            "data": "`conditionalData`"
+                                        }
+                                    }
+                                ],
+                                "children": [
+                                    {
+                                        "type": "NestedChildComponent",
+                                        "name": "NestedChildName",
+                                        "data": {
+                                            "nestedChildProperty1": "value1"
+                                        },
+                                        "builder": {
+                                            "type": "BuilderComponent",
+                                            "name": "BuilderName",
+                                            "data": {
+                                                "builderProperty1": "value1"
+                                            }
+                                        },
+                                        "slots": [
+                                            {
+                                                "slot": "slotName",
+                                                "child": {
+                                                    "type": "SlotChildComponent",
+                                                    "name": "SlotChildName",
+                                                    "data": {
+                                                        "slotChildProperty1": "value1"
+                                                    }
+                                                },
+                                                "children": [
+                                                    {
+                                                        "type": "SlotNestedChildComponent",
+                                                        "name": "SlotNestedChildName",
+                                                        "data": {
+                                                            "slotNestedChildProperty1": "value1"
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "SlotNestedChildComponent2",
+                                                        "name": "SlotNestedChildName2",
+                                                        "data": {
+                                                            "slotNestedChildProperty2": "value2"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ConditionalComponent",
+                    "condition": "`conditionExpression`",
+                    "then": {
+                        "type": "ThenComponent",
+                        "name": "ThenName",
+                        "data": {
+                            "thenProperty1": "value1"
+                        }
+                    },
+                    "else": {
+                        "type": "ElseComponent",
+                        "name": "ElseName",
+                        "data": {
+                            "elseProperty1": "value1"
+                        }
+                    }
+                },
+                {
+                    "name": "LoopName Component",
+                    "var": "loopVariable",
+                    "items": "`loopItems`",
+                    "type": "Loop Item Type",
+                    "item": {
+                        "type": "LoopItemComponent",
+                        "name": "LoopItemName",
+                        "data": {
+                            "loopItemProperty1": "value1"
+                        }
+                    }
+                },
+                {
+                    "name" : "switchNameComponent",
+                    "on" :"`switchExpression`",
+                    "type" : "SwitchType",
+                    "cases": [
+                        {
+                            "value": "`caseExpression1`",
+                            "build": {
+                                "type": "CaseComponent1",
+                                "name": "CaseName1",
+                                "data": {
+                                    "caseProperty1": "value1"
+                                }
+                            }
+                        },
+                        {
+                            "value": "`caseExpression2`",
+                            "build": {
+                                "type": "CaseComponent2",
+                                "name": "CaseName2",
+                                "data": {
+                                    "caseProperty2": "value2"
+                                }
+                            }
+                        }
+                    ],
+                    "defaultCase" : [
+                        {
+                            "type": "DefaultCaseComponent",
+                            "name": "DefaultCaseName",
+                            "data": {
+                                "defaultProperty1": "value1"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "Event Handler Name",
+                "type": "HandlerType",
+                "on": "Event Trigger",
+                "event": "Event Name",
+                "block": "Event Block Logic"
+            },
+            {
+                "name": "Event Handler Name2",
+                "type": "HandlerType",
+                "on": "Another Event Trigger",
+                "event": "Another Event Name",
+                "block": "Another Event Block Logic"
+            },
+            {
+                "name": "Event Handler Name",
+                "type": "HandlerType",
+                "behaviour": "BehaviourType",
+                "on": "Yet Another Event Trigger",
+                "event": "Yet Another Event Name",
+                "block": "Yet Another Event Block Logic"
+            },
+            {
+                "name": "Event Handler Name",
+                "type": "HandlerType",
+                "popup": "popupName",
+                "event": "Popup Event Name",
+                "block": "Final Event Block Logic"
+            },
+            {
+                "name": "Custom Event name",
+                "params": [
+                    {
+                        "name": "Property Name",
+                        "type": "Property Type"
+                    },
+                    {
+                        "name": "Property Name",
+                        "type": "Property Type",
+                        "collection": true
+                    }
+                ],
+                "block": "Custom Event Block Logic",
+                "returnType": "Return Type",
+                "returnTypeCollection": true
+            }
+        ],
+        "globalEvents": [
+            "StructureEvent1",
+            "StructureEvent2",
+            "StructureEvent3"
+        ],
+        "focusable": true
+    }
+]

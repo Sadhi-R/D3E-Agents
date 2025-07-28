@@ -1,16 +1,23 @@
-# D3E Style Structure
+# 🎨 D3E Style Reference Guide
 
-## Introduction
+## 🧭 Introduction
 
-In D3E Studio, **styles** define the reusable visual rules for widgets and UI elements.  
-Styles promote consistency, simplify maintenance, and allow you to quickly update the look of your application.  
-This guide explains the D3E style syntax, best practices, and provides real-world examples based on actual styles in this project.
+In **D3E Studio**, styles define reusable visual rules for widgets and UI components.
+They ensure **consistency**, ease of **maintenance**, and rapid **customization** of UI appearance.
+
+This guide covers:
+
+* Style declaration syntax
+* Style application
+* Real-world examples
+* Best practices
+* Advanced style selectors & combinators
 
 ---
 
-## 1. Style Declaration: Syntax & Anatomy
+## 1. 🔧 Style Declaration: Syntax & Anatomy
 
-Every style is declared using a `Style` block:
+Each style starts with a `Style` block:
 
 ```d3e
 Style {
@@ -18,44 +25,42 @@ Style {
     component WidgetType
     // Optional: description 'A short description of the style'
     values {
-        // ... style properties ...
+        // style properties
     }
 }
 ```
 
-**Syntax Rules:**
-- **NO COMMAS** between items in arrays/lists.
-- **No comments** inside D3E code blocks.
-- **Expressions**: Wrap in backticks: `expression`
-- **Optional Fields**: Properties in brackets [ ] are optional.
+### 🔤 Syntax Rules
+
+* **No commas** between items in arrays/lists.
+* **No comments** inside D3E code blocks.
+* **Expressions**: Use backticks: `expression`
+* **Optional fields** are wrapped in \[ ].
 
 ---
 
-## 2. Style Properties
+## 2. 🎨 Style Properties
 
-- **name:** Unique identifier for the style.
-- **component:** The widget type this style targets (e.g., Button, TextView, InputField).
-- **description:** (Optional) Explains the style’s purpose.
-- **values:** Key-value pairs for visual properties (color, font, spacing, etc.).
-    - **backgroundColor, color, fontSize, fontWeight, borderRadius, padding, margin, border, etc.**
-    - Values can reference theme color codes (e.g., `@c1`), numbers, or strings.
+| Property      | Description                                                                                              |
+| ------------- | -------------------------------------------------------------------------------------------------------- |
+| `name`        | Unique style identifier                                                                                  |
+| `component`   | Target widget type (e.g., `Button`, `InputField`)                                                        |
+| `description` | (Optional) Purpose of the style                                                                          |
+| `values`      | Visual properties: `backgroundColor`, `color`, `fontSize`, `fontWeight`, `borderRadius`, `padding`, etc. |
+
+* Use theme color codes (`@c1`, `@c2`, ...) or direct hex values (`'ff000000'`).
+* Font weights: `'w400'`, `'w500'`, `'w600'`, etc.
 
 ---
 
-## 3. How to Create and Apply a Style
+## 3. 🚀 Applying a Style
 
-1. **Create a new style** using the `Style` block.
-2. **Provide a name** and (optionally) a description.
-3. **Specify the component** (widget type).
-4. **Define the values** for the style.
-5. **Apply the style** to widgets via the `style` or `styles` property in the widget's build tree.
-
-### Example: Applying a Style
+Apply a style using the `style` or `styles` property in a widget:
 
 ```d3e
 Button {
     name 'SaveBtn'
-    style PrimaryButton
+    styles [PrimaryButton]
     child TextView {
         data {
             data 'Save'
@@ -66,9 +71,9 @@ Button {
 
 ---
 
-## 4. Real-World Examples: Existing Styles
+## 4. 📦 Real-World Style Examples
 
-### Primary Button Style
+### ✅ Primary Button
 
 ```d3e
 Style {
@@ -86,7 +91,7 @@ Style {
 }
 ```
 
-### Secondary Button Style
+### 🟨 Secondary Button
 
 ```d3e
 Style {
@@ -104,7 +109,7 @@ Style {
 }
 ```
 
-### Input Field Default Style
+### 📝 Input Field
 
 ```d3e
 Style {
@@ -121,36 +126,21 @@ Style {
 }
 ```
 
-### TextView Body Style
+---
 
-```d3e
-Style {
-    name 'BodyText'
-    component TextView
-    description 'Default body text style.'
-    values {
-        color '@c4'
-        fontSize 14.0
-        fontWeight 'w400'
-    }
-}
-```
+## 5. 🌟 Best Practices
+
+* ✅ **Consistency**: Use styles across the UI.
+* 🔀 **Reusability**: Declare once, reuse often.
+* 🧪 **Override**: Component props can override style values.
+* 📝 **Document**: Use `description` field.
+* 🚫 **Avoid comments/commas** in D3E code blocks.
+* 🏷 **Naming**: Be descriptive and meaningful.
+* 🎨 **Color management**: Prefer theme color codes (`@c1`, `@c2`...) over hex codes.
 
 ---
 
-## 5. Best Practices
-
-- **Consistency:** Use styles to ensure a unified look across widgets.
-- **Reusability:** Define styles once and apply them throughout the project.
-- **Override:** Widget-level properties can override style defaults for special cases.
-- **Documentation:** Use the `description` field for clarity and collaboration.
-- **No comments or commas** in D3E code blocks.
-- **Naming:** Use clear, descriptive names for styles.
-- **Color Management:** Reference theme color codes for maintainability.
-
----
-
-## 6. Template: New Style
+## 6. 🧱 New Style Template
 
 ```d3e
 Style {
@@ -170,19 +160,15 @@ Style {
 
 ---
 
-## 7. Prompt for Creating a New Style
-
-When creating a new style, use a prompt that follows the model-with-child-properties structure. This ensures clarity and completeness.
-
-### Example Prompt Structure
+## 7. 💬 Style Creation Prompt Template
 
 ```prompt
 Create a new D3E style for a [WidgetType] with the following properties:
 - Name: [StyleName]
 - Description: [Short description]
 - Values:
-    - backgroundColor: [color code or value]
-    - color: [color code or value]
+    - backgroundColor: [color code]
+    - color: [color code]
     - fontSize: [number]
     - fontWeight: [weight string]
     - borderRadius: [number]
@@ -191,46 +177,14 @@ Create a new D3E style for a [WidgetType] with the following properties:
 
 ---
 
-## 8. Example Prompts
+## 8. 🤩 Supported Tags (Bootstrap-like)
 
-### Example 1: Primary Button
+You can use Bootstrap-style **semantic tags** in `tags [ ]` or as **selectors** in styles:
 
-```prompt
-Create a new D3E style for a Button with the following properties:
-- Name: PrimaryButton
-- Description: Primary style for main action buttons.
-- Values:
-    - backgroundColor: @c1
-    - color: @c5
-    - fontSize: 16.0
-    - fontWeight: w600
-    - borderRadius: 8.0
-    - padding: 12 24
-```
+Examples:
+`h1`, `textcenter`, `lead`, `warning`, `disabled`, `bgprimary`, `tableDark`, `roundedOutline`, `bold`, `InputField`, `DropDown`, etc.
 
-### Example 2: Input Field
-
-```prompt
-Create a new D3E style for an InputField with the following properties:
-- Name: InputFieldDefault
-- Description: Default style for input fields.
-- Values:
-    - backgroundColor: @c5
-    - color: @c4
-    - fontSize: 14.0
-    - borderRadius: 4.0
-    - padding: 8 12
-```
-
----
-
-## Supported Tags (Bootstrap Style)
-
-Styles in D3E can be applied using a wide range of tags for styling and semantics, similar to Bootstrap. These tags can be used in the build tree of widgets and pages to apply consistent visual rules. Example tags include:
-
-h1, h2, h3, h4, h5, h6, headingOne, headingTwo, headingThree, headingFour, headingFive, headingSix, dh1, dh2, dh3, dh4, lead, small, delete, strike, insert, underline, strong, em, textleft, textcenter, textright, textjustify, abbr, blockquote, muted, primary, success, info, warning, danger, Column, profile, Row, ListView, CollapsibleSideMenu, TextView, IconView, Button, rounded, roundedOutline, default, primary, success, info, warning, danger, primaryOutline, successOutline, infoOutline, warningOutline, dangerOutline, large, link, small, xsmall, block, nav, SideMenuButton, Checkbox, IconView, disabled, focus, IconCheckbox, Container, TextCheckbox, CardCheckbox, Toggle, outer, body, IconToggle, StatusToggle, roundedBox, CheckboxWithText, TextWithCheckbox, ToggleBase, Table, TableRow, TableCell, tableDark, darkRow, lightRow, tableHover, tableSmall, bordered, roundedborders, bold, headerborder, headercaption, tableActive, tableDefault, tablePrimary, tableSecondary, tableSuccess, tableDanger, tableWarning, tableInfo, tableDark, tableLight, tableStriped, InputField, large, disable, searchablePopup, resultPopup, DropDown, DropDownPopup, DurationField, SearchFilter, PasswordField, bg, CalenderView, datePopup, timePickerPopup, MonthOrYearCell, DateCell, DateField, active, DateTimeField, DateAndTimeCalendar, IconButton, small, large, Column, SatisfactionSurveyGrid, bgprimary, bgsuccess, bginfo, bgwarning, bgdanger, borderColor, MouseHoverView, mousePointer, PopupWrapperView, SearchableDropdown, SearchResultView, PopupHeader, AttachmentDownloadView, Badge, ProfileWithStatus, ProfileWithEditIcon, indicator, CarouselDot, ImageView, Container
-
-**Example:**
+### Tag Usage Example
 
 ```d3e
 TextView {
@@ -247,10 +201,120 @@ TextView {
 
 ---
 
-## Color and Style Usage Rules
+## 9. 🔎 D3E Style Selector Specification
 
-- When specifying colors in styles, widgets, or pages, always use existing color codes defined in the current theme (e.g., @c1, @c2, ...). If you need a color not present in the theme, use a direct hex code (e.g., 'ff000000').
-- For styles, always use an existing style if it matches the requirement. If no suitable style exists, specify the style properties directly within the component.
+### ✅ Widget Selector
+
+Selects all elements of a widget type.
+
+```d3e
+selector 'Button'
+```
 
 ---
 
+### ✅ Tag Selector
+
+Selects widgets with a specific tag.
+
+```d3e
+selector '.error'
+```
+
+---
+
+### ✅ Descendant Combinator (`A B`)
+
+Matches `B` inside `A` (at any level):
+
+```d3e
+selector 'Row TextView'
+```
+
+---
+
+### ✅ Child Combinator (`A > B`)
+
+Matches `B` as **direct child** of `A`:
+
+```d3e
+selector 'Row > TextView'
+```
+
+---
+
+### ✅ Adjacent Sibling Combinator (`A + B`)
+
+Matches `B` that is **immediately after** `A`:
+
+```d3e
+selector 'Row + TextView'
+```
+
+---
+
+### ✅ General Sibling Combinator (`A ~ B`)
+
+Matches **all `B` siblings** that follow `A`:
+
+```d3e
+selector 'Row ~ TextView'
+```
+
+---
+
+### ✅ Column Selector (`A || B`)
+
+Matches elements in the **same column**:
+
+```d3e
+selector '.Name || TextView'
+```
+
+---
+
+### ✅ Pseudo Classes
+
+| Pseudo   | Description  |
+| -------- | ------------ |
+| `:hover` | Mouse over   |
+| `:focus` | When focused |
+
+---
+
+### 🔧 Advanced Style Structure with Selectors
+
+```d3e
+Style {
+    name 'InputFieldError'
+    component InputField
+    items [
+        {
+            selector '.error'
+            values {
+              activeColor '@c11'
+              inActiveColor '@c11'
+            }
+        }
+    ]
+}
+```
+
+```d3e
+Style {
+    name 'TextViewInRow'
+    component TextView  
+    items [
+        {
+            selector 'Row > TextView'
+            values {
+              fontSize '15.0'
+              color '@c6'
+              fontWeight 'w600'
+            }
+        }
+    ]
+}
+```
+
+---

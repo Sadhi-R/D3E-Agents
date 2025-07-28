@@ -1,0 +1,23 @@
+[
+    {
+        "name" : "structName",
+        "properties" : [
+            {
+                "name": "Property Name",
+                "type": "Property Type",
+                "description": "Property Description"
+            },
+            {
+                "name": "Property Name",
+                "type": "Property Type",
+                "collection": true
+            },
+            {
+                "name": "Property Name",
+                "type": "Property Type",
+                "computed": true,
+                "computation": "`Computation Logic`"
+            }
+        ]
+    }
+]

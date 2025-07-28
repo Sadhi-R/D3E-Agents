@@ -1,0 +1,29 @@
+[
+    {
+        "name": "Data_Query_Name",
+        "Query": "`model.all` condition logic",
+        "inputs" : [
+            {
+                "name": "Input Name",
+                "type": "Input Type",
+                "description": "Input Description",
+                "required": true
+            },
+            {
+                "name": "Input Name",
+                "type": "Input Type",
+                "collection": true
+            },
+            {
+                "name": "Input Name",
+                "type": "Input Type",
+                "validations" : [
+                    {
+                        "expression": "`validation logic`",
+                        "errorMsg": "Validation Error Message"
+                    }
+                ]
+            }
+        ]
+    }
+]
