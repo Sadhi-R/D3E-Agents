@@ -1,0 +1,91 @@
+{
+    "package": "widget.templates",
+    "name": "Signup View",
+    "category": "UserDefined",
+    "properties": [],
+    "build": {
+        "type": "Column",
+        "name": "Column",
+        "data": {
+            "mainAxisAlignment": "center"
+        },
+        "children": [
+            {
+                "type": "TextView",
+                "name": "TextView",
+                "data": {
+                    "data": "Sign up",
+                    "fontSize": "25",
+                    "fontWeight": "w900"
+                }
+            },
+            {
+                "type": "LabelField",
+                "name": "Name Field",
+                "data": {
+                    "label": "Name",
+                    "isRequired": "true",
+                    "placeHolder": "Please enter your name...",
+                    "width": "250"
+                }
+            },
+            {
+                "type": "LabelField",
+                "name": "Email Field",
+                "data": {
+                    "label": "Email",
+                    "isRequired": "true",
+                    "placeHolder": "Please Enter your email",
+                    "width": "250"
+                }
+            },
+            {
+                "type": "LabelField",
+                "name": "Phone Field",
+                "data": {
+                    "label": "Phone Number",
+                    "isRequired": "true",
+                    "placeHolder": "Plese enter your phone",
+                    "width": "250"
+                }
+            },
+            {
+                "type": "LabelField",
+                "name": "Address Field",
+                "data": {
+                    "label": "Address",
+                    "isRequired": "true",
+                    "placeHolder": "Enter your address",
+                    "width": "250"
+                }
+            },
+            {
+                "type": "Button",
+                "name": "VarifyButton",
+                "data": {
+                    "width": "250",
+                    "margin": "15 0",
+                    "decoration": {
+                        "color": "@c18"
+                    }
+                },
+                "child": {
+                    "type": "TextView",
+                    "name": "ButtonText",
+                    "data": {
+                        "data": "Varify"
+                    }
+                }
+            }
+        ]
+    },
+    "eventHandlers": [
+        {
+            "name": "onPressedVarifyButtonButtonHandler",
+            "type": "OnEvent",
+            "on": "varifyButton",
+            "event": "onPressed",
+            "block": "\n                /* Your code here. */\n            "
+        }
+    ]
+}

@@ -1,0 +1,72 @@
+{
+    "package": "widget.templates",
+    "name": "Login View",
+    "category": "UserDefined",
+    "properties": [],
+    "build": {
+        "type": "Column",
+        "name": "Column",
+        "data": {
+            "mainAxisAlignment": "center"
+        },
+        "children": [
+            {
+                "type": "TextView",
+                "name": "TextView",
+                "data": {
+                    "data": "Login ",
+                    "fontSize": "25",
+                    "fontWeight": "w800"
+                }
+            },
+            {
+                "type": "LabelField",
+                "name": "Email Field",
+                "data": {
+                    "label": "Email",
+                    "isRequired": "true",
+                    "placeHolder": "Enter your email",
+                    "width": "250"
+                }
+            },
+            {
+                "type": "LabelField",
+                "name": "Password Field",
+                "data": {
+                    "label": "Password",
+                    "isRequired": "true",
+                    "placeHolder": "Enter your password",
+                    "width": "250",
+                    "margin": "10 0",
+                    "obscureText": "true"
+                }
+            },
+            {
+                "type": "Button",
+                "name": "Button",
+                "data": {
+                    "width": "250",
+                    "decoration": {
+                        "color": "@c8"
+                    }
+                },
+                "child": {
+                    "type": "TextView",
+                    "name": "ButtonText",
+                    "data": {
+                        "data": "Login"
+                    }
+                }
+            }
+        ]
+    },
+    "eventHandlers": [
+        {
+            "name": "onPressedButtonHandler",
+            "type": "OnEvent",
+            "on": "button",
+            "event": "onPressed",
+            "block": "\n                /* Your code here. */\n            "
+        }
+    ]
+}
