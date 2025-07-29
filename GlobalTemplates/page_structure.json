@@ -290,6 +290,16 @@
             "StructureEvent2",
             "StructureEvent3"
         ],
-        "focusable": true
+        "focusable": true,
+        "popups" : [
+            {
+                "name": "Popup Name",
+                "type": "Component Name",
+                "data": {
+                    "popupProperty1": "value1",
+                    "popupProperty2": "value2"
+                }
+            }
+        ]
     }
 ]
