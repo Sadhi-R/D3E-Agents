@@ -27,7 +27,7 @@
                 "name": "Property Name",
                 "type": "Property Type",
                 "computed": true,
-                "computation": "Computation Logic"
+                "computation": "`Computation Logic`"
             },
             {
                 "name": "Property Name",
@@ -58,7 +58,7 @@
                 "name": "Property Name",
                 "type": "Property Type",
                 "internal": true,
-                "default": "Default Value"
+                "defaultVaule": "`Default Value`"
             },
             {
                 "name": "Property Name",
@@ -200,9 +200,9 @@
                     }
                 },
                 {
-                    "name" : "switchNameComponent",
-                    "on" :"`switchExpression`",
-                    "type" : "SwitchType",
+                    "name": "switchNameComponent",
+                    "on": "`switchExpression`",
+                    "type": "SwitchType",
                     "cases": [
                         {
                             "value": "`caseExpression1`",
@@ -225,7 +225,7 @@
                             }
                         }
                     ],
-                    "defaultCase" : [
+                    "defaultCase": [
                         {
                             "type": "DefaultCaseComponent",
                             "name": "DefaultCaseName",
@@ -243,14 +243,14 @@
                 "type": "HandlerType",
                 "on": "Event Trigger",
                 "event": "Event Name",
-                "block": "`Event Block Logic`"
+                "block": "```Event Block Logic```"
             },
             {
                 "name": "Event Handler Name2",
                 "type": "HandlerType",
                 "on": "Another Event Trigger",
                 "event": "Another Event Name",
-                "block": "`Another Event Block Logic`"
+                "block": "```Another Event Block Logic```"
             },
             {
                 "name": "Event Handler Name",
@@ -258,14 +258,14 @@
                 "behaviour": "BehaviourType",
                 "on": "Yet Another Event Trigger",
                 "event": "Yet Another Event Name",
-                "block": "`Yet Another Event Block Logic`"
+                "block": "```Yet Another Event Block Logic```"
             },
             {
                 "name": "Event Handler Name",
                 "type": "HandlerType",
                 "popup": "popupName",
                 "event": "Popup Event Name",
-                "block": "`Final Event Block Logic`"
+                "block": "```Final Event Block Logic```"
             },
             {
                 "name": "Custom Event name",
@@ -280,7 +280,7 @@
                         "collection": true
                     }
                 ],
-                "block": "`Custom Event Block Logic`",
+                "block": "```Custom Event Block Logic```",
                 "returnType": "Return Type",
                 "returnTypeCollection": true
             }

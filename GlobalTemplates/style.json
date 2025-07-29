@@ -1,0 +1,16 @@
+[
+    {
+        "name" : "style name",
+        "component" : "Component Name",
+        "items" : [
+            {
+                "selector" : "",
+                "values" : { 
+                    "padding" : "`paddingValue`",
+                    "margin" : "`marginValue`",
+                    "backgroundColor" : "@colorVariable"
+                }
+            }
+        ]
+    }
+]
