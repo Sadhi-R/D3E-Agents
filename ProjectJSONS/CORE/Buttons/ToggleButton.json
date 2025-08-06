@@ -1,0 +1,60 @@
+[
+    {
+        "name": "ToggleButton",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "ButtonText",
+                "type": "String"
+            },
+            {
+                "name": "IsSelected",
+                "type": "Boolean"
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean"
+            }
+        ],
+        "build": {
+            "component": "Container",
+            "name": "ChildWrapper",
+            "data": {
+                "cursor": "click"
+            },
+            "children": [
+                {
+                    "type": "TextView",
+                    "name": "id",
+                    "data": {
+                        "data": "`this.buttonText`"
+                    }
+                }
+            ],
+            "behaviours": [
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnHandleTap",
+                "type": "OnBehaviour",
+                "on": "childWrapper",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if (this.onSelectionChange != null && !disable) {\n    this.onSelectionChange(!this.isSelected);\n}```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnSelectionChange",
+                "params": [
+                    {
+                        "name": "Selected",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ]
+    }
+]

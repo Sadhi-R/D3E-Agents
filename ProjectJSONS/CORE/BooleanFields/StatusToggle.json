@@ -1,0 +1,193 @@
+[
+    {
+        "name": "StatusToggle",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Boolean",
+                "required": true
+            },
+            {
+                "name": "Yes",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "No",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "Right",
+                "type": "Boolean"
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "internal": true,
+                "onChange": "onDisabledChanged"
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "row",
+            "data": {
+                "mainAxisAlignment": "spaceBetween"
+            },
+            "children": [
+                {
+                    "type": "CIf",
+                    "name": "CIf",
+                    "condition": "`!right`",
+                    "then": {
+                        "type": "TextView",
+                        "name": "TextView",
+                        "data": {
+                            "data": "`value ? yes : no`"
+                        }
+                    }
+                },
+                {
+                    "type": "Container",
+                    "name": "id",
+                    "data": {
+                        "alignment": "center"
+                    },
+                    "child": {
+                        "type": "Stack",
+                        "name": "stack",
+                        "data": {
+                            "alignment": "centerStart"
+                        },
+                        "children": [
+                            {
+                                "type": "Container",
+                                "name": "container2",
+                                "tags": [
+                                    "rounded"
+                                ],
+                                "data": {
+                                    "cursor": "click",
+                                    "alignment": "center"
+                                }
+                            },
+                            {
+                                "type": "CIf",
+                                "name": "id",
+                                "condition": "`value`",
+                                "then": {
+                                    "type": "Container",
+                                    "name": "container4",
+                                    "data": {
+                                        "margin": "2.5",
+                                        "right": "0"
+                                    },
+                                    "child": {
+                                        "type": "Container",
+                                        "name": "round box",
+                                        "tags": [
+                                            "roundedBox"
+                                        ],
+                                        "data": {
+                                            "cursor": "click"
+                                        }
+                                    }
+                                },
+                                "else": {
+                                    "type": "Container",
+                                    "name": "container4",
+                                    "data": {
+                                        "margin": "2.5",
+                                        "left": "0"
+                                    },
+                                    "child": {
+                                        "type": "Container",
+                                        "name": "round box",
+                                        "tags": [
+                                            "roundedBox"
+                                        ],
+                                        "data": {
+                                            "cursor": "click"
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "CIf",
+                    "name": "CIf",
+                    "condition": "`right`",
+                    "then": {
+                        "type": "TextView",
+                        "name": "TextView",
+                        "data": {
+                            "data": "`value ? yes : no`"
+                        }
+                    }
+                }
+            ],
+            "states": [
+                {
+                    "name": "Focus",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "Disabled",
+                    "type": "Boolean",
+                    "defaultValue": "`this.disable`"
+                },
+                {
+                    "name": "Active",
+                    "type": "Boolean",
+                    "defaultValue": "`this.value`"
+                }
+            ],
+            "behaviours": [
+                "Focus",
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnChange",
+                "type": "OnBehaviour",
+                "on": "row",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```\n                if(this.onChanged != null){\n                    onChanged(!value);\n                }\n            ```"
+            },
+            {
+                "name": "onValueChanged",
+                "block": "```\n                row.active = this.value;\n            ```"
+            },
+            {
+                "name": "onDisabledChanged",
+                "block": "```\n                row.disabled = this.disable;\n            ```"
+            },
+            {
+                "name": "onKey",
+                "type": "OnBehaviour",
+                "on": "row",
+                "behaviour": "Focus",
+                "event": "onKey",
+                "block": "```\n                if (event is RawKeyDownEvent && !this.disable) {\n                    if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.space ||  event.logicalKey == LogicalKeyboardKey.numpadEnter) {\n                        if (!disable) {\n                            this.onChanged(!this.value);\n                            return KeyEventResult.handled;\n                        }\n                        return KeyEventResult.handled;\n                    }\n                }\n                return KeyEventResult.ignored;\n            ```",
+                "returnType": "KeyEventResult"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

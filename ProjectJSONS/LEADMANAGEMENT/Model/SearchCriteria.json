@@ -1,0 +1,177 @@
+[
+    {
+        "name": "SearchCriteria",
+        "struct": true,
+        "properties": [
+            {
+                "name": "page",
+                "type": "Integer",
+                "defaultValue": "`1`"
+            },
+            {
+                "name": "perPage",
+                "type": "Integer",
+                "defaultValue": "`20`"
+            },
+            {
+                "name": "SearchText",
+                "type": "String"
+            },
+            {
+                "name": "FullName",
+                "type": "String"
+            },
+            {
+                "name": "PersonLocations",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "TimeZones",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "AccountLocation",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "JobPostingHiringFor",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "JobPostingLocation",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "JobTitles",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "Languages",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "Keywords",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "CompanyTagIDs",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "Technologies",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "MinYearExp",
+                "type": "String"
+            },
+            {
+                "name": "MaxYearExp",
+                "type": "String"
+            },
+            {
+                "name": "MinYearCurrentRole",
+                "type": "String"
+            },
+            {
+                "name": "MaxYearCurrentRole",
+                "type": "String"
+            },
+            {
+                "name": "MinMonthCurrentRole",
+                "type": "String"
+            },
+            {
+                "name": "MaxMonthCurrentRole",
+                "type": "String"
+            },
+            {
+                "name": "SICCodes",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "MinGrowPercentage",
+                "type": "String"
+            },
+            {
+                "name": "MaxGrowPercentage",
+                "type": "String"
+            },
+            {
+                "name": "TimeFrame",
+                "type": "String"
+            },
+            {
+                "name": "Department",
+                "type": "String"
+            },
+            {
+                "name": "FundingFromDate",
+                "type": "String"
+            },
+            {
+                "name": "FundingToDate",
+                "type": "String"
+            },
+            {
+                "name": "MinFundingAmount",
+                "type": "String"
+            },
+            {
+                "name": "MaxFundingAmount",
+                "type": "String"
+            },
+            {
+                "name": "MinFoundedYear",
+                "type": "String"
+            },
+            {
+                "name": "MaxFoundedYear",
+                "type": "String"
+            },
+            {
+                "name": "MinRetailLocation",
+                "type": "String"
+            },
+            {
+                "name": "MaxRetailLocation",
+                "type": "String"
+            },
+            {
+                "name": "MinJobPosting",
+                "type": "String"
+            },
+            {
+                "name": "MaxJobPosting",
+                "type": "String"
+            },
+            {
+                "name": "JobPostedFromDate",
+                "type": "String"
+            },
+            {
+                "name": "JobPostedToDate",
+                "type": "String"
+            },
+            {
+                "name": "MinEmployeeRange",
+                "type": "String"
+            },
+            {
+                "name": "MaxEmployeeRange",
+                "type": "String"
+            }
+        ]
+    }
+]

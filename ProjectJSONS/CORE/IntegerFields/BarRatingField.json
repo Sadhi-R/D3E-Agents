@@ -1,0 +1,149 @@
+[
+    {
+        "name": "Bar Rating Field",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "value",
+                "type": "Integer"
+            },
+            {
+                "name": "Local Value",
+                "type": "Integer",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "Row",
+            "children": [
+                {
+                    "component": "CFor",
+                    "name": "ForItem",
+                    "var": "v",
+                    "items": "`[1,2,3,4,5]`",
+                    "type": "Integer",
+                    "item": {
+                        "type": "Row",
+                        "name": "Row2",
+                        "data": {
+                            "expand": "true",
+                            "margin": "0 1"
+                        },
+                        "children": [
+                            {
+                                "type": "Container",
+                                "name": "Container",
+                                "data": {
+                                    "expand": "true",
+                                    "decoration": {
+                                        "color": "@c19"
+                                    },
+                                    "height": "8",
+                                    "cursor": "click"
+                                },
+                                "conditionals": [
+                                    {
+                                        "condition": "`localValue >= (v*2)`",
+                                        "values": {
+                                            "decoration": {
+                                                "color": "ff146c42"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "behaviours": [
+                                    "MouseRegion",
+                                    "GestureDetector"
+                                ]
+                            },
+                            {
+                                "type": "Container",
+                                "name": "Container2",
+                                "data": {
+                                    "expand": "true",
+                                    "decoration": {
+                                        "color": "@c19"
+                                    },
+                                    "height": "8",
+                                    "cursor": "click"
+                                },
+                                "conditionals": [
+                                    {
+                                        "condition": "`localValue >= (v*2)+ 1`",
+                                        "values": {
+                                            "decoration": {
+                                                "color": "ff146c42"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "behaviours": [
+                                    "MouseRegion",
+                                    "GestureDetector"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "behaviours": [
+                "MouseRegion"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "onEnterContainerBehaviourHandler",
+                "type": "OnBehaviour",
+                "on": "container",
+                "behaviour": "MouseRegion",
+                "event": "onEnter",
+                "block": "```\n                localValue = (v*2) - 1;\n            ```"
+            },
+            {
+                "name": "onTapContainerBehaviourHandler",
+                "type": "OnBehaviour",
+                "on": "container",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```\n                localValue = (v*2) - 1;\n                onChanged(localValue);\n            ```"
+            },
+            {
+                "name": "onEnterContainer2BehaviourHandler",
+                "type": "OnBehaviour",
+                "on": "container2",
+                "behaviour": "MouseRegion",
+                "event": "onEnter",
+                "block": "```\n                localValue = (v*2);\n            ```"
+            },
+            {
+                "name": "onTapContainer2BehaviourHandler",
+                "type": "OnBehaviour",
+                "on": "container2",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```\n                localValue = (v*2);\n                onChanged(localValue);\n            ```"
+            },
+            {
+                "name": "onExitRowBehaviourHandler",
+                "type": "OnBehaviour",
+                "on": "row",
+                "behaviour": "MouseRegion",
+                "event": "onExit",
+                "block": "```\n                localValue = value;\n            ```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Integer"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

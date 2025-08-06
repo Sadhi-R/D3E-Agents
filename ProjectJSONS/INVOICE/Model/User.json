@@ -1,0 +1,50 @@
+{
+  "model": {
+    "package": "remote_canva.com",
+    "name": "User",
+    "parent": "BaseUser",
+    "properties": [
+      {
+        "name": "First Name",
+        "type": "String",
+        "required": true
+      },
+      {
+        "name": "Middle Name",
+        "type": "String"
+      },
+      {
+        "name": "Last Name",
+        "type": "String",
+        "required": true
+      },
+      {
+        "name": "Full Name",
+        "type": "String",
+        "computed": true,
+        "computation": "firstName + ' ' + middleName + ' ' + lastName"
+      },
+      {
+        "name": "Email",
+        "type": "String",
+        "required": true,
+        "unique": true
+      },
+      {
+        "name": "Password",
+        "type": "String",
+        "required": true
+      },
+      {
+        "name": "Phone Number",
+        "type": "String",
+        "required": true
+      },
+      {
+        "name": "Invoices",
+        "collection": true,
+        "type": "Invoice"
+      }
+    ]
+  }
+}

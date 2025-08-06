@@ -1,0 +1,99 @@
+[
+    {
+        "name": "ProgressBar",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Max",
+                "type": "Integer",
+                "required": true
+            },
+            {
+                "name": "Value",
+                "type": "Integer",
+                "required": true
+            },
+            {
+                "name": "ProgressColor",
+                "type": "Color",
+                "required": true
+            },
+            {
+                "name": "BackgroundColor",
+                "type": "Color",
+                "required": true
+            },
+            {
+                "name": "IsValueVisible",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "Progress",
+                "type": "Double",
+                "computed": true,
+                "computation": "`((value * 100) / max)`",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "Row3",
+            "data": {
+                "crossAxisAlignment": "center"
+            },
+            "children": [
+                {
+                    "type": "Stack",
+                    "name": "stack",
+                    "children": [
+                        {
+                            "type": "Container",
+                            "name": "container1",
+                            "data": {
+                                "decoration": {
+                                    "color": "`backgroundColor`",
+                                    "border": {
+                                        "color": "`backgroundColor`",
+                                        "width": "0.0"
+                                    },
+                                    "borderRadius": "2"
+                                },
+                                "width": "100",
+                                "height": "2"
+                            }
+                        },
+                        {
+                            "type": "Container",
+                            "name": "Container",
+                            "data": {
+                                "decoration": {
+                                    "color": "`progressColor`",
+                                    "border": {
+                                        "color": "`progressColor`",
+                                        "width": "0.0"
+                                    },
+                                    "borderRadius": "2"
+                                },
+                                "width": "`this.progress`",
+                                "height": "2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "component": "CIf",
+                    "name": "ProgressText",
+                    "condition": "`isValueVisible`",
+                    "then": {
+                        "type": "TextView",
+                        "name": "TextView5",
+                        "data": {
+                            "data": "`this.progress.ceil().toString() + '%'`"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+]

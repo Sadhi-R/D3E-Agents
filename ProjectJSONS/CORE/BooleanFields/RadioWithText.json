@@ -1,0 +1,82 @@
+[
+    {
+        "name": "Radio With Text",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Boolean"
+            },
+            {
+                "name": "Text",
+                "type": "String",
+                "required": true
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "row",
+            "data": {
+                "padding": "2",
+                "cursor": "click"
+            },
+            "children": [
+                {
+                    "type": "Radio",
+                    "name": "radio2",
+                    "data": {
+                        "value": "`this.value`",
+                        "groupValue": "`true`",
+                        "disable": "true"
+                    }
+                },
+                {
+                    "type": "TextView",
+                    "name": "textview2",
+                    "data": {
+                        "data": "`this.text`",
+                        "margin": "0 0 0 5"
+                    }
+                }
+            ],
+            "states": [
+                {
+                    "name": "Hover",
+                    "type": "Boolean"
+                }
+            ],
+            "behaviours": [
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "onTaprowBehaviourHandler",
+                "type": "OnBehaviour",
+                "on": "row",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if(this.onChanged != null){\n                    this.onChanged(!this.value);\n                }```"
+            },
+            {
+                "name": "onChangedradio2Handler",
+                "type": "OnEvent",
+                "on": "radio2",
+                "event": "onChanged",
+                "block": "```if(this.onChanged != null){\n                    this.onChanged(!this.value);\n                }```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Val",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

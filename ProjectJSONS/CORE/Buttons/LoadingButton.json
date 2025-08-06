@@ -1,0 +1,83 @@
+[
+    {
+        "name": "LoadingButton",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Label",
+                "type": "String"
+            },
+            {
+                "name": "Loading",
+                "type": "Boolean",
+                "defaultVaule": "`false`",
+                "internal": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "defaultVaule": "`false`"
+            }
+        ],
+        "build": {
+            "component": "Button",
+            "name": "button",
+            "data": {
+                "disable": "`this.disable`"
+            },
+            "children": [
+                {
+                    "type": "Row",
+                    "name": "button",
+                    "data": {
+                        "mainAxisAlignment": "center"
+                    },
+                    "children": [
+                        {
+                            "type": "TextView",
+                            "name": "id",
+                            "data": {
+                                "data": "`label`",
+                                "padding": "0 10"
+                            }
+                        },
+                        {
+                            "component": "CIf",
+                            "name": "loaderRef",
+                            "condition": "`loading`",
+                            "then": {
+                                "type": "Loader",
+                                "name": "loader",
+                                "data": {
+                                    "backgroundColor": "@c5",
+                                    "valueColor": "@c7",
+                                    "strokeWidth": "2"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnButtonPressed",
+                "type": "OnEvent",
+                "on": "button",
+                "event": "onPressed",
+                "block": "```loading = true;\nif (this.onPressed != null) {\n    this.onPressed(() {\n        loading = false;\n    });\n}```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnPressed",
+                "params": [
+                    {
+                        "name": "OnDone",
+                        "type": "VoidCallback"
+                    }
+                ]
+            }
+        ]
+    }
+]

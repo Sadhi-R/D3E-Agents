@@ -1,0 +1,73 @@
+[
+    {
+        "name": "SwitchToggle",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Boolean",
+                "required": true
+            },
+            {
+                "name": "TrueText",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "FalseText",
+                "type": "String",
+                "required": true
+            }
+        ],
+        "build": {
+            "component": "ToggleBase",
+            "name": "ToggleBase",
+            "data": {
+                "value": "`this.value`"
+            },
+            "slots": [
+                {
+                    "slot": "no",
+                    "child": {
+                        "type": "TextView",
+                        "name": "TextView",
+                        "data": {
+                            "data": "`falseText`"
+                        }
+                    }
+                },
+                {
+                    "slot": "yes",
+                    "child": {
+                        "type": "TextView",
+                        "name": "TextView",
+                        "data": {
+                            "data": "`trueText`"
+                        }
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "SwitchToggleBase",
+                "type": "OnEvent",
+                "on": "toggleBase",
+                "event": "onChanged",
+                "block": "```if (onChanged != null) {\n    this.onChanged(!this.value);\n}```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

@@ -1037,3 +1037,70 @@ Example Login Code:
 **Note:**
 - There is no need to run `sync_service.py` or use a `/sync` endpoint. All syncing is now handled directly by `Agent/agent.py` using the configuration in `remote_sync_config.json`.
 - The script prints detailed logs for every step, including found files, skipped files, sync results, and a summary at the end.
+
+
+**Note:**
+Following this order Models & OptionSets, DataQuery, UserType, Theme, styles, Pages & Widgets
+
+---
+
+# 🚀 D3E Agent - Modern Web Interface
+
+## New Frontend Application
+
+We've added a modern, responsive web interface to the D3E Agent! The new frontend provides an intuitive way to manage your D3E projects through a beautiful web application.
+
+### ✨ Features
+
+- **🎨 Modern UI/UX** - Dark/light themes, responsive design, smooth animations
+- **📁 Project Management** - Create, view, and manage D3E projects visually
+- **🤖 AI Code Generation** - Generate D3E components using natural language
+- **📝 Component Editor** - Monaco Editor with syntax highlighting for D3E code
+- **🔄 Real-time Sync** - WebSocket integration for live updates
+- **⚙️ Settings Management** - Configure D3E Studio connection and API keys
+
+### 🚀 Quick Start
+
+#### Option 1: Start Everything (Recommended)
+```bash
+python start_app.py
+```
+This starts both the backend API server and the frontend development server.
+
+#### Option 2: Start Individually
+```bash
+# Terminal 1: Start backend
+python start_backend.py
+
+# Terminal 2: Start frontend
+python start_frontend.py
+```
+
+### 🌐 Access Points
+
+- **Frontend Interface**: http://localhost:3000
+- **Backend API**: http://localhost:8000
+- **API Documentation**: http://localhost:8000/docs
+
+### 📋 Prerequisites
+
+- **Python 3.7+** with required packages (`pip install -r requirements.txt`)
+- **Node.js 18+** for the frontend ([Download here](https://nodejs.org/))
+- **API Keys** configured in `.env` file (Claude, OpenAI, or Gemini)
+
+### 🎯 What's New
+
+1. **Web Interface**: Beautiful, modern web UI replacing the command-line interface
+2. **Visual Project Management**: See all your projects and components at a glance
+3. **AI Integration**: Generate D3E code using natural language prompts
+4. **Real-time Updates**: Live sync status and notifications via WebSocket
+5. **Component Editor**: Edit D3E code with syntax highlighting and auto-completion
+6. **Responsive Design**: Works on desktop, tablet, and mobile devices
+
+### 📚 Documentation
+
+- [Frontend Documentation](FRONTEND_README.md) - Detailed frontend setup and usage
+- [Backend API Documentation](http://localhost:8000/docs) - Interactive API documentation
+- [Original CLI Documentation](#d3e-agents) - Command-line interface documentation (below)
+
+---

@@ -1,0 +1,127 @@
+[
+    {
+        "name": "Checkbox List Tile",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Boolean",
+                "required": true
+            },
+            {
+                "name": "Title",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "Sub Title",
+                "type": "String"
+            },
+            {
+                "name": "Leading Checkbox",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "CheckValue",
+                "type": "Boolean",
+                "computed": true,
+                "computation": "`this.value`",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "ListTile",
+            "name": "Tile",
+            "data": {
+                "title": "`this.title`",
+                "subTitle": "`this.subTitle`",
+                "enabled": "`!this.disable`"
+            },
+            "slots": [
+                {
+                    "slot": "leading",
+                    "child": {
+                        "component": "CIf",
+                        "name": "ControlAffinity",
+                        "condition": "`leadingCheckbox`",
+                        "then": {
+                            "component": "Checkbox",
+                            "name": "CheckBoxLeft",
+                            "data": {
+                                "value": "`checkValue`",
+                                "disable": "`this.disable`"
+                            },
+                            "key": "`this.value.toString()`"
+                        },
+                        "else": {
+                            "component": "Container",
+                            "name": "id",
+                            "data": {
+                                "width": "0.0",
+                                "height": "0.0"
+                            }
+                        }
+                    }
+                },
+                {
+                    "slot": "trailing",
+                    "child": {
+                        "component": "CIf",
+                        "name": "ControlAffinity2",
+                        "condition": "`!leadingCheckbox`",
+                        "then": {
+                            "component": "Checkbox",
+                            "name": "CheckBoxRight",
+                            "data": {
+                                "value": "`checkValue`",
+                                "disable": "`this.disable`"
+                            },
+                            "key": "`this.value.toString()`"
+                        },
+                        "else": {
+                            "component": "Container",
+                            "name": "id",
+                            "data": {
+                                "width": "0.0",
+                                "height": "0.0"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnChangedLeftCheckBoxHandler",
+                "type": "OnEvent",
+                "on": "checkBoxLeft",
+                "event": "onChanged",
+                "block": "```\n                if (this.onChanged != null && !this.disable){\n                    onChanged(val);\n                }\n            ```"
+            },
+            {
+                "name": "OnChangedRightCheckBoxHandler",
+                "type": "OnEvent",
+                "on": "checkBoxRight",
+                "event": "onChanged",
+                "block": "```\n                if (this.onChanged != null && !this.disable){\n                    onChanged(val);\n                }\n            ```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ]
+    }
+]

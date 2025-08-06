@@ -1,0 +1,93 @@
+[
+    {
+        "name": "Duration Field",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "value",
+                "type": "Duration",
+                "required": true
+            },
+            {
+                "name": "formattedValue",
+                "type": "String",
+                "internal": true
+            },
+            {
+                "name": "HourFocusNode",
+                "type": "FocusNode",
+                "internal": true
+            },
+            {
+                "name": "HourFocus",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "ShowError",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            }
+        ],
+        "build": {
+            "component": "Column",
+            "name": "Column",
+            "data": {
+                "crossAxisAlignment": "start"
+            },
+            "children": [
+                {
+                    "type": "InputField",
+                    "name": "hoursField",
+                    "data": {
+                        "value": "`formattedValue`",
+                        "placeHolder": "HH:MM",
+                        "disable": "`disable`",
+                        "inputFormatter": "`r'^[0-9:]+$'`"
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```this.hourFocusNode = FocusNode();\nhourFocusNode.addListener(focusHandler);\nformattedValue = DurationUtils.formattedDurationWithColumn(value, 'HH MM', false);```"
+            },
+            {
+                "name": "FocusHandler",
+                "block": "```hourFocus = hourFocusNode.hasFocus;```"
+            },
+            {
+                "name": "OnHoursChange",
+                "type": "OnEvent",
+                "on": "hoursField",
+                "event": "onChanged",
+                "block": "```if(text == null || text.isEmpty){\n    showError = false;\n    formattedValue = '';\n    onChanged(Duration(hours: 0, minutes: 0));\n    return;\n}\nString validDuration = DurationUtils.returnDuration(text);\nif(validDuration == '-1'){\n    // show an error border to filed\n    showError = true;\n    formattedValue = text;\n}else {\n    showError = false;\n    formattedValue = validDuration;\n    Duration updated = DurationUtils.stringToDuration(validDuration);\n    onChanged(updated);\n}```"
+            },
+            {
+                "name": "OnEditingComplete",
+                "type": "OnEvent",
+                "on": "hoursField",
+                "event": "onEditingComplete",
+                "block": "```if(showError && formattedValue != null || formattedValue.isNotEmpty){\n    Duration updated = DurationUtils.getFormattedDuration(formattedValue);\n    if(updated != null){\n        showError = false;\n        formattedValue = DurationUtils.formattedDurationWithColumn(updated, 'HH MM', false);\n        onChanged(updated);\n    }\n}```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Duration"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

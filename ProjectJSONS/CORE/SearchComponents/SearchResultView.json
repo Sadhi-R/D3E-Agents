@@ -1,0 +1,90 @@
+[
+    {
+        "name": "Search Result View",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Items",
+                "type": "String",
+                "collection": true,
+                "required": true
+            }
+        ],
+        "build": {
+            "component": "ListView",
+            "name": "id",
+            "data": {
+                "shrinkWrap": "true",
+                "itemCount": "`items.length`"
+            },
+            "children": [
+                {
+                    "type": "Container",
+                    "name": "id11",
+                    "data": {
+                        "cursor": "click"
+                    },
+                    "children": [
+                        {
+                            "type": "TextView",
+                            "name": "view",
+                            "data": {
+                                "data": "`items[index]`",
+                                "padding": "0 0 0 10"
+                            }
+                        }
+                    ],
+                    "behaviours": [
+                        "GestureDetector"
+                    ]
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnSelectItem",
+                "type": "OnBehaviour",
+                "on": "id11",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```onChanged(items[index]);```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "OnKey",
+                "params": [
+                    {
+                        "name": "Key",
+                        "type": "LogicalKeyboardKey"
+                    },
+                    {
+                        "name": "Text",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "OnBackspaceAfterEmpty"
+            },
+            {
+                "name": "OnChangeActive",
+                "params": [
+                    {
+                        "name": "Val",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ]
+    }
+]

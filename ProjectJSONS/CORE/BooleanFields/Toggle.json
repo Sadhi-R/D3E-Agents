@@ -1,0 +1,129 @@
+[
+    {
+        "name": "Toggle",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Boolean",
+                "required": true,
+                "onChange": "onValueChanged"
+            },
+            {
+                "name": "Yes",
+                "type": "String"
+            },
+            {
+                "name": "No",
+                "type": "String"
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "onChange": "onDisabledChanged"
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "data": {
+                "mainAxisAlignment": "spaceBetween",
+                "mainAxisSize": "min"
+            },
+            "children": [
+                {
+                    "component": "CIf",
+                    "name": "yes",
+                    "condition": "`value`",
+                    "then": {
+                        "type": "TextView",
+                        "name": "ActivetextRef",
+                        "data": {
+                            "data": "`this.yes`"
+                        }
+                    }
+                },
+                {
+                    "component": "Container",
+                    "name": "round box",
+                    "tags": [
+                        "round"
+                    ],
+                    "data": {
+                        "cursor": "click"
+                    }
+                },
+                {
+                    "component": "CIf",
+                    "name": "no",
+                    "condition": "`!value`",
+                    "then": {
+                        "type": "TextView",
+                        "name": "ActivetextRef",
+                        "data": {
+                            "data": "`this.no`"
+                        }
+                    }
+                }
+            ],
+            "states": [
+                {
+                    "name": "Focus",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "Disabled",
+                    "type": "Boolean",
+                    "defaultValue": "`this.disable`"
+                },
+                {
+                    "name": "Active",
+                    "type": "Boolean",
+                    "defaultValue": "`this.value`"
+                }
+            ],
+            "behaviours": [
+                "Focus",
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnChange",
+                "type": "OnBehaviour",
+                "on": "id",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if(this.onChanged != null){\n                    onChanged(!value);\n                }```"
+            },
+            {
+                "name": "onValueChanged",
+                "block": "```id.active = this.value;```"
+            },
+            {
+                "name": "onDisabledChanged",
+                "block": "```id.disabled = this.disable;```"
+            },
+            {
+                "name": "onKey",
+                "type": "OnBehaviour",
+                "on": "id",
+                "behaviour": "Focus",
+                "event": "onKey",
+                "block": "```if (event is RawKeyDownEvent && !this.disable) {\n                    if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.space ||  event.logicalKey == LogicalKeyboardKey.numpadEnter) {\n                        if (!disable) {\n                            this.onChanged(!this.value);\n                            return KeyEventResult.handled;\n                        }\n                        return KeyEventResult.handled;\n                    }\n                }\n                return KeyEventResult.ignored;```",
+                "returnType": "KeyEventResult"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

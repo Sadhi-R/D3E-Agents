@@ -1,0 +1,113 @@
+[
+    {
+        "name": "TabBar",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Length",
+                "type": "Integer",
+                "required": true
+            },
+            {
+                "name": "TabHeight",
+                "type": "Double",
+                "defaultValue": "`50.0`"
+            },
+            {
+                "name": "Initial Index",
+                "type": "Integer",
+                "defaultValue": "`0`"
+            },
+            {
+                "name": "Selected Tab",
+                "type": "Integer",
+                "defaultValue": "`this.initialIndex`",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Column",
+            "data": {
+                "crossAxisAlignment": "start"
+            },
+            "children": [
+                {
+                    "type": "Container",
+                    "name": "TabBar",
+                    "data": {
+                        "height": "`this.tabHeight != 0.0  ? this.tabHeight : 50.0`"
+                    },
+                    "child": {
+                        "type": "ListView",
+                        "name": "id",
+                        "data": {
+                            "scrollDirection": "horizontal",
+                            "itemCount": "`this.length`"
+                        },
+                        "builder": {
+                            "type": "Container",
+                            "name": "Gesture",
+                            "child": {
+                                "type": "Container",
+                                "name": "id",
+                                "data": {
+                                    "padding": "'0 14 0 14'"
+                                },
+                                "child": {
+                                    "type": "CSlot",
+                                    "name": "Tabs",
+                                    "index": "`index`"
+                                }
+                            },
+                            "behaviours": [
+                                "GestureDetector"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "Container",
+                    "name": "Divider",
+                    "data": {
+                        "width": "`Double.infinity`",
+                        "height": "'1.0'"
+                    }
+                },
+                {
+                    "component": "CIf",
+                    "name": "ItemCount",
+                    "condition": "`length != 0`",
+                    "then": {
+                        "type": "Container",
+                        "name": "TabView",
+                        "child": {
+                            "type": "CSlot",
+                            "name": "TabViews",
+                            "index": "`selectedTab`"
+                        }
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnChangeSelectedIndex",
+                "type": "OnBehaviour",
+                "on": "gesture",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```this.selectedTab = index;```"
+            }
+        ],
+        "slots": [
+            {
+                "name": "Tabs",
+                "collection": true
+            },
+            {
+                "name": "TabViews",
+                "collection": true
+            }
+        ]
+    }
+]

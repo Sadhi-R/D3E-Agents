@@ -1,0 +1,99 @@
+[
+    {
+        "name": "Text Icon Button",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Icon",
+                "type": "IconData",
+                "required": true
+            },
+            {
+                "name": "Text",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "iconRight",
+                "type": "Boolean"
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            }
+        ],
+        "build": {
+            "component": "Button",
+            "name": "Button",
+            "data": {
+                "disable": "`this.disable`"
+            },
+            "children": [
+                {
+                    "type": "Row",
+                    "name": "Row",
+                    "children": [
+                        {
+                            "condition": "`!iconRight`",
+                            "then": {
+                                "type": "IconView",
+                                "name": "IconView",
+                                "data": {
+                                    "icon": "`this.icon`"
+                                }
+                            }
+                        },
+                        {
+                            "type": "TextView",
+                            "name": "TextView",
+                            "data": {
+                                "data": "`this.text != null?this.text :'Text'`"
+                            }
+                        },
+                        {
+                            "condition": "`iconRight`",
+                            "then": {
+                                "type": "IconView",
+                                "name": "IconView",
+                                "data": {
+                                    "icon": "`this.icon`"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "states": [
+                {
+                    "name": "OnHover",
+                    "type": "Boolean"
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnPressedHandler",
+                "type": "OnEvent",
+                "on": "button",
+                "event": "onPressed",
+                "block": "```if(this.onPressed != null){\n                    this.onPressed();\n                }```"
+            },
+            {
+                "name": "On Long Pressed Handler",
+                "type": "OnEvent",
+                "on": "button",
+                "event": "onLongPressed",
+                "block": "```if (this.onLongPressed != null) {\n                    this.onLongPressed();\n                }```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnPressed"
+            },
+            {
+                "name": "OnLongPressed"
+            }
+        ]
+    }
+]

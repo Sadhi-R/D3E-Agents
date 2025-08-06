@@ -1,0 +1,185 @@
+[
+    {
+        "name": "BasicSideBarView",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Menu Labels",
+                "type": "String",
+                "required": true,
+                "collection": true
+            },
+            {
+                "name": "Selected Menu",
+                "type": "String",
+                "internal": true
+            },
+            {
+                "name": "Title",
+                "type": "String"
+            },
+            {
+                "name": "Profile",
+                "type": "DFile"
+            },
+            {
+                "name": "Profile Name",
+                "type": "String"
+            }
+        ],
+        "build": {
+            "component": "Column",
+            "name": "Column2",
+            "children": [
+                {
+                    "type": "TextView",
+                    "name": "TextView",
+                    "tags": [
+                        "title"
+                    ],
+                    "data": {
+                        "data": "`this.title`",
+                        "padding": "10"
+                    }
+                },
+                {
+                    "type": "Divider",
+                    "name": "Divider"
+                },
+                {
+                    "type": "Column",
+                    "name": "Column3",
+                    "data": {
+                        "mainAxisAlignment": "spaceBetween",
+                        "expand": "true"
+                    },
+                    "children": [
+                        {
+                            "type": "Column",
+                            "name": "Column",
+                            "data": {
+                                "vscroll": "true",
+                                "expand": "true"
+                            },
+                            "children": [
+                                {
+                                    "component": "CFor",
+                                    "name": "ForItem",
+                                    "var": "menuItem",
+                                    "items": "`menuLabels`",
+                                    "type": "String",
+                                    "item": {
+                                        "type": "SideMenuButton",
+                                        "name": "menuItemButton",
+                                        "data": {
+                                            "title": "`menuItem`",
+                                            "selectedMenu": "`selectedMenu`",
+                                            "margin": "5"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Column",
+                            "name": "Column3",
+                            "children": [
+                                {
+                                    "type": "Row",
+                                    "name": "Row",
+                                    "data": {
+                                        "mainAxisAlignment": "spaceBetween",
+                                        "margin": "10"
+                                    },
+                                    "children": [
+                                        {
+                                            "type": "Row",
+                                            "name": "Row",
+                                            "data": {
+                                                "crossAxisAlignment": "center"
+                                            },
+                                            "children": [
+                                                {
+                                                    "type": "Column",
+                                                    "name": "Column",
+                                                    "tags": [
+                                                        "profile"
+                                                    ],
+                                                    "data": {
+                                                        "margin": "0 5 0 0",
+                                                        "mainAxisAlignment": "center"
+                                                    },
+                                                    "children": [
+                                                        {
+                                                            "component": "CIf",
+                                                            "name": "IfItem",
+                                                            "condition": "`profile != null`",
+                                                            "then": {
+                                                                "type": "ImageView",
+                                                                "name": "ImageView",
+                                                                "data": {
+                                                                    "imageType": "Network",
+                                                                    "imageUrl": "`profile.downloadUrl`",
+                                                                    "fit": "fill"
+                                                                }
+                                                            },
+                                                            "else": {
+                                                                "type": "IconView",
+                                                                "name": "IconView3",
+                                                                "data": {
+                                                                    "icon": "MaterialIcons.person"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "TextView",
+                                                    "name": "TextView",
+                                                    "data": {
+                                                        "data": "`profileName`"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "IconView",
+                                            "name": "IconView7",
+                                            "data": {
+                                                "icon": "MaterialIcons.arrow_drop_down"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInIt",
+                "block": "```\n                if(menuLabels.isNotEmpty) {\n                    selectedMenu = menuLabels.first;\n                }\n            ```"
+            },
+            {
+                "name": "onPressedDashboardButtonHandler",
+                "type": "OnEvent",
+                "on": "menuItemButton",
+                "event": "onClick",
+                "block": "```\n                this.selectedMenu = menuItem;\n                onMenuChanged(this.selectedMenu);\n            ```"
+            }
+        ],
+        "events": [
+            {
+                "name": "onMenuChanged",
+                "params": [
+                    {
+                        "name": "Menu",
+                        "type": "String"
+                    }
+                ]
+            }
+        ]
+    }
+]

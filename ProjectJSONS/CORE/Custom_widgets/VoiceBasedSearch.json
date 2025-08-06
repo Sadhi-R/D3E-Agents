@@ -1,0 +1,162 @@
+[
+    {
+        "name": "VoiceBasedSearch",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "String"
+            },
+            {
+                "name": "placeholder",
+                "type": "String"
+            },
+            {
+                "name": "FocusNode",
+                "type": "FocusNode",
+                "internal": true
+            },
+            {
+                "name": "disable",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "obscureText",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "HackValue",
+                "type": "Boolean",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "Row",
+            "data": {
+                "mainAxisAlignment": "spaceEvenly"
+            },
+            "children": [
+                {
+                    "type": "IconView",
+                    "name": "ArrowIcon",
+                    "data": {
+                        "icon": "MaterialIcons.arrow_back",
+                        "cursor": "click"
+                    },
+                    "behaviours": [
+                        "GestureDetector"
+                    ]
+                },
+                {
+                    "type": "InputField",
+                    "name": "SearchField",
+                    "data": {
+                        "placeHolder": "`this.placeholder`",
+                        "expand": "true",
+                        "disable": "`disable`",
+                        "value": "`this.value`",
+                        "focusNode": "`focusNode`",
+                        "obscureText": "`obscureText`"
+                    }
+                },
+                {
+                    "type": "IconView",
+                    "name": "VoiceIcon",
+                    "data": {
+                        "icon": "MaterialIcons.keyboard_voice",
+                        "cursor": "click"
+                    },
+                    "behaviours": [
+                        "GestureDetector"
+                    ]
+                }
+            ],
+            "states": [
+                {
+                    "name": "Active",
+                    "type": "Boolean",
+                    "defaultValue": "`hackValue`"
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```focusNode = FocusNode();\nfocusNode.addListener(onChangeFocus);```"
+            },
+            {
+                "name": "OnChangeFocus",
+                "block": "```row.active = focusNode.hasFocus;```"
+            },
+            {
+                "name": "OnSearchHandler",
+                "type": "OnEvent",
+                "on": "searchField",
+                "event": "onChanged",
+                "block": "```if(onChanged != null){\n    onChanged(text);\n}```"
+            },
+            {
+                "name": "OnSearchEditingHandler",
+                "type": "OnEvent",
+                "on": "searchField",
+                "event": "onEditingComplete",
+                "block": "```if(onEditingComplete != null){\n  onEditingComplete(searchFieldController.text);\n}```"
+            },
+            {
+                "name": "OnSearchTapHandler",
+                "type": "OnEvent",
+                "on": "searchField",
+                "event": "onTap",
+                "block": "```if(onTap != null){\n    onTap();\n}```"
+            },
+            {
+                "name": "OnVoiceHandler",
+                "type": "OnBehaviour",
+                "on": "voiceIcon",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if(this.onPressedVoiceIcon != null){\n    this.onPressedVoiceIcon();\n}```"
+            },
+            {
+                "name": "OnArrowHandler",
+                "type": "OnBehaviour",
+                "on": "arrowIcon",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if(this.onPressedArrowIcon != null){\n    this.onPressedArrowIcon();\n}```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "OnEditingComplete",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "OnTap"
+            },
+            {
+                "name": "OnPressedVoiceIcon"
+            },
+            {
+                "name": "OnPressedArrowIcon"
+            }
+        ]
+    }
+]

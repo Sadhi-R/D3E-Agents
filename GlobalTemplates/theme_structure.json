@@ -1,0 +1,28 @@
+[
+    {
+        "name": "ThemeName",
+        "textColor": "@textColorVariable ?? 'FF000000'",
+        "font" : "@fontVariable ?? 'Roboto'",
+        "fontSize": "@fontSizeVariable ?? '12.0'",
+        "color": "@colorVariable ?? 'FFFFFFFF'",
+        "tooltipBackgroundColor": "@tooltipBackgroundColorVariable",
+        "tooltipTextColor": "@tooltipTextColorVariable",
+        "colors" : [
+            {
+                "color": "@c1",
+                "hexcode": "FFFF5733",
+                "description": "Primary color used for main elements"
+            },
+            {
+                "color": "@c2",
+                "hexcode": "FF33FF57",
+                "description": "Secondary color used for accents"
+            },
+            {
+                "color": "@c3",
+                "hexcode": "FF3357FF",
+                "description": "Tertiary color used for highlights"
+            }
+        ]
+    }
+]

@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Double View",
+        "category": "Fields",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Double"
+            },
+            {
+                "name": "Format",
+                "type": "String",
+                "defaultValue": "`###,###.##`"
+            },
+            {
+                "name": "Formatter",
+                "type": "NumberFormat",
+                "internal": true
+            },
+            {
+                "name": "DisplayValue",
+                "type": "String",
+                "computed": true,
+                "computation": "`formatter == null ? '' : formatter.format(value)`",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "TextView",
+            "styles": [],
+            "data": {
+                "data": "`displayValue`"
+            }
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```formatter = NumberFormat(format);```"
+            }
+        ]
+    }
+]

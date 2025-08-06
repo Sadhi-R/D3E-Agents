@@ -1,0 +1,152 @@
+[
+    {
+        "name": "Add or Edit Invoice View",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Invoice",
+                "type": "Invoice"
+            },
+            {
+                "name": "Status",
+                "type": "InvoiceStatus"
+            }
+        ],
+        "build": {
+            "component": "Column",
+            "name": "Column",
+            "data": {
+                "padding": "40",
+                "crossAxisAlignment": "start"
+            },
+            "children": [
+                {
+                    "type": "Row",
+                    "name": "Row",
+                    "data": {
+                        "mainAxisAlignment": "spaceBetween",
+                        "decoration": {
+                            "color": "@c25"
+                        },
+                        "padding": "10"
+                    },
+                    "children": [
+                        {
+                            "type": "Row",
+                            "name": "Row2",
+                            "children": [
+                                {
+                                    "type": "IconView",
+                                    "name": "IconView",
+                                    "data": {
+                                        "size": "40",
+                                        "icon": "MaterialIcons.receipt",
+                                        "color": "@c14"
+                                    }
+                                },
+                                {
+                                    "type": "TextView",
+                                    "name": "TextView",
+                                    "data": {
+                                        "data": "Add Invoice",
+                                        "fontSize": "30",
+                                        "fontWeight": "w800",
+                                        "padding": "0 0 0 19"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "IconButton",
+                            "name": "IconButton",
+                            "data": {
+                                "icon": "MaterialIcons.cancel"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "LabelWithInputField",
+                    "name": "Title Field",
+                    "data": {
+                        "label": "Invoice Title",
+                        "isRequired": "true",
+                        "placeHolder": "Enter invoice...",
+                        "margin": "10 0 10 0"
+                    }
+                },
+                {
+                    "type": "LabelWithInputField",
+                    "name": "Amount Field",
+                    "data": {
+                        "label": "Invoice Amount",
+                        "isRequired": "true",
+                        "placeHolder": "Enter amount..."
+                    }
+                },
+                {
+                    "type": "TextView",
+                    "name": "StatusText",
+                    "data": {
+                        "data": "Invoice Status",
+                        "fontSize": "14",
+                        "fontWeight": "w500",
+                        "color": "ff000000",
+                        "margin": "0 0 5 0"
+                    }
+                },
+                {
+                    "type": "String",
+                    "name": "DropDown",
+                    "data": {
+                        "placeHolder": "Select",
+                        "decoration": {
+                            "border": {
+                                "color": "@c4",
+                                "width": "0.0"
+                            }
+                        },
+                        "items": "`[]`",
+                        "expand": "false",
+                        "height": "40",
+                        "width" : "1120"
+                    },
+                    "builder": {
+                        "type": "TextView",
+                        "name": "builder",
+                        "data": {
+                            "data": "builder"
+                        }
+                    }
+                },
+                {
+                    "type": "Button",
+                    "name": "Add Button",
+                    "data": {
+                        "decoration": {
+                            "color": "@c15"
+                        },
+                        "margin": "20 0"
+                    },
+                    "child": {
+                        "type": "TextView",
+                        "name": "ButtonText",
+                        "data": {
+                            "data": "Add Invoice",
+                            "color": "@c1"
+                        }
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "onPressedIconButtonHandler2",
+                "type": "OnEvent",
+                "on": "iconButton",
+                "event": "onPressed",
+                "block": "```navigator.close();```"
+            }
+        ]
+    }
+]

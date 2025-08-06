@@ -1,0 +1,237 @@
+[
+    {
+        "name": "Label Field",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Label",
+                "type": "String"
+            },
+            {
+                "name": "HelpUrl",
+                "type": "String"
+            },
+            {
+                "name": "Help",
+                "type": "String"
+            },
+            {
+                "name": "Is Required",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "Value",
+                "type": "String"
+            },
+            {
+                "name": "InputFormatter",
+                "type": "String"
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "ObscureText",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "PlaceHolder",
+                "type": "String"
+            },
+            {
+                "name": "Errors",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "FocusNode",
+                "type": "FocusNode",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Column",
+            "name": "Column",
+            "data": {
+                "crossAxisAlignment": "start"
+            },
+            "children": [
+                {
+                    "type": "Row",
+                    "name": "Row",
+                    "children": [
+                        {
+                            "type": "CIf",
+                            "name": "id",
+                            "condition": "`this.label != null && this.label.isNotEmpty`",
+                            "then": {
+                                "type": "TextView",
+                                "name": "Labelview",
+                                "data": {
+                                    "data": "`label`"
+                                }
+                            }
+                        },
+                        {
+                            "type": "CIf",
+                            "name": "id",
+                            "condition": "`isRequired`",
+                            "then": {
+                                "type": "TextView",
+                                "name": "required",
+                                "data": {
+                                    "data": "*",
+                                    "color": "ffd9534f"
+                                }
+                            }
+                        },
+                        {
+                            "type": "Center",
+                            "name": "Id222",
+                            "child": {
+                                "type": "ToolTipWrapper",
+                                "name": "id",
+                                "data": {
+                                    "message": "`this.help`"
+                                },
+                                "child": {
+                                    "type": "Container",
+                                    "name": "Container",
+                                    "data": {
+                                        "padding": "4",
+                                        "decoration": {
+                                            "shape": "circle"
+                                        },
+                                        "alignment": "topLeft"
+                                    },
+                                    "child": {
+                                        "type": "IconView",
+                                        "name": "helpUrlRef",
+                                        "data": {
+                                            "icon": "MaterialIcons.info",
+                                            "size": "16",
+                                            "visibility": "`this.help != null && this.help.isNotEmpty`"
+                                        },
+                                        "states": [
+                                            {
+                                                "name": "Hover",
+                                                "type": "Boolean"
+                                            }
+                                        ],
+                                        "behaviours": [
+                                            "GestureDetector"
+                                        ]
+                                    }
+                                },
+                                "conditionals": [
+                                    {
+                                        "condition": "`this.help == null && this.help.isEmpty`",
+                                        "values": {
+                                            "message": "Information"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "InputField",
+                    "name": "InputField",
+                    "data": {
+                        "value": "`value`",
+                        "disable": "`disable`",
+                        "obscureText": "`obscureText`",
+                        "placeHolder": "`placeHolder`",
+                        "focusNode": "`focusNode`"
+                    }
+                },
+                {
+                    "type": "CIf",
+                    "name": "id",
+                    "condition": "`this.errors.isNotEmpty`",
+                    "then": {
+                        "type": "Column",
+                        "name": "id",
+                        "data": {
+                            "crossAxisAlignment": "start"
+                        },
+                        "children": [
+                            {
+                                "type": "String",
+                                "name": "Item",
+                                "var": "item",
+                                "items": "`this.errors`",
+                                "item": {
+                                    "type": "TextView",
+                                    "name": "id",
+                                    "data": {
+                                        "data": "`item`",
+                                        "margin": "5 0 0",
+                                        "color": "ffd9534f"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```\n                if(this.focusNode == null) {\n                    this.focusNode = FocusNode();\n                }\n                inputFieldController.text = this.value != null ? this.value : '';\n            ```"
+            },
+            {
+                "name": "OnChangeText",
+                "type": "OnEvent",
+                "on": "inputField",
+                "event": "onChanged",
+                "block": "```\n                if(onChanged != null){\n                    onChanged(text);\n                }\n            ```"
+            },
+            {
+                "name": "OnSubmiitedTextHandler",
+                "type": "OnEvent",
+                "on": "inputField",
+                "event": "onSubmitted",
+                "block": "```\n                if(onSubmitted != null){\n                    onSubmitted(text);\n                }\n            ```"
+            },
+            {
+                "name": "OpenHelpUrlHandler",
+                "type": "OnBehaviour",
+                "on": "helpUrlRef",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```\n                if(helpUrl != null && helpUrl != '') {\n                    Browser.open(helpUrl);\n                }\n            ```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "OnTap"
+            },
+            {
+                "name": "OnSubmitted",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "String"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

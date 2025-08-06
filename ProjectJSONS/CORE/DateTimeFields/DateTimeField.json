@@ -1,0 +1,190 @@
+[
+    {
+        "name": "Date Time Field",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "value",
+                "type": "DateTime",
+                "required": true
+            },
+            {
+                "name": "placeHolder",
+                "type": "String"
+            },
+            {
+                "name": "DateFormat",
+                "type": "String",
+                "defaultValue": "`'yyyy-MM-dd'`"
+            },
+            {
+                "name": "TimeFormat",
+                "type": "String",
+                "defaultValue": "`'HH:mm:ss'`"
+            },
+            {
+                "name": "DateFocusNode",
+                "type": "FocusNode",
+                "internal": true
+            },
+            {
+                "name": "TimeFocusNode",
+                "type": "FocusNode",
+                "internal": true
+            },
+            {
+                "name": "Focused",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "FormatedDate",
+                "type": "String",
+                "internal": true
+            },
+            {
+                "name": "FormatedTime",
+                "type": "String",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "mainRow",
+            "children": [
+                {
+                    "type": "InputField",
+                    "name": "dateInput",
+                    "data": {
+                        "value": "`formatedDate`",
+                        "placeHolder": "`placeHolder`",
+                        "focusNode": "`dateFocusNode`",
+                        "activeColor": "'00000000'",
+                        "inActiveColor": "'00000000'",
+                        "expand": "'true'"
+                    }
+                },
+                {
+                    "type": "IconView",
+                    "name": "dateIcon",
+                    "data": {
+                        "icon": "'MaterialIcons.edit_calendar'",
+                        "cursor": "'click'"
+                    },
+                    "behaviours": [
+                        "GestureDetector"
+                    ]
+                },
+                {
+                    "type": "Container",
+                    "name": "id"
+                },
+                {
+                    "type": "InputField",
+                    "name": "timeInput",
+                    "data": {
+                        "value": "`formatedTime`",
+                        "placeHolder": "`this.timeFormat != null ? this.timeFormat : placeHolder`",
+                        "focusNode": "`this.timeFocusNode`",
+                        "expand": "'true'",
+                        "activeColor": "'00000000'",
+                        "inActiveColor": "'00000000'"
+                    }
+                },
+                {
+                    "type": "IconView",
+                    "name": "timeIcon",
+                    "data": {
+                        "icon": "'MaterialIcons.access_time'",
+                        "cursor": "'click'"
+                    },
+                    "behaviours": [
+                        "GestureDetector"
+                    ]
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```this.dateFocusNode = FocusNode();\nthis.timeFocusNode = FocusNode();\ndateFocusNode.addListener(focusHandler);\ntimeFocusNode.addListener(focusHandler);\nformatedDate = CalenderUtils.getFormatedDateFromDateTime(this.value, this.dateFormat);\nformatedTime = CalenderUtils.getFormatedTimeFromDateTime(this.value, this.timeFormat);```"
+            },
+            {
+                "name": "FocusHandler",
+                "block": "```focused = dateFocusNode.hasFocus || timeFocusNode.hasFocus;```"
+            },
+            {
+                "name": "OnClickDateIcon",
+                "type": "OnBehaviour",
+                "on": "dateIcon",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```showDatePopup(autoClose: true);```"
+            },
+            {
+                "name": "onDateSelected",
+                "type": "OnEvent",
+                "popup": "datePopup",
+                "event": "onDateSelected",
+                "block": "```dateInputController.text = CalenderUtils.getFormatedDate(date, this.dateFormat);\nhideDatePopup();\nonChanged(DateTime(date.year,date.month,date.day));```"
+            },
+            {
+                "name": "OnDateEditingComplete",
+                "type": "OnEvent",
+                "on": "dateInput",
+                "event": "onEditingComplete",
+                "block": "```if(formatedDate != dateInputController.text){\nDateTime datetime  = DateFormat(this.dateFormat).parse(dateInputController.text);\nif(datetime != null && onChanged!= null){\nonChanged(datetime);\n}\n}```"
+            },
+            {
+                "name": "OnClickIcon",
+                "type": "OnBehaviour",
+                "on": "timeIcon",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```showTimePopup(autoClose: true);```"
+            },
+            {
+                "name": "onTimeSelected",
+                "type": "OnEvent",
+                "popup": "timePopup",
+                "event": "onTimeChange",
+                "block": "```hideTimePopup();\nif(value != null && time != null){\nDateTime dateTime = DateTime(value.year,value.month,value.day,time.hour,time.minutes,time.seconds);\ntimeInputController.text = CalenderUtils.getFormatedTimeFromDateTime(dateTime, this.timeFormat);\nonChanged(dateTime);\n}```"
+            }
+        ],
+        "popups": [
+            {
+                "name": "datePopup",
+                "component": "CalenderView",
+                "side": "Bottom",
+                "data": {
+                    "input": "`this.value != null ? Date.of(value.year, value.month, value.day) : null`"
+                },
+                "tags": [
+                    "'datePopup'"
+                ],
+                "target": "dateIcon"
+            },
+            {
+                "name": "timePopup",
+                "component": "TimePicker",
+                "side": "Bottom",
+                "target": "timeIcon",
+                "tags": [
+                    "'timePickerPopup'"
+                ]
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "DateTime",
+                        "type": "DateTime"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

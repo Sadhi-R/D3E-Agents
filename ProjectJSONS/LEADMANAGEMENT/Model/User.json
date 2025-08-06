@@ -1,0 +1,114 @@
+[
+    {
+        "package": "lead.management",
+        "name": "User",
+        "parent": "BaseUser",
+        "master": "Company",
+        "needCreatedDate": true,
+        "needUpdatedDate": true,
+        "properties": [
+            {
+                "name": "First Name",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "Last Name",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "Email",
+                "type": "String",
+                "required": true,
+                "unique": true
+            },
+            {
+                "name": "Password",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "Phone Number",
+                "type": "String"
+            },
+            {
+                "name": "Role",
+                "type": "UserRole",
+                "required": true
+            },
+            {
+                "name": "Status",
+                "type": "Boolean",
+                "defaultValue": "`true`"
+            },
+            {
+                "name": "Last Login",
+                "type": "DateTime"
+            },
+            {
+                "name": "Profile",
+                "type": "DFile"
+            },
+            {
+                "name": "Is Remember Me",
+                "type": "Boolean"
+            },
+            {
+                "name": "Twilio Number",
+                "type": "String"
+            },
+            {
+                "name": "Access Twilio Configuration",
+                "type": "Boolean",
+                "existsIf": "role == UserRole.Manager"
+            },
+            {
+                "name": "Subordinates",
+                "type": "User",
+                "inverse": true,
+                "collection": true,
+                "inverseProperty": "reportingManager"
+            },
+            {
+                "name": "mAccount",
+                "type": "MicroSoftAcc",
+                "inverse": true,
+                "inverseProperty": "user"
+            },
+            {
+                "name": "Reporting Manager",
+                "type": "User"
+            },
+            {
+                "name": "lastHeartBeat",
+                "type": "DateTime"
+            },
+            {
+                "name": "Online",
+                "type": "Boolean"
+            },
+            {
+                "name": "mobileToken",
+                "type": "String"
+            },
+            {
+                "name": "chatPageSize",
+                "type": "Integer",
+                "defaultValue": "`10`"
+            }
+        ],
+        "actions": [
+            {
+                "name": "onUserCreate",
+                "runOn": "OnCreate",
+                "block": "```\nAuditServerLogUtils.recordAddUserDetails(this);\n```"
+            },
+            {
+                "name": "onUserEdit",
+                "runOn": "OnUpdate",
+                "block": "```\nAuditServerLogUtils.recordEditUserDetails(this.old, this);\n```"
+            }
+        ]
+    }
+]

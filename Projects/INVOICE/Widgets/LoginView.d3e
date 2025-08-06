@@ -1,0 +1,182 @@
+Widget {
+    package 'remote_canva.com'
+    name 'Login View'
+    category 'UserDefined'
+    build Row {
+        name 'Main Row'
+        data {
+            width '1200'
+            height '700'
+        }
+        children [
+            Column {
+                name 'Column'
+                data {
+                    expand 'true'
+                    decoration {
+                        color '@c16'
+                    }
+                    mainAxisAlignment 'center'
+                }
+                children [
+                    IconView {
+                        name 'IconView'
+                        data {
+                            size '100'
+                            icon 'MaterialIcons.maps_home_work'
+                            color '@c30'
+                        }
+                    }
+                    TextView {
+                        name 'Title Text View'
+                        data {
+                            data 'Sign In to your Account'
+                            color '@c1'
+                            fontSize '30'
+                            fontWeight 'w900'
+                            softWrap 'true'
+                            textAlign 'center'
+                            width '400'
+                        }
+                    }
+                    TextView {
+                        name 'Title Text View'
+                        data {
+                            data 'Welcome Back! to Invoice Application...'
+                            color '@c1'
+                            fontSize '30'
+                            fontWeight 'w900'
+                            softWrap 'true'
+                            textAlign 'center'
+                            width '400'
+                        }
+                    }
+                    TextView {
+                        name 'Description TextView'
+                        data {
+                            data 'Good to see you again! Please enter your credentials to continue.'
+                            color '@c1'
+                            fontSize '20'
+                            fontWeight 'w500'
+                            textAlign 'center'
+                            softWrap 'true'
+                            padding '0 0 0 0'
+                            width '464'
+                            height '27'
+                            margin '0 0 0 0'
+                        }
+                    }
+                ]
+            }
+            Column {
+                name 'Column2'
+                data {
+                    expand 'true'
+                    mainAxisAlignment 'center'
+                }
+                children [
+                    Column {
+                        name 'Column3'
+                        data {
+                            width '400'
+                            padding '40'
+                            mainAxisAlignment 'center'
+                            decoration {
+                                color '@c1'
+                                border {
+                                    color '@c3'
+                                    width '1.0'
+                                }
+                                boxShadow {
+                                    color 'ff333333'
+                                    offset {
+                                        dx '1'
+                                        dy '1'
+                                    }
+                                }
+                            }
+                        }
+                        children [
+                            TextView {
+                                name 'TextView'
+                                data {
+                                    data 'Sign In'
+                                    fontSize '30'
+                                    fontWeight 'w800'
+                                    softWrap 'true'
+                                }
+                            }
+                            LabelWithInputField {
+                                name 'Email Field'
+                                data {
+                                    isRequired 'true'
+                                    width '400'
+                                    label 'Email Field'
+                                    obscureText 'false'
+                                    placeHolder 'Enter your Email Field'
+                                    margin '1 1 20'
+                                }
+                            }
+                            LabelWithInputField {
+                                name 'Password Field'
+                                data {
+                                    isRequired 'true'
+                                    width '400'
+                                    label 'Password Field'
+                                    placeHolder 'Enter your Password Field'
+                                    obscureText 'true'
+                                    padding '0 0 3 0'
+                                    margin '0 0 19 0'
+                                }
+                            }
+                            Button {
+                                name 'Login Button'
+                                data {
+                                    decoration {
+                                        color '@c15'
+                                    }
+                                    padding '7'
+                                }
+                                child TextView {
+                                    name 'ButtonText'
+                                    data {
+                                        data 'Sign In'
+                                        color '@c1'
+                                    }
+                                }
+                            }
+                            Row {
+                                name 'Row'
+                                data {
+                                    mainAxisAlignment 'center'
+                                    margin '15 1 1 1'
+                                }
+                                children [
+                                    TextView {
+                                        name 'TextView2'
+                                        data {
+                                            data 'Forgot your Password?'
+                                        }
+                                    }
+                                    TextView {
+                                        name 'TextView3'
+                                        data {
+                                            data 'Click Here'
+                                            fontWeight 'w700'
+                                            textDecoration 'underline'
+                                            decorationColor '@c14'
+                                            cursor 'click'
+                                        }
+                                        behaviours [
+                                            GestureDetector
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Child",
+        "creatable": false,
+        "properties": [
+            {
+                "name": "age Group",
+                "type": "String"
+            },
+            {
+                "name": "Name",
+                "type": "String"
+            }
+        ]
+    }
+]

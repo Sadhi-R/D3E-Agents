@@ -1,0 +1,149 @@
+[
+    {
+        "name": "ListTile",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Title",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "Sub Title",
+                "type": "String"
+            },
+            {
+                "name": "Enabled",
+                "type": "Boolean",
+                "defaultValue": "`true`"
+            }
+        ],
+        "build": {
+            "component": "Container",
+            "name": "Detector",
+            "data": {
+                "cursor": "click"
+            },
+            "children": [
+                {
+                    "type": "Row",
+                    "name": "id",
+                    "data": {
+                        "mainAxisAlignment": "center",
+                        "crossAxisAlignment": "center"
+                    },
+                    "children": [
+                        {
+                            "condition": "`leadingPresent`",
+                            "then": {
+                                "type": "CSlot",
+                                "name": "Leading"
+                            }
+                        },
+                        {
+                            "condition": "`leadingPresent`",
+                            "then": {
+                                "type": "Container",
+                                "name": "Space",
+                                "data": {
+                                    "width": "12"
+                                }
+                            }
+                        },
+                        {
+                            "type": "Column",
+                            "name": "Column",
+                            "data": {
+                                "crossAxisAlignment": "start",
+                                "expand": "true"
+                            },
+                            "children": [
+                                {
+                                    "type": "Row",
+                                    "name": "Row",
+                                    "children": [
+                                        {
+                                            "type": "TextView",
+                                            "name": "Title1",
+                                            "data": {
+                                                "expand": "true",
+                                                "data": "`title != null ? this.title : ''`",
+                                                "overflow": "ellipsis"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "condition": "`this.subTitle != '' && this.subTitle != null`",
+                                    "then": {
+                                        "type": "TextView",
+                                        "name": "Subtitle",
+                                        "data": {
+                                            "data": "`subTitle`",
+                                            "overflow": "ellipsis"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "condition": "`trailingPresent`",
+                            "then": {
+                                "type": "CSlot",
+                                "name": "Trailing"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "behaviours": [
+                "Focus",
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnTapHandler",
+                "type": "OnBehaviour",
+                "on": "detector",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if (this.onTap != null && enabled) {\n    this.onTap();\n}```"
+            },
+            {
+                "name": "OnLongPressHandler",
+                "type": "OnBehaviour",
+                "on": "detector",
+                "behaviour": "GestureDetector",
+                "event": "onLongPress",
+                "block": "```if (this.onLongPress != null && enabled) {\n    this.onLongPress();\n}```"
+            },
+            {
+                "name": "OnKey",
+                "type": "OnBehaviour",
+                "on": "detector",
+                "behaviour": "Focus",
+                "event": "onKey",
+                "block": "```if (event is RawKeyDownEvent && enabled) {\n    if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.space ||  event.logicalKey == LogicalKeyboardKey.numpadEnter) {\n        if (this.onTap != null) {\n            this.onTap();\n        }\n        return KeyEventResult.handled;\n    }\n}\nreturn KeyEventResult.ignored;```",
+                "returnType": "KeyEventResult"
+            }
+        ],
+        "focusable": true,
+        "slots": [
+            {
+                "name": "Leading"
+            },
+            {
+                "name": "Trailing"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnTap"
+            },
+            {
+                "name": "OnLongPress"
+            }
+        ]
+    }
+]

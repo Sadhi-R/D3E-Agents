@@ -1,0 +1,21 @@
+[
+    {
+        "name": "Divider",
+        "category": "UserDefined",
+        "build": {
+            "component": "Row",
+            "name": "Divider Dark",
+            "children": [
+                {
+                    "type": "Container",
+                    "name": "container2",
+                    "data": {
+                        "alignment": "center",
+                        "height": "1",
+                        "expand": "true"
+                    }
+                }
+            ]
+        }
+    }
+]

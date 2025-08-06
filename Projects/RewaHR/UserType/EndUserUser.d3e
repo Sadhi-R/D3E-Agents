@@ -1,0 +1,2965 @@
+UserType {
+    name 'EndUserUser'
+    modelAccess [
+        {
+            model Report
+            allowCreate true
+            allowUpdate true
+            allowDelete true 
+        }
+        {
+            model CustomReport
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model Document
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,HRAdministrationAnnouncementsDocuments) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,HRAdministrationAnnouncementsDocuments)`
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,HRAdministrationAnnouncementsDocuments)`
+        }
+        {
+            model News
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default)|| PermissionUtils.createPermissionCheck(user,HRAdministrationAnnouncementsNews)`
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,HRAdministrationAnnouncementsNews)`
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,HRAdministrationAnnouncementsNews)`
+        }
+        {
+            model Company
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default)`
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model Competency
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,HRAdministrationEmployeeCompetencies) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,HRAdministrationEmployeeCompetencies) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,HRAdministrationEmployeeCompetencies) `
+        }
+        {
+            model JobTitle
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,HRAdministrationJobTitles) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,HRAdministrationJobTitles) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,HRAdministrationJobTitles) `
+        }
+        {
+            model PayGrade
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,HRAdministrationPayGrades) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,HRAdministrationPayGrades) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,HRAdministrationPayGrades) `
+        }
+        {
+            model EndUser
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default)`
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || (user.employee != null)`
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model Course
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,TrainingLearningCoursesCourses) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,TrainingLearningCoursesCourses) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,TrainingLearningCoursesCourses) `
+        }
+        {
+            model CourseAttachment
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,TrainingLearningCoursesEditCourseAttachment) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,TrainingLearningCoursesEditCourseAttachment) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,TrainingLearningCoursesEditCourseAttachment) `
+        }
+        {
+            model TrainingSessionAttachment
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,TrainingLearningCoursesEditSessionAttachments) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,TrainingLearningCoursesEditSessionAttachments) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,TrainingLearningCoursesEditSessionAttachments) `
+        }
+        {
+            model Attachment
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+            deleteCondition `user.adminRole != null && user.adminRole.default`
+        }
+        {
+            model TrainingSessionMember
+            allowCreate true
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default)`
+            allowDelete true
+        }
+        {
+            model TrainingSession
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,TrainingLearningCoursesSessions) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,TrainingLearningCoursesSessions) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,TrainingLearningCoursesSessions) `
+        }
+        {
+            model OnlineCourseAssessment
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,TrainingOnlineAssessmentCoursesAssessments) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,TrainingOnlineAssessmentCoursesAssessments) `
+            allowDelete true
+            deleteCondition `(user.eSSRole != null && user.eSSRole.default) || PermissionUtils.updatePermissionCheck(user,TrainingOnlineAssessmentCoursesAssessments)`
+        }
+        {
+            model OnlineCourseReviewer
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default)`
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default)`
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model OnlineCourseApprover
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default)`
+            updateCondition `(user.adminRole != null && user.adminRole.default) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model OnlineCourseEmployee
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,TrainingOnlineAssessmentCoursesCourseEmployees) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,TrainingOnlineAssessmentCoursesCourseEmployees) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,TrainingOnlineAssessmentCoursesCourseEmployees) `
+        }
+        {
+            model OnlineCourseResource
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,TrainingOnlineAssessmentCoursesCourseResources) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,TrainingOnlineAssessmentCoursesCourseResources) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,TrainingOnlineAssessmentCoursesCourseResources) `
+        }
+        {
+            model OnlineCourse
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,TrainingOnlineAssessmentCoursesCourses) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,TrainingOnlineAssessmentCoursesCourses) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,TrainingOnlineAssessmentCoursesCourses) `
+        }
+        {
+            model AssetBrand
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,AssetAssetBrands) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,AssetAssetBrands) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,AssetAssetBrands) `
+        }
+        {
+            model AssetCategory
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,AssetAssetCategories) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,AssetAssetCategories) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,AssetAssetCategories) `
+        }
+        {
+            model Asset
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,AssetAssetDetails) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,AssetAssetDetails) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,AssetAssetDetails) `
+        }
+        {
+            model AssetVendor
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,HRAdministrationAssetVendor) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,HRAdministrationAssetVendor) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,HRAdministrationAssetVendor) `
+        }
+        {
+            model AttendanceConfiguration
+            allowCreate true
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,AttendanceConfiguration) `
+        }
+        {
+            model PayPolicy
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,AttendancePayPolicy) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,AttendancePayPolicy) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,AttendancePayPolicy) `
+        }
+        {
+            model DisciplinaryCase
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user, DisciplineCases)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user, DisciplineCases)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user, DisciplineCases)`
+        }
+        {
+            model BradfordFactorThreshold
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,LeaveBradfordFactorThreshold) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,LeaveBradfordFactorThreshold) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,LeaveBradfordFactorThreshold) `
+        }
+        {
+            model LeaveCalendar
+            allowCreate true
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,LeaveLeaveCalendar) `
+        }
+        {
+            model Holiday
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,LeaveHolidays) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,LeaveHolidays) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,LeaveHolidays) `
+        }
+        {
+            model LeaveEntitlement
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,LeaveLeaveEntitlements) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,LeaveLeaveEntitlements) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,LeaveLeaveEntitlements) `
+        }
+        {
+            model LeaveRequestComment
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model LeaveNotification
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,LeaveLeaveNotifications) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,LeaveLeaveNotifications) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,LeaveLeaveNotifications) `
+        }
+        {
+            model WorkingWeekend
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,LeaveWorkingWeekends) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,LeaveWorkingWeekends) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,LeaveWorkingWeekends) `
+        }
+        {
+            model OnboardingEvent
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,OnboardingEvent) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,OnboardingEvent) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,OnboardingEvent) `
+        }
+        {
+            model EmployeeTask
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TaskType
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,OnboardingTaskTypes) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,OnboardingTaskTypes) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,OnboardingTaskTypes) `
+        }
+        {
+            model AppraisalQuestion
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,PerformanceAppraisalConfigurationQuestions) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,PerformanceAppraisalConfigurationQuestions) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,PerformanceAppraisalConfigurationQuestions) `
+        }
+        {
+            model AppraisalTemplate
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,PerformanceAppraisalConfigurationTemplates) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,PerformanceAppraisalConfigurationTemplates) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,PerformanceAppraisalConfigurationTemplates) `
+        }
+        {
+            model AppraisalCycle
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user, PerformanceAppraisalCycle)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user, PerformanceAppraisalCycle)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user, PerformanceAppraisalCycle)`
+        }
+        {
+            model CompetencyProfile
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,PerformanceCompetencyProfiles) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,PerformanceCompetencyProfiles) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,PerformanceCompetencyProfiles) `
+        }
+        {
+            model Appraisal
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user, PerformanceEmployeeAppraisals)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user, PerformanceEmployeeAppraisals)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user, PerformanceEmployeeAppraisals)`
+        }
+        {
+            model Goal
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user, PerformanceGoals)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user, PerformanceGoals)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user, PerformanceGoals)`
+        }
+        {
+            model AddEmployeeWizard
+            allowCreate true
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,EmployeeManagementConfigureAddEmployeeWizard) `
+        }
+        {
+            model DocumentTemplate
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,EmployeeManagementConfigureDocumentTemplates) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,EmployeeManagementConfigureDocumentTemplates) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,EmployeeManagementConfigureDocumentTemplates) `
+        }
+        {
+            model EmployeeContactDetails
+            allowCreate true
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model EmployeeDependent
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,EmployeeManagementDependents) `
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user, EmployeeManagementDependents)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user, EmployeeManagementDependents)`
+        }
+        {
+            model EmployeeEmergencyContact
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user, EmployeeManagementEmergencyContacts)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user, EmployeeManagementEmergencyContacts)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user, EmployeeManagementEmergencyContacts)`
+        }
+        {
+            model EmployeeImmigration
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user, EmployeeManagementImmigration)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user, EmployeeManagementImmigration)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user, EmployeeManagementImmigration)`
+        }
+        {
+            model EmployeeJob
+            allowCreate true
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model JobHistory
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user, EmployeeManagementJobHistory)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user, EmployeeManagementJobHistory)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user, EmployeeManagementJobHistory)`
+        }
+        {
+            model Membership
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model Employee
+            allowCreate true
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+            allowDelete true
+        }
+        {
+            model Education
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model Language
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model License
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model Skill
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) `
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model EmployeeWorkExperience
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,EmployeeManagementQualificationsWorkExperience) `
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user, EmployeeManagementQualificationsWorkExperience)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user, EmployeeManagementQualificationsWorkExperience)`
+        }
+        {
+            model PIMReport
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,EmployeeManagementReports) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,EmployeeManagementReports) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,EmployeeManagementReports) `
+        }
+        {
+            model EmployeeSalary
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user, EmployeeManagementSalary)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user, EmployeeManagementSalary)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user, EmployeeManagementSalary)`
+        }
+        {
+            model EmployeeSalaryHistory
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user, EmployeeManagementSalaryHistory)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user, EmployeeManagementSalaryHistory)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user, EmployeeManagementSalaryHistory)`
+        }
+        {
+            model EmployeeSocialMedia
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user, EmployeeManagementSocialMediaDetails)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user, EmployeeManagementSocialMediaDetails)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user, EmployeeManagementSocialMediaDetails)`
+        }
+        {
+            model WorkWeek
+            allowCreate true
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model Candidate
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,RecruitmentCandidates) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,RecruitmentCandidates) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,RecruitmentCandidates) `
+        }
+        {
+            model Vacancy
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,RecruitmentVacancies) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,RecruitmentVacancies) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,RecruitmentVacancies) `
+        }
+        {
+            model VacancyTemplate
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default)  `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default)`
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model InterviewTemplate
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default)  `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default)`
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model InterviewQuestion
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default)`
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default)`
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model IndividualDevelopmentPlan
+            allowCreate true
+            createCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user, CareerDevelopmentIndividualDevelopmentPlan)`
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.adminRole != null && user.adminRole.default)|| PermissionUtils.updatePermissionCheck(user, CareerDevelopmentIndividualDevelopmentPlan)`
+            allowDelete true
+            deleteCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.adminRole != null && user.adminRole.default)|| PermissionUtils.deletePermissionCheck(user, CareerDevelopmentIndividualDevelopmentPlan)`
+        }
+        {
+            model CommonActivity
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,TimeTrackingActivityInfoCommonActivities) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,TimeTrackingActivityInfoCommonActivities) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,TimeTrackingActivityInfoCommonActivities) `
+        }
+        {
+            model Customer
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,TimeTrackingActivityInfoCustomers) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,TimeTrackingActivityInfoCustomers) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,TimeTrackingActivityInfoCustomers) `
+        }
+        {
+            model Project
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,TimeTrackingActivityInfoProjects) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,TimeTrackingActivityInfoProjects) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,TimeTrackingActivityInfoProjects) `
+        }
+        {
+            model CurrencyExchangeRate
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,TravelandExpenseCurrencyExchangeRate) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,TravelandExpenseCurrencyExchangeRate) `
+        }
+        {
+            model ExpenseEligiblityGroup
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,TravelandExpenseEligibilityGroups) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,TravelandExpenseEligibilityGroups)`
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default)  || PermissionUtils.deletePermissionCheck(user,TravelandExpenseEligibilityGroups)`
+        }
+        {
+            model ExpenseType
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,TravelandExpenseExpenseType) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,TravelandExpenseExpenseType) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,TravelandExpenseExpenseType) `
+        }
+        {
+            model RequestType
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,OtherRequestDeskConfigureRequestTypes) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,OtherRequestDeskConfigureRequestTypes) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,OtherRequestDeskConfigureRequestTypes) `
+        }
+        {
+            model RequestAttachment
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.createPermissionCheck(user,OtherRequestDeskRequestAttachment) `
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.updatePermissionCheck(user,OtherRequestDeskRequestAttachment) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default) || PermissionUtils.deletePermissionCheck(user,OtherRequestDeskRequestAttachment) `
+        }
+        {
+            model EmployeeBankAccount
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AnonymousUser
+        }
+        {
+            model ChangePasswordRequest
+            allowCreate true
+            allowUpdate true
+        }
+        {
+            model EmailMessage
+            allowCreate true
+            allowUpdate true
+        }
+        {
+            model OneTimePassword
+            allowCreate true
+            allowUpdate true
+        }
+        {
+            model PushNotification
+            allowCreate true
+            allowUpdate true
+        }
+        {
+            model SMSMessage
+            allowCreate true
+            allowUpdate true
+        }
+        {
+            model VerificationData
+            allowCreate true
+            allowUpdate true
+        }
+        {
+            model VerificationDataByTokenRequest
+            allowCreate true
+            allowUpdate true
+        }
+        {
+            model AddEmployeeWizardSectionConfiguration
+            allowCreate true
+            allowUpdate true
+        }
+        {
+            model AdminUserGroup
+            allowCreate true
+            allowUpdate true
+        }
+        {
+            model AppraisalFormSecion
+            allowCreate true
+            allowUpdate true
+        }
+        {
+            model AttendanceSheet
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AttendanceSheetAction
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AuditRecord
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model Authentication
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model BulkAssignLeave
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model BulkEmailNotificationSubscribers
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model BulkLeaveEntitlement
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model BulkUpdateRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CompanyProperty
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CorporateDirectory
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CostCenter
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CoverageType
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model Currency
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CurrencyExchangeRateHistory
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DashboardWidgetSettings
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DataImport
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DisciplinaryAction
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DisciplinaryDocumentTemplate
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DocumentCategory
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EEOFilling
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmailNotification
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CustomReportSection
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmailNotificationSubscriber
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmailSettings
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmailTemplate
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeBradfordFactor
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeDataExport
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DaysOff
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeDirectDeposit
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeDocumentAck
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeEducation
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeExportData
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeFile
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeLanguage
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeLicense
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeMembership
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeNewsAck
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeSkill
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeWorkWeek
+            allowCreate true
+            allowUpdate true
+            updateCondition `(user.supervisorRole != null && user.supervisorRole.default) || (user.eSSRole != null && user.eSSRole.default) || (user.adminRole != null && user.adminRole.default)`
+        }
+        {
+            model EmployeeReportTo
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeTaxExemptions
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmploymentContract
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmploymentStatus
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ExpenseClaim
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ExpenseClaimHistory
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ExpenseReport
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ExportAttendaceData
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ExportPerfomanceData
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ExportPerfomanceRecord
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ExportRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model FieldSection
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model GoalComment
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ImmigrationStatus
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ImportRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model JobApplicationAnswer
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model JobCategory
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model LeavePeriod
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model LeaveRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model LeaveType
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model Location
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model Nationality
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model NineBoxMatrixConfiguration
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model OnlineCourseApproverComment
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model OnlineCourseParticipant
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model OnlineCourseReviewerComment
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PIMAttachment
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PerformanceTracker
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PerformanceTrackerLog
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ProjectActivity
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PunchInAndOut
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model QualificationAttachments
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ReportCriteria
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ReportingMethod
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model Request
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model RequestComment
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model SalaryComponent
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model Shortcut
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model SignUpRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model StandardTest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model SubUnit
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TerminationReason
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TimesheetPeriod
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TravelRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TravelRequestHistory
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model UserEmail
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model UserRole
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model VacancyWorkflowProgress
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model WeeklyTimeSheet
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model WeeklyTimesheetAction
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model WorkShift
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AllNewsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AllOnlineAssesmentCoursesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AppraisalCyclesInCompanyRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AppraisalQuestionsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AppraisalsNearingDueDateRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AssetBrandsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AssetCategoriesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AssetVendorsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AssetsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AttendanceHoursReportsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AttendanceRecordsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AttendanceSheetsListRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AttendanceSheetsReadyToApprovalRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AuditRecordsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model BradfordFactorReportsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model BradfordFactorThresholdsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CandidatesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CandidatesByStageRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CommonActivitiesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CompanyUserRolesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CompetenciesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CompetencyProfilesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CorporateDirectoriesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CostCentersRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CoursesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CoursesNearExpiryRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CurrencyExchangeRatesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CurrencyExchangeRatesHistoryRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CustomFiledSectionsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CustomersRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DashboardPerformanceTrackerLogsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DirectDepositsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DisciplinaryActionsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DisciplinaryCasesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DisciplinaryDocumentTemplatesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DocumentCategoriesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DocumentTemplatesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DocumentsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeTaskWithEvent
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeJobHistory
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PayrollAccount
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PayrollConfiguration
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EducationsRequest
+        }
+        {
+            model EmailNotificationsByNameRequest
+        }
+        {
+            model EmailNotificationsListRequest
+        }
+        {
+            model EmployeDocuementAcknowlegmentsRequest
+        }
+        {
+            model AttendanceDatesRequest
+        }
+        {
+            model EmployeNewsAcknowlegmentsRequest
+        }
+        {
+            model EmployeeAcknowledgementsOfNewAndDocumentsRequest
+        }
+        {
+            model EmployeeAppraisalsRequest
+        }
+        {
+            model CustomReportSectionsRequest
+        }
+        {
+            model BankAccoutsRequest
+        }
+        {
+            model EmployeeGeneralRequestsRequest
+        }
+        {
+            model EmployeeHiringRequisitionsRequest
+        }
+        {
+            model EmployeeIdsRequest
+        }
+        {
+            model EmployeeLeavesRequest
+        }
+        {
+            model EmployeeLicenseNearEndRequest
+        }
+        {
+            model EmployeeProjectTimeReportsRequest
+        }
+        {
+            model EmployeeSelectionListRequest
+        }
+        {
+            model EmployeeTasksRequest
+        }
+        {
+            model EmployeeTimesheetsRequest
+        }
+        {
+            model EmployeeWorkExperiencesRequest
+        }
+        {
+            model EmployeesRequest
+        }
+        {
+            model EmployeesByDateRequest
+        }
+        {
+            model EmployeesNearingDateRequest
+        }
+        {
+            model EmployeesOnLeaveTodayRequest
+        }
+        {
+            model EmploymentStatusesRequest
+        }
+        {
+            model EventProgressReportRequest
+        }
+        {
+            model ExpenseClaimsRequest
+        }
+        {
+            model CompanyPayRollHistoriesRequest
+        }
+        {
+            model ExpenseReportsRequest
+        }
+        {
+            model ExpenseTypesRequest
+        }
+        {
+            model ExpensesClaimHistoryRequest
+        }
+        {
+            model ExpiryDateNearEndRequest
+        }
+        {
+            model ExportPerfomanceRecordsRequest
+        }
+        {
+            model ExportPerformanceDetailsRequest
+        }
+        {
+            model ExportedTimesheetsRequest
+        }
+        {
+            model GoalLibrariesRequest
+        }
+        {
+            model GoalsRequest
+        }
+        {
+            model GoalsAndOKRsRequest
+        }
+        {
+            model GoalsByStatusRequest
+        }
+        {
+            model GoalsNearDateRequest
+        }
+        {
+            model HolidaysRequest
+        }
+        {
+            model ImmigrationNearEndRequest
+        }
+        {
+            model IndividualDevelopmentPlansRequest
+        }
+        {
+            model InterviewQuestionPoolsRequest
+        }
+        {
+            model InterviewTemplatesRequest
+        }
+        {
+            model JobCategoriesRequest
+        }
+        {
+            model JobHistoriesRequest
+        }
+        {
+            model JobTitlesRequest
+        }
+        {
+            model LanguagesRequest
+        }
+        {
+            model LatestDocumentsRequest
+        }
+        {
+            model LatestNewsRequest
+        }
+        {
+            model LeaveEntitlementsRequest
+        }
+        {
+            model LeaveNotificationsRequest
+        }
+        {
+            model LeaveTypesRequest
+        }
+        {
+            model LeaveUsageByEmRequest
+        }
+        {
+            model LeaveUsageByEmployeeListRequest
+        }
+        {
+            model LeavesRequest
+        }
+        {
+            model LeavesListRequest
+        }
+        {
+            model LicensesRequest
+        }
+        {
+            model LocationsRequest
+        }
+        {
+            model EndUserMailsRequest
+        }
+        {
+            model MembershipsRequest
+        }
+        {
+            model MembershipsNearEndRequest
+        }
+        {
+            model MonthlyAttendanceReportsRequest
+        }
+        {
+            model MyAssesmentCourseDetailsRequest
+        }
+        {
+            model MyConductingSessionsRequest
+        }
+        {
+            model MyGeneralRequestsRequest
+        }
+        {
+            model MyGoalsRequest
+        }
+        {
+            model MyHiringRequisitionsRequest
+        }
+        {
+            model MyLeavesRequest
+        }
+        {
+            model MyMonthlyAttendancesRequest
+        }
+        {
+            model MyObjectiveKeyResultsRequest
+        }
+        {
+            model MyOnboadingTasksRequest
+        }
+        {
+            model MyOnlineCourseAndAssesmentsRequest
+        }
+        {
+            model MyParticipantingSessionsRequest
+        }
+        {
+            model MyTravelRequestsRequest
+        }
+        {
+            model NationalitiesRequest
+        }
+        {
+            model JobHistoriesOnDateRequest
+        }
+        {
+            model NineBoxMatrixRequest
+        }
+        {
+            model OnboardingEventsRequest
+            allowCreate true
+        }
+        {
+            model OnlineAssessmentAnalyticsRequest
+            allowCreate true
+        }
+        {
+            model OnlineCourseAndAssesmentsRequest
+            allowCreate true
+        }
+        {
+            model OnlineCoursePartcipantsRequest
+            allowCreate true
+        }
+        {
+            model OnlineCourseResourcesRequest
+            allowCreate true
+        }
+        {
+            model PIMReportsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ParticipatingSessionsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PayGradesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PayHoursReportRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PayPoliciesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PerformanceComparisonReportsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PerformanceProfileRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PerformanceProgressReportsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PerformanceTrackerLogsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PerformanceTrackersRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ProbationsNearEndRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ProjectTimeReportsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ProjectsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model RemainingLeavesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ReportingMethodsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model RequestCustomFieldsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model RequestInformationReportsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model RequestsByPriorityRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model RequestsByStatusRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model SalaryComponentsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model SalaryHistoriesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model SessionParticipantsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model SignupRequestsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model SkillsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model SocialMediaRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model StandardTestsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model SubUnitsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TaskTypesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TerminationReasonsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TimeAtWorkRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TodayLeavesListRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TrainersRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TrainingSessionInformationsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TrainingSessionsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TravelRequestsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TravelRequestsHistoryRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model UnapprovedLeavesNearingStartRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model TimesheetsByStatusRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model UserRolesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model UsersRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model VacanciesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model VacancySuccessionReportRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model VacancyTemplatesRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model WeeklyTimeSheetsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model WorkShiftsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model WorkingWeekendsRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CustomField
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model DynamicReport
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeTermination
+            allowCreate true
+        }
+        {
+            model BulkGoal
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model CompanyPayrollHistory
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeLeavePayroll
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model AutoPunchOutConfiguration
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmployeeImportFile
+            allowCreate true
+        }
+        {
+            model CustomReportByReportNameRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ContractProject
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ExperienceLetter
+            allowCreate true
+            createCondition `(user.adminRole != null && user.adminRole.default)`
+            allowUpdate true
+            updateCondition `(user.adminRole != null && user.adminRole.default) `
+            allowDelete true
+            deleteCondition `(user.adminRole != null && user.adminRole.default)`
+        }
+    ]
+    userModel EndUser
+    loginSettings {
+        emailField email
+        passwordField password
+    }
+    queries [
+        {
+            query EmployeeSupervisorsByReportingMethod
+        }
+        {
+            query EmployeesByJobTitles
+        }
+        {
+            query PositionJobTitles
+        }
+        {
+            query AllNews
+        }
+        {
+            query AllOnlineAssesmentCourses
+        }
+        {
+            query AppraisalCyclesInCompany
+        }
+        {
+            query AppraisalQuestions
+        }
+        {
+            query AppraisalTemplatesInCompany
+        }
+        {
+            query AppraisalsInCompany
+        }
+        {
+            query AppraisalsNearingDueDate
+        }
+        {
+            query AssetBrands
+        }
+        {
+            query AssetBrandsInCompany
+        }
+        {
+            query AssetCategories
+        }
+        {
+            query AssetCategoriesInCompany
+        }
+        {
+            query AssetVendors
+        }
+        {
+            query AssetVendorsInCompany
+        }
+        {
+            query Assets
+        }
+        {
+            query AttendanceHoursReports
+        }
+        {
+            query AttendanceRecords
+        }
+        {
+            query AttendanceSheetsList
+        }
+        {
+            query AttendanceSheetsReadyToApproval
+        }
+        {
+            query AuditRecords
+        }
+        {
+            query BradfordFactorReports
+        }
+        {
+            query BradfordFactorThresholds
+        }
+        {
+            query Candidates
+        }
+        {
+            query CandidatesByStage
+        }
+        {
+            query CommonActivities
+        }
+        {
+            query CompanyEmployeeWizards
+        }
+        {
+            query CompanyUserRoles
+        }
+        {
+            query Competencies
+        }
+        {
+            query CompetenciesInCompany
+        }
+        {
+            query CompetencyProfiles
+        }
+        {
+            query CorporateDirectories
+        }
+        {
+            query CostCenters
+        }
+        {
+            query CostCentersInCompany
+        }
+        {
+            query CourseCompaniesInCompany
+        }
+        {
+            query Courses
+        }
+        {
+            query CoursesInCompany
+        }
+        {
+            query CoursesNearExpiry
+        }
+        {
+            query CurrencyExchangeRates
+        }
+        {
+            query CurrencyExchangeRatesHistory
+        }
+        {
+            query CustomFieldsInCompany
+        }
+        {
+            query CustomFiledSections
+        }
+        {
+            query Customers
+        }
+        {
+            query DashboardPerformanceTrackerLogs
+        }
+        {
+            query DirectDeposits
+        }
+        {
+            query DisciplinaryActions
+        }
+        {
+            query DisciplinaryCases
+        }
+        {
+            query DisciplinaryDocumentTemplates
+        }
+        {
+            query DocumentCategories
+        }
+        {
+            query DocumentTemplates
+        }
+        {
+            query Documents
+        }
+        {
+            query Educations
+        }
+        {
+            query EducationsInCompany
+        }
+        {
+            query EmailNotificationsByName
+        }
+        {
+            query EmailNotificationsList
+        }
+        {
+            query EmployeDocuementAcknowlegments
+        }
+        {
+            query EmployeNewsAcknowlegments
+        }
+        {
+            query EmployeeAcknowledgementsOfNewAndDocuments
+        }
+        {
+            query EmployeeAppraisals
+        }
+        {
+            query EmployeeGeneralRequests
+        }
+        {
+            query EmployeeHiringRequisitions
+        }
+        {
+            query EmployeeIds
+        }
+        {
+            query EmployeeLeaves
+        }
+        {
+            query EmployeeLicenseNearEnd
+        }
+        {
+            query EmployeeProjectTimeReports
+        }
+        {
+            query EmployeeSelectionList
+        }
+        {
+            query EmployeeSubordinatesInCompany
+        }
+        {
+            query EmployeeSupervisorsInCompany
+        }
+        {
+            query EmployeeTasks
+        }
+        {
+            query EmployeeTimesheets
+        }
+        {
+            query EmployeeWorkExperiences
+        }
+        {
+            query Employees
+        }
+        {
+            query EmployeesByDate
+        }
+        {
+            query EmployeesInCompany
+        }
+        {
+            query EmployeesNearingDate
+        }
+        {
+            query EmployeesOnLeaveToday
+        }
+        {
+            query EmploymentStatuses
+        }
+        {
+            query EmploymentStatusesInCompany
+        }
+        {
+            query EventProgressReport
+        }
+        {
+            query ExpenseClaims
+        }
+        {
+            query ExpenseEligiblityGroups
+        }
+        {
+            query ExpenseReports
+        }
+        {
+            query ExpenseTypes
+        }
+        {
+            query ExpenseTypesInCompany
+        }
+        {
+            query ExpensesClaimHistory
+        }
+        {
+            query ExpiredCourses
+        }
+        {
+            query ExpiryDateNearEnd
+        }
+        {
+            query ExportPerfomanceRecords
+        }
+        {
+            query ExportPerformanceDetails
+        }
+        {
+            query ExportedTimesheets
+        }
+        {
+            query FieldSectionsInCompany
+        }
+        {
+            query GoalLibraries
+        }
+        {
+            query Goals
+        }
+        {
+            query GoalsAndOKRs
+        }
+        {
+            query GoalsByStatus
+        }
+        {
+            query GoalsInCompany
+        }
+        {
+            query GoalsNearDate
+        }
+        {
+            query Holidays
+        }
+        {
+            query HolidaysForEmployee
+        }
+        {
+            query ImmigrationNearEnd
+        }
+        {
+            query IndividualDevelopmentPlans
+        }
+        {
+            query InterviewQuestionPools
+        }
+        {
+            query InterviewQuestionsInCompany
+        }
+        {
+            query InterviewTemplates
+        }
+        {
+            query JobCategories
+        }
+        {
+            query JobCategoriesInCompany
+        }
+        {
+            query JobHistories
+        }
+        {
+            query JobTitles
+        }
+        {
+            query Languages
+        }
+        {
+            query LatestDocuments
+        }
+        {
+            query LatestNews
+        }
+        {
+            query LeaveEntitlements
+        }
+        {
+            query LeaveNotifications
+        }
+        {
+            query LeavePeriodsInCompany
+        }
+        {
+            query LeaveTypes
+        }
+        {
+            query LeaveTypesInCompany
+        }
+        {
+            query LeaveUsageByEm
+        }
+        {
+            query Leaves
+        }
+        {
+            query LeavesList
+        }
+        {
+            query LeaveUsageByEmployeeList
+        }
+        {
+            query Licenses
+        }
+        {
+            query LicensesInCompany
+        }
+        {
+            query Locations
+        }
+        {
+            query Memberships
+        }
+        {
+            query MembershipsInCompany
+        }
+        {
+            query MonthlyAttendanceReports
+        }
+        {
+            query MembershipsNearEnd
+        }
+        {
+            query MyAssesmentCourseDetails
+        }
+        {
+            query MyConductingSessions
+        }
+        {
+            query MyGeneralRequests
+        }
+        {
+            query MyGoals
+        }
+        {
+            query MyHiringRequisitions
+        }
+        {
+            query MyLeaves
+        }
+        {
+            query MyMonthlyAttendances
+        }
+        {
+            query MyObjectiveKeyResults
+        }
+        {
+            query MyOnboadingTasks
+        }
+        {
+            query MyOnlineCourseAndAssesments
+        }
+        {
+            query MyTravelRequests
+        }
+        {
+            query Nationalities
+        }
+        {
+            query MyParticipantingSessions
+        }
+        {
+            query NationalitiesInCompany
+        }
+        {
+            query NineBoxMatrix
+        }
+        {
+            query OnboardingEvents
+        }
+        {
+            query OnboardingEventsInCompany
+        }
+        {
+            query OnlineAssessmentAnalytics
+        }
+        {
+            query OnlineCoursePartcipants
+        }
+        {
+            query OnlineCourseAndAssesments
+        }
+        {
+            query OnlineCourseResources
+        }
+        {
+            query OnlineCourses
+        }
+        {
+            query PIMReports
+        }
+        {
+            query ParticipatingSessions
+        }
+        {
+            query PayGrades
+        }
+        {
+            query PayHoursReport
+        }
+        {
+            query PayPolicies
+        }
+        {
+            query PayPoliciesInCompany
+        }
+        {
+            query PerformanceComparisonReports
+        }
+        {
+            query PerformanceProfile
+        }
+        {
+            query PerformanceProgressReports
+        }
+        {
+            query PerformanceTrackerLogs
+        }
+        {
+            query PerformanceTrackers
+        }
+        {
+            query PerformanceTrackersInCompany
+        }
+        {
+            query ProbationsNearEnd
+        }
+        {
+            query ProjectTimeReports
+        }
+        {
+            query Projects
+        }
+        {
+            query RemainingLeaves
+        }
+        {
+            query ReportingMethods
+        }
+        {
+            query ReportingMethodsInCompany
+        }
+        {
+            query RequestCustomFields
+        }
+        {
+            query RequestInformationReports
+        }
+        {
+            query RequestTypes
+        }
+        {
+            query RequestTypesInCompany
+        }
+        {
+            query RequestsByPriority
+        }
+        {
+            query RequestsByStatus
+        }
+        {
+            query SalaryComponents
+        }
+        {
+            query SalaryHistories
+        }
+        {
+            query SessionParticipants
+        }
+        {
+            query SignupRequests
+        }
+        {
+            query Skills
+        }
+        {
+            query SkillsInCompany
+        }
+        {
+            query StandardTests
+        }
+        {
+            query SocialMedia
+        }
+        {
+            query StandardTestsInCompany
+        }
+        {
+            query SubUnits
+        }
+        {
+            query TaskTypes
+        }
+        {
+            query TaskTypesInCompany
+        }
+        {
+            query TerminationReasons
+        }
+        {
+            query TimeAtWork
+        }
+        {
+            query TimesheetPeriodsInCompany
+        }
+        {
+            query TimesheetsByStatus
+        }
+        {
+            query TimesheetsCommonActivities
+        }
+        {
+            query TodayLeavesList
+        }
+        {
+            query Trainers
+        }
+        {
+            query TrainingSessionInformations
+        }
+        {
+            query TrainingSessions
+        }
+        {
+            query TrainingSessionsInCompany
+        }
+        {
+            query TravelRequests
+        }
+        {
+            query TravelRequestsHistory
+        }
+        {
+            query UnapprovedLeavesNearingStart
+        }
+        {
+            query UserRoles
+        }
+        {
+            query UserRolesInCompany
+        }
+        {
+            query Users
+        }
+        {
+            query Vacancies
+        }
+        {
+            query VacanciesInCompany
+        }
+        {
+            query VacancySuccessionReport
+        }
+        {
+            query VacancyTemplates
+        }
+        {
+            query VerificationDataByToken
+        }
+        {
+            query WeeklyTimeSheets
+        }
+        {
+            query WorkShifts
+        }
+        {
+            query WorkShiftsInCompany
+        }
+        {
+            query WorkingWeekends
+        }
+        {
+            query PayPeriodsInPolicy
+        }
+        {
+            query EmployeeDirectory
+        }
+        {
+            query AttendanceSheetsBetweenDates
+        }
+        {
+            query WeekAttendanceSheets
+        }
+        {
+            query EmployeeSubordinates
+        }
+        {
+            query MemberProjects
+        }
+        {
+            query EmployeesWithPayPolicy
+        }
+        {
+            query JobHistoriesUptoDate
+        }
+        {
+            query SectionDocumentTemplates
+        }
+        {
+            query PublicProjects
+        }
+        {
+            query JobHistoriesOnDate
+        }
+        {
+            query EndUserMails
+        }
+        {
+            query JobSpecifications
+        }
+        {
+            query TaskTypesForAction
+        }
+        {
+            query PendingLeaveApproveInCompany
+        }
+        {
+            query PendingTimeSheetApproveInCompany
+        }
+        {
+            query PendingAppraisalReviewInCompany
+        }
+        {
+            query PendingGoalsApproveInCompany
+        }
+        {
+            query AttendanceSheetInCompany
+        }
+        {
+            query PastEmployeesInCompany
+        }
+        {
+            query IndividualDevelopmentPlanInCompany
+        }
+        {
+            query VacancyTemplatesInCompany
+        }
+        {
+            query VacancyCandidates
+        }
+        {
+            query AppraisalTemplates
+        }
+        {
+            query AssetsInCompany
+        }
+        {
+            query AuthenticationInCompany
+        }
+        {
+            query LeaveRequestInCompany
+        }
+        {
+            query Appraisals
+        }
+        {
+            query ParentGoals
+        }
+        {
+            query CalenderLeaveList
+        }
+        {
+            query AppraisalCycleCompany
+        }
+        {
+            query EmployeesByLocationAndSubunitAndJobTitle
+        }
+        {
+            query EmployeeHistories
+        }
+        {
+            query DisciplinaryDocumentStatusTemplate
+        }
+        {
+            query HolidaysinCompanies
+        }
+        {
+            query HoursReport
+        }
+        {
+            query LastTakenLeave
+        }
+        {
+            query LeavesInHolidays
+        }
+        {
+            query LeavRequests
+        }
+        {
+            query LeaveTypesinHr
+        }
+        {
+            query LeaveRequestCompaines
+        }
+        {
+            query MonthlyAttendances
+        }
+        {
+            query WeeklyTimeSheetByReports
+        }
+        {
+            query CustomReportSections
+        }
+        {
+            query BankAccouts
+        }
+        {
+            query PayrollHistory
+        }
+        {
+            query AttendanceDates
+        }
+        {
+            query CompanyPayRollHistories
+        }
+        {
+            query EmployeeLeavePayrolls
+        }
+        {
+            query LastPunchInOut
+        }
+        {
+            query AutoPunchOutConfigurations
+        }
+        {
+            query UnPunchInAndOut
+        }
+        {
+            query CompanyHolidaysList
+        }
+        {
+            query EmployeeAppliedLeaves
+        }
+        {
+            query WorkWeeksInCompany
+        }
+        {
+            query Entitlements
+        }
+        {
+            query HolidaysinLocation
+        }
+        {
+            query PendingLeavesForEmployee
+        }
+        {
+            query EmployeeByName
+        }
+        {
+            query CostCenterByName
+        }
+        {
+            query EmploymentStatusesByName
+        }
+        {
+            query JobTitleByName
+        }
+        {
+            query EmployeeReportToByName
+        }
+        {
+            query LocationByName
+        }
+        {
+            query TerminateReasonByName
+        }
+        {
+            query EmployeesById
+        }
+        {
+            query CustomReportByReportName
+        }
+        {
+            query LoginRecords
+        }
+        {
+            query ExperienceLetters
+        }
+    ]
+}

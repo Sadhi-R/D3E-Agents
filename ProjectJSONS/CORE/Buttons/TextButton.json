@@ -1,0 +1,57 @@
+[
+    {
+        "name": "Text Button",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Lable",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean"
+            }
+        ],
+        "build": {
+            "component": "Button",
+            "name": "Base",
+            "data": {
+                "disable": "`this.disable`"
+            },
+            "children": [
+                {
+                    "type": "TextView",
+                    "name": "Title",
+                    "data": {
+                        "data": "`this.lable`"
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "Base On Pressed",
+                "type": "OnEvent",
+                "on": "base",
+                "event": "onPressed",
+                "block": "```if (this.onPressed != null) {\n    this.onPressed();\n}```"
+            },
+            {
+                "name": "Base On Long Pressed",
+                "type": "OnEvent",
+                "on": "base",
+                "event": "onLongPressed",
+                "block": "```if (this.onLongPressed != null) {\n    this.onLongPressed();\n}```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnPressed"
+            },
+            {
+                "name": "OnLongPressed"
+            }
+        ]
+    }
+]

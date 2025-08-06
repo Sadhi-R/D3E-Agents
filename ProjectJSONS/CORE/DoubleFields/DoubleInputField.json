@@ -1,0 +1,65 @@
+[
+    {
+        "name": "Double Input Field",
+        "category": "Fields",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Double"
+            },
+            {
+                "name": "DecimalCount",
+                "type": "Integer",
+                "defaultValue": "`2`"
+            },
+            {
+                "name": "NullValue",
+                "type": "Double",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "InputField",
+            "data": {
+                "value": "`value != nullValue ? value.toString() : ''`",
+                "inputFormatter": "`r'^[\\d+\\-\\.](\\d+)?\\.\\?\\d{0,9}'`"
+            }
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```\n                nullValue = null;\n                dataController.text = this.value != nullValue ? this.value.toStringAsFixed(this.decimalCount) : '';\n            ```"
+            },
+            {
+                "name": "OnValueChanged",
+                "type": "OnEvent",
+                "on": "data",
+                "event": "onChanged",
+                "block": "```\n                if(onChanged != null){\n                    onChanged(Double.tryParse(text));\n                }\n            ```"
+            },
+            {
+                "name": "OnValueEditingComplete",
+                "type": "OnEvent",
+                "on": "data",
+                "event": "onEditingComplete",
+                "block": "```\n                Double nullValue;\n                Double finalValue = Double.tryParse(dataController.text);\n                if(finalValue != nullValue){\n                    dataController.text =  finalValue.toStringAsFixed(this.decimalCount);\n                }  \n                if(onEditingComplete != null){\n                    onEditingComplete();\n                }\n            ```"
+            }
+        ],
+        "focusable": true,
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Double"
+                    }
+                ]
+            },
+            {
+                "name": "OnEditingComplete"
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

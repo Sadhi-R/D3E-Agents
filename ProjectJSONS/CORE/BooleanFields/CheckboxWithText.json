@@ -1,0 +1,76 @@
+[
+    {
+        "name": "Checkbox With Text",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Boolean"
+            },
+            {
+                "name": "Title",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "row",
+            "children": [
+                {
+                    "type": "Checkbox",
+                    "name": "CheckBox",
+                    "data": {
+                        "value": "`value`",
+                        "disable": "`disable`"
+                    }
+                },
+                {
+                    "type": "TextView",
+                    "name": "TitleRef",
+                    "data": {
+                        "data": "`title`",
+                        "cursor": "click"
+                    },
+                    "behaviours": [
+                        "GestureDetector"
+                    ]
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnChangedLeftCheckBoxHandler",
+                "type": "OnEvent",
+                "on": "checkBox",
+                "event": "onChanged",
+                "block": "```if (this.onChanged != null && !this.disable){\n                    onChanged(val);\n                }```"
+            },
+            {
+                "name": "onTap",
+                "type": "OnBehaviour",
+                "on": "titleRef",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if (this.onChanged != null && !this.disable){\n                    onChanged(!value);\n                }```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

@@ -1,0 +1,101 @@
+[
+    {
+        "name": "BasicDropdownPopup",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Items",
+                "type": "T",
+                "required": true,
+                "collection": true
+            },
+            {
+                "name": "CurrentItem",
+                "type": "T",
+                "required": true,
+                "internal": true,
+                "onChange": "onCurrentItemChanged"
+            }
+        ],
+        "build": {
+            "component": "ListView",
+            "name": "Id1",
+            "data": {
+                "cursor": "click",
+                "shrinkWrap": "true",
+                "itemCount": "`this.items.length`"
+            },
+            "children": [
+                {
+                    "type": "Row",
+                    "name": "Id3",
+                    "data": {
+                        "padding": "0 5"
+                    },
+                    "children": [
+                        {
+                            "type": "Container",
+                            "name": "id",
+                            "child": {
+                                "type": "CBuild",
+                                "name": "DropdownItemBuilder",
+                                "params": [
+                                    {
+                                        "name": "Item",
+                                        "value": "`this.items[index]`"
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "states": [
+                        {
+                            "name": "selected",
+                            "type": "Boolean"
+                        }
+                    ],
+                    "behaviours": [
+                        "GestureDetector"
+                    ]
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnSelectItem",
+                "type": "OnBehaviour",
+                "on": "id3",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```onChanged(this.items[index]);```"
+            },
+            {
+                "name": "onCurrentItemChanged",
+                "block": "``` ```"
+            }
+        ],
+        "generic": true,
+        "builder": {
+            "name": "DropdownItemBuilder",
+            "required": true,
+            "params": [
+                {
+                    "name": "Item",
+                    "type": "T",
+                    "valueFrom": "items"
+                }
+            ]
+        },
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "T"
+                    }
+                ]
+            }
+        ]
+    }
+]

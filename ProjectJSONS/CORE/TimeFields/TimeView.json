@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Time View",
+        "category": "Fields",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Time"
+            },
+            {
+                "name": "Format",
+                "type": "String",
+                "defaultValue": "`HH:mm:ss`"
+            },
+            {
+                "name": "Formatter",
+                "type": "DateFormat",
+                "internal": true
+            },
+            {
+                "name": "DisplayValue",
+                "type": "String",
+                "computed": true,
+                "computation": "`formatter == null ? '' : formatter.format(value.toDateTime())`",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "TextView",
+            "styles": [],
+            "data": {
+                "data": "`displayValue`"
+            }
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```formatter = DateFormat(format);```"
+            }
+        ]
+    }
+]

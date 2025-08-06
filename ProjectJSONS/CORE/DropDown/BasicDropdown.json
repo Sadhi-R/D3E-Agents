@@ -1,0 +1,243 @@
+[
+    {
+        "name": "BasicDropdown",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "T"
+            },
+            {
+                "name": "Items",
+                "type": "T",
+                "collection": true,
+                "required": true
+            },
+            {
+                "name": "Place Holder",
+                "type": "String"
+            },
+            {
+                "name": "Errors",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "IsExists",
+                "type": "Boolean",
+                "computed": true,
+                "computation": "`this.items.any((element) => element == this.value)`",
+                "internal": true
+            },
+            {
+                "name": "Show",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "PopupWidth",
+                "type": "Double"
+            }
+        ],
+        "build": {
+            "component": "Column",
+            "name": "Id447",
+            "data": {
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "start",
+                "width": "`popupWidth`"
+            },
+            "children": [
+                {
+                    "type": "Row",
+                    "name": "id2",
+                    "data": {
+                        "mainAxisAlignment": "spaceBetween",
+                        "crossAxisAlignment": "center",
+                        "cursor": "click"
+                    },
+                    "children": [
+                        {
+                            "component": "CIf",
+                            "name": "id",
+                            "condition": "`isExists`",
+                            "then": {
+                                "type": "Container",
+                                "name": "Builder",
+                                "data": {
+                                    "expand": "true"
+                                },
+                                "child": {
+                                    "type": "CBuild",
+                                    "name": "DropdownItemBuilder",
+                                    "params": [
+                                        {
+                                            "name": "Item",
+                                            "value": "`this.value`"
+                                        }
+                                    ]
+                                }
+                            },
+                            "else": {
+                                "type": "TextView",
+                                "name": "id",
+                                "data": {
+                                    "expand": "true",
+                                    "data": "`this.placeHolder != null ? this.placeHolder : '---Select---'`",
+                                    "overflow": "ellipsis"
+                                }
+                            }
+                        },
+                        {
+                            "type": "IconView",
+                            "name": "id",
+                            "data": {
+                                "icon": "MaterialIcons.arrow_drop_down"
+                            }
+                        }
+                    ],
+                    "key": "`placeHolder`",
+                    "states": [
+                        {
+                            "name": "Focus",
+                            "type": "Boolean"
+                        }
+                    ],
+                    "conditionals": [
+                        {
+                            "condition": "`errors.isNotEmpty`",
+                            "values": {
+                                "decoration": {
+                                    "border": {
+                                        "color": "FFC20F2F",
+                                        "width": "1.0"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "behaviours": [
+                        "GestureDetector",
+                        "Focus",
+                        "LayoutAware"
+                    ]
+                },
+                {
+                    "component": "CIf",
+                    "name": "id",
+                    "condition": "`this.errors.isNotEmpty`",
+                    "then": {
+                        "type": "Column",
+                        "name": "id",
+                        "data": {
+                            "crossAxisAlignment": "start",
+                            "margin": "5 0 0"
+                        },
+                        "children": [
+                            {
+                                "component": "CFor",
+                                "name": "Item",
+                                "var": "item",
+                                "items": "`this.errors`",
+                                "type": "String",
+                                "item": {
+                                    "type": "TextView",
+                                    "name": "id",
+                                    "data": {
+                                        "data": "`item`",
+                                        "color": "FFC20F2F"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnShowDropDown",
+                "type": "OnBehaviour",
+                "on": "id2",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```\n                if (show) {\n                    hideItemsPopup();\n                    show = false;\n                    return;\n                }\n                if(this.items.isNotEmpty && !disable){\n                    showItemsPopup(autoClose: true);\n                    show = true;\n                }\n            ```"
+            },
+            {
+                "name": "OnDropDownBoundsChanges",
+                "type": "OnBehaviour",
+                "on": "id2",
+                "behaviour": "LayoutAware",
+                "event": "onBoundsChange",
+                "block": "```\n                //this.popUpWidth = bounds.width;\n            ```"
+            },
+            {
+                "name": "onKey",
+                "type": "OnBehaviour",
+                "on": "id2",
+                "behaviour": "Focus",
+                "event": "onKey",
+                "block": "```\n                if (event is RawKeyDownEvent && !disable) {\n                    if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.space ||  event.logicalKey == LogicalKeyboardKey.numpadEnter) {\n                       if(this.items.isNotEmpty && !disable){\n                            showItemsPopup(autoClose: true);\n                            show = true;\n                        }\n                        return KeyEventResult.handled;\n                    }\n                    if(event is RawKeyDownEvent) {\n                        if(event.logicalKey == LogicalKeyboardKey.arrowDown){\n                            onDownHandler();\n                        } else if (event.logicalKey == LogicalKeyboardKey.arrowUp){\n                            onUpHandler();\n                        }\n                    }\n                }\n                return KeyEventResult.ignored;\n            ```",
+                "returnType": "KeyEventResult"
+            },
+            {
+                "name": "OnDownHandler",
+                "block": "```\n                if(items.isNotEmpty && !disable){\n                    Integer value = items.indexOf(value != null ?  value : this.items.first);\n                    Integer nextValue = value + 1;\n                    if(nextValue >= this.items.length){\n                       return;\n                    }\n                    onChanged(items.elementAt(nextValue));\n                }\n            ```"
+            },
+            {
+                "name": "OnUpHandler",
+                "block": "```\n                if(items.isNotEmpty && !disable){\n                    Integer value = items.indexOf(value != null ?  value : this.items.first);\n                    Integer nextValue = value - 1;\n                    if(nextValue < 0){\n                        return;\n                    }\n                    onChanged(items.elementAt(nextValue));\n                }\n            ```"
+            },
+            {
+                "name": "onChangeditemsPopupHandler",
+                "type": "OnEvent",
+                "popup": "itemsPopup",
+                "event": "onChanged",
+                "block": "```\n                hideItemsPopup();\n                show = false;\n                onChanged(value);\n            ```"
+            }
+        ],
+        "popups": [
+            {
+                "name": "Items Popup",
+                "component": "BasicDropdownPopup",
+                "side": "Bottom",
+                "data": {
+                    "items": "`items`",
+                    "currentItem": "`value`",
+                    "width": "`popupWidth`",
+                    "height": "`popupWidth`"
+                },
+                "target": "id2"
+            }
+        ],
+        "generic": true,
+        "builder": {
+            "name": "DropdownItemBuilder",
+            "required": true,
+            "params": [
+                {
+                    "name": "Item",
+                    "type": "T",
+                    "valueFrom": "`items`"
+                }
+            ]
+        },
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "T"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

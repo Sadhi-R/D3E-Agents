@@ -1,0 +1,26 @@
+Model {
+    package 'remote_canva.com'
+    name 'Invoice'
+    properties [
+        {
+            name 'Title'
+            type String
+            required true
+        }
+        {
+            name 'Amount'
+            type Double
+            required true
+        }
+        {
+            name 'Status'
+            type InvoiceStatus
+        }
+        {
+            name 'Invoice ID'
+            type String
+            required true
+            unique true
+        }
+    ]
+}

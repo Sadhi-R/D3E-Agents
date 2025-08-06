@@ -84,8 +84,8 @@
                         "ChildStyle"
                     ],
                     "data": {
-                        "childProperty1": "value1",
-                        "childProperty2": "value2"
+                        "childProperty1": "`value1`",
+                        "childProperty2": "`value2`"
                     },
                     "twoWayBinding": "BooleanProperty",
                     "behaviours": [
@@ -149,14 +149,14 @@
                                                         "type": "SlotNestedChildComponent",
                                                         "name": "SlotNestedChildName",
                                                         "data": {
-                                                            "slotNestedChildProperty1": "value1"
+                                                            "slotNestedChildProperty1": "`value1`"
                                                         }
                                                     },
                                                     {
                                                         "type": "SlotNestedChildComponent2",
                                                         "name": "SlotNestedChildName2",
                                                         "data": {
-                                                            "slotNestedChildProperty2": "value2"
+                                                            "slotNestedChildProperty2": "`value2`"
                                                         }
                                                     }
                                                 ]

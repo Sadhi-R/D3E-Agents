@@ -1,0 +1,15 @@
+@Java('classes.TwilioService')
+server class TwilioService {
+    static TwilioService get();
+    String getAccessToken(User user,{Boolean isMobile = false});
+    String getRecordingUrl(String recordingSid);
+    List<PhoneNumberDetails> searchAvailableNumbers(String countryWithCode,String searchBy {String areaCode});
+    Boolean buyNumber(String phoneNumber);
+    Boolean configureNumberWebhooks(User user, String phoneNumber, String phoneSid, String messageServiceSid);
+    List<PhoneNumberDetails> getUnconfiguredNumbers();
+    Boolean releaseNumber(String phoneNumber);
+    Boolean sendSMS(Interaction interaction);
+    Boolean removeCallBacks(String phoneNumber);
+    Boolean convertToConference(String callSid, String fromNumber, String toNumber, String participantNumber);
+    Boolean addParticipant(String fromNumber, String toNumber, String participantNumber, String owner);
+}

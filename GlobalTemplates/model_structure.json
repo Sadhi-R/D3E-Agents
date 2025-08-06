@@ -1,0 +1,48 @@
+[
+  {
+    "name": "ModelName",
+    "package": "package.name (optional)",
+    "master": "MasterModel (optional)",
+    "parent": "ParentModel (optional)",
+    "creatable": true,
+    "singleton": false,
+    "embedded": false,
+    "transient": false,
+    "needCreatedDate": false,
+    "needUpdatedDate": false,
+    "display": "`Display Expression` (optional)",
+    "properties": [
+      {
+        "name": "Property Name",
+        "type": "Property Type",
+        "required": true,
+        "unique": false,
+        "collection": false,
+        "defaultValue": "`Default Value Expression`",
+        "computed": false,
+        "computation": "`Computation Expression`",
+        "child": false,
+        "embedded": false,
+        "inverse": false,
+        "inverseProperty": "propertyName",
+        "existsIf": "`Condition Expression`",
+        "longText": false,
+        "transient": false,
+        "description": "Property description"
+      }
+    ],
+    "actions": [
+      {
+        "name": "ActionName",
+        "runOn": "OnCreate | OnUpdate | OnDelete (optional)",
+        "block": "```\n// D3E code here\n```"
+      }
+    ],
+    "validations": [
+      {
+        "errorMsg": "Error message",
+        "expression": "`validation_expression`"
+      }
+    ]
+  }
+]

@@ -1,0 +1,185 @@
+Model {
+    package 'rewa.hr.2'
+    name 'End User'
+    master Company
+    parent BaseUser
+    properties [
+        {
+            name 'Email'
+            type String
+            required true
+            unique true
+        }
+        {
+            name 'Employee'
+            type Employee
+        }
+        {
+            name 'Username'
+            type String
+            required true
+            unique true
+        }
+        {
+            name 'Supervisor Role'
+            type UserRole
+            referenceFrom `this.company.userRoles.where(r => r.type == Supervisor)`
+        }
+        {
+            name 'Admin Role'
+            type UserRole
+            referenceFrom `this.company.userRoles.where(r => r.type == Admin)`
+        }
+        {
+            name 'Status'
+            type Boolean
+            description 'Is this user\'s login enabled?'
+        }
+        {
+            name 'NewPassword'
+            type String
+            transient true
+        }
+        {
+            name 'Password'
+            type String
+            required true
+            readType None
+        }
+        {
+            name 'Regions'
+            collection true
+            type Location
+        }
+        {
+            name 'ESS Role'
+            type UserRole
+            referenceFrom `this.company.userRoles.where(r => r.type == ESS)`
+        }
+        {
+            name 'Email Verified'
+            type Boolean
+        }
+        {
+            name 'Widget Settings'
+            type UserWidgetSettings
+        }
+        {
+            name 'Most Feedback During'
+            type PerformanceFeedbackDuration
+        }
+        {
+            name 'Show Sub Ordinates Leaves Only'
+            type Boolean
+        }
+        {
+            name 'Show Interviews In My Actions'
+            type Boolean
+        }
+        {
+            name 'Show Trainings In My Actions'
+            type Boolean
+        }
+        {
+            name 'Show Onboarding Events and Tasks In My Actions'
+            type Boolean
+        }
+        {
+            name 'Show Pending Leaves As Summary in My Actions'
+            type Boolean
+        }
+        {
+            name 'Show Pending Timesheets As Summary In My Actions'
+            type Boolean
+        }
+        {
+            name 'Show Pending Attendance Sheets As Summary In My Actions'
+            type Boolean
+        }
+        {
+            name 'Show Pending Appraisal Reviews As Summary In My Actions'
+            type Boolean
+        }
+        {
+            name 'Show Pending Goals As Summary In My Actions'
+            type Boolean
+        }
+        {
+            name 'Show Sub Ordinates Goals Only'
+            type Boolean
+            existsIf `!showPendingGoalsAsSummaryInMyActions`
+        }
+        {
+            name 'Approve Pending Leaves'
+            type Boolean
+        }
+        {
+            name 'Approve Pending Timesheets'
+            type Boolean
+        }
+        {
+            name 'Approve Pending Attendance Sheets'
+            type Boolean
+        }
+        {
+            name 'Review Pending Appraisal'
+            type Boolean
+        }
+        {
+            name 'Approve Pending Goals'
+            type Boolean
+        }
+        {
+            name 'Shortcuts'
+            collection true
+            type Shortcut
+            inverse true
+            inverseProperty endUser
+        }
+        {
+            name 'Name'
+            type String
+        }
+        {
+            name 'DefaultEmployeeFilter'
+            type EmployeeShortcut
+            child true
+        }
+        {
+            name 'DefaultGoalFilter'
+            type GoalsShorcut
+            child true
+        }
+        {
+            name 'DefaultAppraisalFilter'
+            type AppraisalShortcut
+            child true
+        }
+        {
+            name 'DefaultLeaveCalendarFilter'
+            type LeaveShorcut
+            child true
+        }
+        {
+            name 'DefaultTimeSheetShortCut'
+            type TimeSheetShortCut
+            child true
+        }
+    ]
+    display `this.username`
+    actions [
+        {
+            runOn OnCreateAndUpdate
+            name 'Created Standard Test User'
+            block ```
+                if(newPassword != null && newPassword.isNotEmpty) {
+                    this.password = newPassword;
+                }
+                if(this.employee.email != this.email){
+                    this.employee.email = this.email;
+                    Database.save(this.employee);
+                }
+            ```
+        }
+    ]
+}

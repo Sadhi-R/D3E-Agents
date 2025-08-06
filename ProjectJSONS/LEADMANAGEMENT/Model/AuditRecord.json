@@ -1,0 +1,21 @@
+[
+    {
+        "name": "AuditRecord",
+        "needCreatedDate": true,
+        "properties": [
+            {
+                "name": "Action Owner",
+                "type": "User"
+            },
+            {
+                "name": "Action",
+                "type": "String"
+            },
+            {
+                "name": "Action Description",
+                "type": "String",
+                "longText": true
+            }
+        ]
+    }
+]

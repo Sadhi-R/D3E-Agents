@@ -1,14 +1,140 @@
 [
     {
-        "name" : "style name",
-        "component" : "Component Name",
-        "items" : [
+        "name": "style name",
+        "component": "Component Name",
+        "items": [
             {
-                "selector" : "",
-                "values" : { 
-                    "padding" : "`paddingValue`",
-                    "margin" : "`marginValue`",
-                    "backgroundColor" : "@colorVariable"
+                "selector": ":className",
+                "values": {
+                    "padding": "paddingValue",
+                    "margin": "marginValue",
+                    "backgroundColor": "@colorVariable"
+                }
+            }
+        ]
+    },
+    {
+        "name": "style name2",
+        "items": [
+            {
+                "selector": ".className",
+                "values": {
+                    "fontSize": "16px",
+                    "color": "#333"
+                }
+            }
+        ]
+    },
+    {
+        "name": "style name3",
+        "items": [
+            {
+                "selector": "Component",
+                "values": {
+                    "decoration": {
+                        "border": {
+                            "width": "1",
+                            "style": "solid",
+                            "color": "colorVariable || colorCode"
+                        },
+                        "borderRadius": "4",
+                        "boxShadow": {
+                            "color": "colorVariable || colorCode",
+                            "bulrRadius": "2",
+                            "spreadRadius": "0"
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "name": "style name4",
+        "component": "Component",
+        "items": [
+            {
+                "selector": ".tagName",
+                "values": {
+                    "fontWeight": "bold",
+                    "textAlign": "center"
+                }
+            }
+        ]
+    },
+    {
+        "name": "style name5",
+        "items": [
+            {
+                "selector": "Component InnerComponent",
+                "values": {
+                    "decoration": {
+                        "border": {
+                            "width": "1",
+                            "style": "dashed",
+                            "color": "colorVariable || colorCode"
+                        },
+                        "borderRadius": "8",
+                        "boxShadow": {
+                            "color": "colorVariable || colorCode",
+                            "blurRadius": "4",
+                            "spreadRadius": "2"
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "name": "style name6",
+        "items": [
+            {
+                "selector": "Component > InnerComponent",
+                "values": {
+                    "fontSize": "14px",
+                    "decoration": {
+                        "color": "colorVariable || colorCode"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "name": "style name6",
+        "items": [
+            {
+                "selector": "Component + InnerComponent",
+                "values": {
+                    "fontSize": "14px",
+                    "decoration": {
+                        "color": "colorVariable || colorCode"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "name": "style name6",
+        "items": [
+            {
+                "selector": "Component ~ InnerComponent",
+                "values": {
+                    "fontSize": "14px",
+                    "decoration": {
+                        "color": "colorVariable || colorCode"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "name": "style name7",
+        "items": [
+            {
+                "selector": ".className || Component",
+                "values": {
+                    "decoration": {
+                        "color": "colorVariable || colorCode"
+                    }
                 }
             }
         ]

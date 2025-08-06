@@ -1,0 +1,157 @@
+[
+    {
+        "name": "IconToggle",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Boolean",
+                "required": true,
+                "onChange": "onValueChanged"
+            },
+            {
+                "name": "Yes",
+                "type": "IconData",
+                "required": true
+            },
+            {
+                "name": "No",
+                "type": "IconData",
+                "required": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "onChange": "onDisabledChanged"
+            }
+        ],
+        "build": {
+            "component": "Container",
+            "name": "id",
+            "data": {
+                "alignment": "topLeft"
+            },
+            "children": [
+                {
+                    "type": "Stack",
+                    "name": "stack",
+                    "data": {
+                        "alignment": "centerStart"
+                    },
+                    "children": [
+                        {
+                            "type": "Container",
+                            "name": "ToggleContainer",
+                            "tags": [
+                                "body"
+                            ],
+                            "data": {
+                                "cursor": "click"
+                            },
+                            "states": [
+                                {
+                                    "name": "Focus",
+                                    "type": "Boolean"
+                                },
+                                {
+                                    "name": "Disabled",
+                                    "type": "Boolean",
+                                    "defaultValue": "`this.disable`"
+                                },
+                                {
+                                    "name": "Active",
+                                    "type": "Boolean",
+                                    "defaultValue": "`this.value`"
+                                }
+                            ]
+                        },
+                        {
+                            "component": "CIf",
+                            "name": "id",
+                            "condition": "`value`",
+                            "then": {
+                                "type": "Container",
+                                "name": "container4",
+                                "data": {
+                                    "margin": "2.5",
+                                    "right": "0",
+                                    "decoration": {
+                                        "borderRadius": "16"
+                                    }
+                                },
+                                "child": {
+                                    "type": "IconView",
+                                    "name": "trueIconView",
+                                    "data": {
+                                        "icon": "`this.yes`"
+                                    }
+                                }
+                            },
+                            "else": {
+                                "type": "Container",
+                                "name": "container4",
+                                "data": {
+                                    "margin": "2.5",
+                                    "left": "0",
+                                    "decoration": {
+                                        "borderRadius": "16"
+                                    }
+                                },
+                                "child": {
+                                    "type": "IconView",
+                                    "name": "falseIconView",
+                                    "data": {
+                                        "icon": "`this.no`"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "behaviours": [
+                "Focus",
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnChange",
+                "type": "OnBehaviour",
+                "on": "id",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```\n                if(this.onChanged != null){\n                    onChanged(!value);\n                }\n            ```"
+            },
+            {
+                "name": "onValueChanged",
+                "block": "```\n                toggleContainer.active = this.value;\n            ```"
+            },
+            {
+                "name": "onDisabledChanged",
+                "block": "```\n                toggleContainer.disabled = this.disable;\n            ```"
+            },
+            {
+                "name": "onKey",
+                "type": "OnBehaviour",
+                "on": "id",
+                "behaviour": "Focus",
+                "event": "onKey",
+                "block": "```\n                if (event is RawKeyDownEvent && !this.disable) {\n                    if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.space ||  event.logicalKey == LogicalKeyboardKey.numpadEnter) {\n                        if (!disable) {\n                            this.onChanged(!this.value);\n                            return KeyEventResult.handled;\n                        }\n                        return KeyEventResult.handled;\n                    }\n                }\n                return KeyEventResult.ignored;\n            ```",
+                "returnType": "KeyEventResult"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

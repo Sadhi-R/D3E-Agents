@@ -1,0 +1,140 @@
+[
+    {
+        "name": "ToolTipWrapper",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Message",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "HasShow",
+                "type": "Boolean",
+                "internal": true,
+                "defaultValue": "`true`"
+            },
+            {
+                "name": "BackgroundColor",
+                "type": "Color"
+            },
+            {
+                "name": "TextColor",
+                "type": "Color"
+            },
+            {
+                "name": "BackgroundColorValue",
+                "type": "Color",
+                "computed": true,
+                "computation": "`this.backgroundColor != null ? this.backgroundColor : HexColor.fromHexInt(0xFF1F2937`",
+                "internal": true
+            },
+            {
+                "name": "TextColorValue",
+                "type": "Color",
+                "computed": true,
+                "computation": "`this.textColor != null ? this.textColor : HexColor.fromHexInt(0xffffffff)`",
+                "internal": true
+            },
+            {
+                "name": "OnCursorEnter",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "ShowTimer",
+                "type": "Timer",
+                "internal": true
+            },
+            {
+                "name": "HideTimer",
+                "type": "Timer",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Container",
+            "name": "id",
+            "child": {
+                "type": "CSlot",
+                "name": "Child"
+            },
+            "behaviours": [
+                "MouseRegion"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnEnterHandler",
+                "type": "OnBehaviour",
+                "on": "id",
+                "behaviour": "MouseRegion",
+                "event": "onEnter",
+                "block": "```\n                this.onCursorEnter = true;\n                this.showTimer = Timer(Duration(milliseconds: 1), () {\n                    if (this.onCursorEnter && this.hasShow && \n                        this.message != null && this.message.isNotEmpty) {\n                        showToolTipMessage(autoClose: true);\n                    }\n                });\n                \n                hideTimer = Timer(Duration(seconds: 6), () {\n                    if (this.onCursorEnter && this.hasShow &&\n                        this.message != null && this.message.isNotEmpty) {\n                        hideToolTipMessage();\n                    }\n                });\n            ```"
+            },
+            {
+                "name": "OnExitHandler",
+                "type": "OnBehaviour",
+                "on": "id",
+                "behaviour": "MouseRegion",
+                "event": "onExit",
+                "block": "```\n                this.onCursorEnter = false;\n                hideToolTipMessage();\n                this.hasShow = true;\n            ```"
+            },
+            {
+                "name": "OnDispose",
+                "block": "```\n                if (this.showTimer != null) {\n                    this.showTimer.cancel();\n                }\n                if (this.hideTimer != null) {\n                    this.hideTimer.cancel();\n                }\n            ```"
+            }
+        ],
+        "popups": [
+            {
+                "name": "ToolTipMessage",
+                "component": "ToolTipMessage",
+                "side": "Bottom",
+                "data": {
+                    "decoration": {
+                        "color": "@c2"
+                    },
+                    "message": "`this.message`",
+                    "textColor": "`textColorValue`",
+                    "backgroundColor": "`backgroundColorValue`"
+                },
+                "target": "id"
+            }
+        ],
+        "slots": [
+            {
+                "name": "Child"
+            }
+        ]
+    },
+    {
+        "name": "ToolTipMessage",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Message",
+                "type": "String"
+            },
+            {
+                "name": "BackgroundColor",
+                "type": "Color"
+            },
+            {
+                "name": "TextColor",
+                "type": "Color"
+            }
+        ],
+        "build": {
+            "component": "TextView",
+            "name": "id",
+            "data": {
+                "data": "`message`",
+                "color": "`this.textColor`",
+                "padding": "4",
+                "decoration": {
+                    "color": "`this.backgroundColor`"
+                }
+            }
+        }
+    }
+]

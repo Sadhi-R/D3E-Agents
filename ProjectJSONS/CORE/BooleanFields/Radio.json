@@ -1,0 +1,102 @@
+[
+    {
+        "name": "Radio",
+        "category": "Fields",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "T",
+                "required": true
+            },
+            {
+                "name": "Group Value",
+                "type": "T",
+                "required": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "onChange": "onDisabledChanged"
+            },
+            {
+                "name": "RadioValue",
+                "type": "Boolean",
+                "computed": true,
+                "computation": "`(value != null && groupValue != null) ? (value == groupValue) : false`",
+                "internal": true,
+                "onChange": "onActiveValueChanged"
+            }
+        ],
+        "build": {
+            "component": "Container",
+            "name": "RadioRef",
+            "data": {
+                "cursor": "click"
+            },
+            "children": [
+                {
+                    "type": "IconView",
+                    "name": "Icon",
+                    "data": {
+                        "icon": "MaterialIcons.radio_button_unchecked"
+                    },
+                    "conditionals": [
+                        {
+                            "condition": "`radioValue`",
+                            "values": {
+                                "icon": "MaterialIcons.radio_button_checked"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "states": [
+                {
+                    "name": "Disabled",
+                    "type": "Boolean",
+                    "defaultValue": "`this.disable`"
+                },
+                {
+                    "name": "Active",
+                    "type": "Boolean",
+                    "defaultValue": "`this.radioValue`"
+                }
+            ],
+            "behaviours": [
+                "KeyboardListener",
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnCheckedPressed",
+                "type": "OnBehaviour",
+                "on": "radioRef",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if (onChanged != null && !disable) {\n                    onChanged(value);\n                }```"
+            },
+            {
+                "name": "onDisabledChanged",
+                "block": "```radioRef.disabled = this.disable;```"
+            },
+            {
+                "name": "onActiveValueChanged",
+                "block": "```radioRef.active = this.radioValue;```"
+            }
+        ],
+        "generic": true,
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "T"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

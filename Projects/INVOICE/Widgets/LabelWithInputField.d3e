@@ -1,0 +1,268 @@
+Widget {
+    name 'LabelWithInputField'
+    category 'UserDefined'
+    properties [
+        {
+            name 'Label'
+            type String
+        }
+        {
+            name 'PlaceHolder'
+            type String
+        }
+        {
+            name 'Is Required'
+            type Boolean
+            defaultValue `false`
+        }
+        {
+            name 'Value'
+            type String
+        }
+        {
+            name 'Errors'
+            collection true
+            type String
+        }
+        {
+            name 'ObscureText'
+            type Boolean
+            defaultValue `false`
+            stylable true
+        }
+        {
+            name 'FocusNode'
+            type FocusNode
+            internal true
+        }
+        {
+            name 'Active'
+            type Boolean
+            internal true
+        }
+        {
+            name 'disable'
+            type Boolean
+            defaultValue `false`
+        }
+        {
+            name 'Field Color'
+            type Color
+            stylable true
+        }
+        {
+            name 'MaxLines'
+            type Integer
+            defaultValue `1`
+            stylable true
+        }
+        {
+            name 'Corner Radius'
+            type Double
+            defaultValue `4.0`
+            stylable true
+        }
+        {
+            name 'keyboardType'
+            type TextInputType
+            stylable true
+        }
+        {
+            name 'Dense'
+            type Boolean
+            defaultValue `false`
+            stylable true
+        }
+    ]
+    build Column {
+        name 'id'
+        data {
+            margin '8 4 0 4'
+            crossAxisAlignment 'start'
+        }
+        children [
+            CIf {
+                name 'id'
+                condition `this.label != null && this.label.isNotEmpty`
+                then Row {
+                    name 'id'
+                    data {
+                        margin '0 0 5 0'
+                    }
+                    children [
+                        TextView {
+                            name 'Nameview'
+                            data {
+                                data `this.label`
+                                fontSize '14'
+                                fontWeight 'w500'
+                                color 'ff000000'
+                            }
+                        }
+                        CIf {
+                            name 'id'
+                            condition `isRequired`
+                            then TextView {
+                                name 'id'
+                                data {
+                                    data '*'
+                                    color 'FFC20F2F'
+                                    fontSize '14'
+                                    fontWeight 'w500'
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+            InputField {
+                name 'Field'
+                data {
+                    value `value`
+                    height '40'
+                    backgroundColor 'ffffffff'
+                    placeHolderColor 'ff191919'
+                    inActiveColor 'ffe8e1e1'
+                    activeColor 'ff299d91'
+                    padding '0 10'
+                    focusNode `focusNode`
+                    obscureText `obscureText`
+                    placeHolder `this.placeHolder`
+                    disable `disable`
+                    maxLines `maxLines`
+                    dense `dense`
+                    keyboardType `keyboardType`
+                    textStyle {
+                        fontSize '15'
+                        fontWeight 'w500'
+                          color 'ff191919'
+                    }
+                    cornerRadius `cornerRadius`
+                }
+                conditionals [
+                    {
+                        condition `this.disable`
+                        values {
+                            backgroundColor 'FFB4B4B4'
+                        }
+                    }
+                    {
+                        condition `this.fieldColor == null`
+                        values {
+                            backgroundColor 'FFFFFFFF'
+                        }
+                    }
+                    {
+                        condition `errors.isNotEmpty`
+                        values {
+                            inActiveColor 'FFC20F2F'
+                        }
+                    }
+                ]
+            }
+            CIf {
+                name 'id'
+                condition `this.errors.isNotEmpty`
+                then Column {
+                    name 'id'
+                    data {
+                        crossAxisAlignment 'start'
+                    }
+                    children [
+                        CFor {
+                            name 'Item'
+                            var 'item'
+                            items `this.errors`
+                            type String
+                            item TextView {
+                                name 'id'
+                                data {
+                                    data `item`
+                                    margin '5 0 0'
+                                    color 'FFC20F2F'
+                                    textAlign 'start'
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+    eventHandlers [
+        {
+            name 'OnInit'
+            block ```
+                focusNode = FocusNode();
+                focusNode.addListener(onChangeFocus);
+            ```
+        }
+        {
+            name 'OnChangeFocus'
+            block ```
+                active = focusNode.hasFocus;
+                if(active && onTap != null){
+                    this.onTap();
+                }
+            ```
+        }
+        {
+            name 'OnChangeText'
+            type OnEvent
+            on field
+            event onChanged
+            block ```
+                if(onChanged != null){
+                    onChanged(text);
+                }
+            ```
+        }
+        {
+            name 'onTapHandker'
+            type OnEvent
+            on field
+            event onTap
+            block ```
+                this.errors.clear();
+                if(onTap != null){
+                    onTap();
+                }
+            ```
+        }
+        {
+            name 'OnSubmiitedTextHandler'
+            type OnEvent
+            on field
+            event onSubmitted
+            block ```
+                if(onSubmitted != null){
+                    onSubmitted(text);
+                }
+            ```
+        }
+    ]
+    events [
+        {
+            name 'OnChanged'
+            params [
+                {
+                    name 'Value'
+                    type String
+                }
+            ]
+        }
+        {
+            name 'OnTap'
+        }
+        {
+            name 'OnSubmitted'
+            params [
+                {
+                    name 'Value'
+                    type String
+                }
+            ]
+        }
+    ]
+    twoWayBinding true
+}

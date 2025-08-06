@@ -1,0 +1,16 @@
+
+client class PaginationUtils {
+    static String pageNumberPath(Integer pageSize, Integer offset, Integer total){
+        if(total == 0){
+            return '0-0 of 0';
+        }else {
+            return (offset + 1).toString() + ' - ' +  (((offset + pageSize) > total) ? total.toString() : (offset + pageSize).toString()) + ' of ' + total.toString();
+        }
+    }
+    static Boolean hideBackwardArrow(Integer pageSize, Integer offset, Integer total){
+        return pageSize > total || offset <= 1;
+    }
+    static Boolean hideForwardArrow(Integer pageSize, Integer offset, Integer total){
+        return pageSize > total || (offset+pageSize >= total) ||(total - offset) < pageSize;
+    }
+}

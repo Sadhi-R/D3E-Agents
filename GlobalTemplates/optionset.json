@@ -1,0 +1,40 @@
+[
+    {
+        "name": "OptionsetName",
+        "options": [
+            {
+                "name": "OptionName"
+            },
+            {
+                "name": "OptionName",
+                "values": [
+                    {
+                        "value": [
+                            "value1",
+                            "value2"
+                        ],
+                        "attriburte": "attributeName"
+                    }
+                ]
+            }
+        ],
+        "atttributes": [
+            {
+                "name": "attributeName",
+                "type": "String || Integer || Boolean || Double || Date || DateTime || Time || Duration || DFile || Geolocation || Object",
+                "required": "true || false"
+            },
+            {
+                "name": "attributeName",
+                "type": "String || Integer || Boolean || Double || Date || DateTime || Time || Duration || DFile || Geolocation || Object",
+                "collection": "true || false"
+            },
+            {
+                "name": "attributeName",
+                "type": "String || Integer || Boolean || Double || Date || DateTime || Time || Duration || DFile || Geolocation || Object",
+                "required": "true || false",
+                "collection": "true || false"
+            }
+        ]
+    }
+]

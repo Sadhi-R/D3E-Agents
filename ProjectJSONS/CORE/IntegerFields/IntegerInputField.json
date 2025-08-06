@@ -1,0 +1,65 @@
+[
+    {
+        "name": "Integer Input Field",
+        "category": "Fields",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Integer"
+            },
+            {
+                "name": "NullValue",
+                "type": "Integer",
+                "internal": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean"
+            }
+        ],
+        "build": {
+            "component": "InputField",
+            "data": {
+                "value": "`this.value != nullValue ? this.value.toString() : ''`",
+                "inputFormatter": "`r'[0-9]'`",
+                "disable": "`this.disable`"
+            }
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```this.nullValue = null;\n                dataController.text = this.value != nullValue ?  this.value.toString() : '';\n            ```"
+            },
+            {
+                "name": "OnValueChanged",
+                "type": "OnEvent",
+                "on": "data",
+                "event": "onChanged",
+                "block": "```if(onChanged != null){\n                    onChanged(Integer.tryParse(text));\n                }```"
+            },
+            {
+                "name": "OnValueEditingComplete",
+                "type": "OnEvent",
+                "on": "data",
+                "event": "onEditingComplete",
+                "block": "```if(onEditingComplete != null){\n                    onEditingComplete();\n                }```"
+            }
+        ],
+        "focusable": true,
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Integer"
+                    }
+                ]
+            },
+            {
+                "name": "OnEditingComplete"
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

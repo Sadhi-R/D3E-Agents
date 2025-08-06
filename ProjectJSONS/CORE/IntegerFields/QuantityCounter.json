@@ -1,0 +1,87 @@
+[
+    {
+        "name": "Quantity Counter",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "value",
+                "type": "Integer",
+                "defaultVaule": "`0`",
+                "required": true
+            },
+            {
+                "name": "localValue",
+                "type": "Integer",
+                "computed": true,
+                "computation": "`value`",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "Row",
+            "data": {
+                "mainAxisAlignment": "start"
+            },
+            "children": [
+                {
+                    "type": "IconButton",
+                    "name": "minusButton",
+                    "tags": [
+                        "rounded"
+                    ],
+                    "data": {
+                        "icon": "MaterialIcons.remove"
+                    }
+                },
+                {
+                    "type": "InputField",
+                    "name": "InputField",
+                    "data": {
+                        "value": "`this.localValue.toString() !='' ? this.localValue.toString():'0'`",
+                        "expand": "true",
+                        "textAlign": "center",
+                        "inputFormatter": "`r'[0-9]*'`"
+                    }
+                },
+                {
+                    "type": "IconButton",
+                    "name": "plusButton",
+                    "tags": [
+                        "rounded"
+                    ],
+                    "data": {
+                        "icon": "MaterialIcons.add"
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "onPressedminusButtonHandler",
+                "type": "OnEvent",
+                "on": "minusButton",
+                "event": "onPressed",
+                "block": "```\n                if(localValue!=0){\n                    this.localValue = this.localValue-1;\n                    onValueChange(this.localValue);\n                }\n            ```"
+            },
+            {
+                "name": "onPressedplusButtonHandler",
+                "type": "OnEvent",
+                "on": "plusButton",
+                "event": "onPressed",
+                "block": "```\n                this.localValue = this.localValue+1;\n                    onValueChange(this.localValue);\n            ```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnValueChange",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Integer"
+                    }
+                ]
+            }
+        ]
+    }
+]

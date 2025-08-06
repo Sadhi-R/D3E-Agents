@@ -1,0 +1,171 @@
+[
+    {
+        "name": "Time Field",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "value",
+                "type": "Time",
+                "required": true
+            },
+            {
+                "name": "placeHolder",
+                "type": "String"
+            },
+            {
+                "name": "FocusNode",
+                "type": "FocusNode",
+                "internal": true
+            },
+            {
+                "name": "Focused",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "FormatedTime",
+                "type": "String",
+                "internal": true
+            },
+            {
+                "name": "TimeFormat",
+                "type": "String",
+                "defaultValue": "`HH:mm`"
+            },
+            {
+                "name": "Error",
+                "type": "String",
+                "internal": true
+            },
+            {
+                "name": "disable",
+                "type": "Boolean",
+                "defaultValue": "false"
+            }
+        ],
+        "build": {
+            "component": "Column",
+            "name": "ColumnRef",
+            "data": {
+                "crossAxisAlignment": "start"
+            },
+            "children": [
+                {
+                    "type": "Row",
+                    "name": "timeRow",
+                    "data": {
+                        "width": "`Double.infinity`"
+                    },
+                    "children": [
+                        {
+                            "type": "InputField",
+                            "name": "timeInput",
+                            "data": {
+                                "value": "`formatedTime`",
+                                "placeHolder": "`placeHolder`",
+                                "focusNode": "`this.focusNode`",
+                                "disable": "`disable`",
+                                "expand": "true"
+                            }
+                        },
+                        {
+                            "type": "IconView",
+                            "name": "timeIcon",
+                            "data": {
+                                "icon": "MaterialIcons.access_time",
+                                "cursor": "click"
+                            },
+                            "behaviours": [
+                                "GestureDetector"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "component": "CIf",
+                    "name": "id",
+                    "condition": "`error != null && error.isNotEmpty`",
+                    "then": {
+                        "type": "TextView",
+                        "name": "ErrorRef",
+                        "data": {
+                            "data": "`error`"
+                        }
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```\n                this.focusNode = FocusNode();\n                focusNode.addListener(focusHandler);\n                if(this.value != null){\n                    DateTime dateTime = DateTime(Date.now().year,Date.now().month,Date.now().day,value.hour,value.minutes,value.seconds);\n                    formatedTime = CalenderUtils.getFormatedTimeFromDateTime(dateTime, this.timeFormat);\n                } else {\n                    DateTime dateTime = DateTime(Date.now().year,Date.now().month,Date.now().day,Time.now().hour,Time.now().minutes,Time.now().seconds);\n                    formatedTime = CalenderUtils.getFormatedTimeFromDateTime(dateTime, this.timeFormat);\n                }\n            ```"
+            },
+            {
+                "name": "FocusHandler",
+                "block": "```\n                focused = focusNode.hasFocus;\n            ```"
+            },
+            {
+                "name": "OnClickIcon",
+                "type": "OnBehaviour",
+                "on": "timeIcon",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```\n                showTimePopup();\n            ```"
+            },
+            {
+                "name": "onTimeSelected",
+                "type": "OnEvent",
+                "popup": "timePopup",
+                "event": "onTimeChange",
+                "block": "```\n                if(time != null){\n                    DateTime dateTime = DateTime(Date.now().year,Date.now().month,Date.now().day,time.hour,time.minutes,time.seconds);\n                    formatedTime = CalenderUtils.getFormatedTimeFromDateTime(dateTime, this.timeFormat);\n                    timeInputController.text = CalenderUtils.getFormatedTimeFromDateTime(dateTime, this.timeFormat);\n                    hideTimePopup();\n                    this.onChanged(time);\n                }\n                this.error = '';\n            ```"
+            },
+            {
+                "name": "OnDateEditingComplete",
+                "type": "OnEvent",
+                "on": "timeInput",
+                "event": "onEditingComplete",
+                "block": "```\n                if((RegExp(r'^([01]?[0-9]|2[0-3]):[0-5][0-9]$').hasMatch(timeInputController.text))) {\n                    List<String> time = timeInputController.text.split(':');\n                    DateTime dateTime = DateTime(Date.now().year,Date.now().month,Date.now().day,Integer.parse(time[0]),Integer.parse(time[1]));\n                    formatedTime = CalenderUtils.getFormatedTimeFromDateTime(dateTime, this.timeFormat);\n                    timeInputController.text = CalenderUtils.getFormatedTimeFromDateTime(dateTime, this.timeFormat);\n                     Time finalTIme = Time.of(Integer.parse(time[0]),Integer.parse(time[1]),0,0);\n                     this.onChanged(finalTIme); \n                }\n            ```"
+            },
+            {
+                "name": "OnDateChangeHandler",
+                "type": "OnEvent",
+                "on": "timeInput",
+                "event": "onChanged",
+                "block": "```\n                if(!(RegExp(r'^([01]?[0-9]|2[0-3]):[0-5][0-9]$').hasMatch(text))) {\n                   error = 'Expected Format: HH:MM';\n                }\n                else {\n                    error = null;\n                }\n            ```"
+            },
+            {
+                "name": "OnCancelHandler",
+                "type": "OnEvent",
+                "popup": "timePopup",
+                "event": "onCancel",
+                "block": "```\n                hideTimePopup();\n            ```"
+            }
+        ],
+        "popups": [
+            {
+                "name": "timePopup",
+                "component": "TimePickerWithInputfield",
+                "side": "Bottom",
+                "data": {
+                    "time": "`value`"
+                },
+                "target": "timeIcon",
+                "tags": [
+                    "timePickerPopup"
+                ]
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Date",
+                        "type": "Time"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

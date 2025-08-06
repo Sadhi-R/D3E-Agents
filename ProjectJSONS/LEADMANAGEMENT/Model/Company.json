@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Company",
+        "properties": [
+            {
+                "name": "Name",
+                "type": "String"
+            },
+            {
+                "name": "Is Lead Service",
+                "type": "Boolean"
+            },
+            {
+                "name": "Is Customer Service",
+                "type": "Boolean"
+            },
+            {
+                "name": "Enable Messaging",
+                "type": "Boolean"
+            },
+            {
+                "name": "Message Service Id",
+                "type": "String"
+            }
+        ]
+    }
+]

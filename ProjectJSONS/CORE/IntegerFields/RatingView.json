@@ -1,0 +1,117 @@
+[
+    {
+        "name": "Rating View",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Star Count",
+                "type": "Integer",
+                "required": true
+            },
+            {
+                "name": "Active Color",
+                "type": "Color",
+                "stylable": true,
+                "required": true
+            },
+            {
+                "name": "InActive Color",
+                "type": "Color",
+                "stylable": true,
+                "required": true
+            },
+            {
+                "name": "Value",
+                "type": "Double"
+            },
+            {
+                "name": "Current Rating",
+                "type": "Double",
+                "internal": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean"
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "Row",
+            "data": {
+                "mainAxisAlignment": "spaceBetween",
+                "mainAxisSize": "min"
+            },
+            "children": [
+                {
+                    "component": "CFor",
+                    "name": "CFor",
+                    "var": "item",
+                    "items": "`Range.to(starCount)`",
+                    "type": "Integer",
+                    "item": {
+                        "type": "IconView",
+                        "name": "Icon",
+                        "data": {
+                            "icon": "MaterialIcons.star_border",
+                            "color": "`inActiveColor != null ? inActiveColor : HexColor.fromHexInt(0xFFB4B4B4)`",
+                            "cursor": "click"
+                        },
+                        "conditionals": [
+                            {
+                                "condition": "`currentRating >= item + 1.0`",
+                                "values": {
+                                    "icon": "MaterialIcons.star",
+                                    "color": "`activeColor != null ? activeColor : HexColor.fromHexInt(0xFF65E246)`"
+                                }
+                            },
+                            {
+                                "condition": "`currentRating > item.toDouble()`",
+                                "values": {
+                                    "icon": "MaterialIcons.star_half",
+                                    "color": "`activeColor != null ? activeColor : HexColor.fromHexInt(0xFF65E246)`"
+                                }
+                            }
+                        ],
+                        "behaviours": [
+                            "GestureDetector"
+                        ]
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```\n                currentRating = value >= 0.0 ? value : 0.0;\n            ```"
+            },
+            {
+                "name": "OnPressedIconButtonHandler",
+                "type": "OnBehaviour",
+                "on": "icon",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```\n                if (currentRating == item + 1.0) {\n                    currentRating = 0.0; \n                } else {\n                    currentRating = item + 1.0;\n                }\n                if(onChanged !=null && !disable) {\n                    onChanged(currentRating);\n                }\n            ```"
+            },
+            {
+                "name": "OnPressedIconButtonHandler1",
+                "type": "OnBehaviour",
+                "on": "icon",
+                "behaviour": "GestureDetector",
+                "event": "onHorizontalDragUpdate",
+                "block": "```\n                Double startWidth = 48.0;\n                Double rating = item.toDouble() + details.localPosition.dx /startWidth;\n                currentRating = (rating * 2).round() / 2;\n                if(currentRating > starCount.toDouble()) {\n                    currentRating = starCount.toDouble();\n                }\n                if(currentRating < 0.0) {\n                    currentRating = 0.0;\n                }\n                if(onChanged !=null && !disable) {\n                    onChanged(currentRating);\n                }\n            ```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Double"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

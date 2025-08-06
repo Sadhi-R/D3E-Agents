@@ -258,7 +258,8 @@ while True:
         'widget': r"(create|update) widget (\w+):(.+)",
         'page': r"(create|update) page (\w+):(.+)",
         'style': r"(create|update) style (\w+):(.+)",
-        'theme': r"(create|update) theme (\w+):(.+)"
+        'theme': r"(create|update) theme (\w+):(.+)",
+        'usertype': r"(create|update) usertype (\w+):(.+)"
     }
     component_type, component_match = None, None
     for c_type, pattern in component_patterns.items():
@@ -273,6 +274,20 @@ while True:
         action = component_match.group(1).lower()
         component_name = component_match.group(2)
         component_content = component_match.group(3).strip()
+
+        # Enforce: usertype must have corresponding model
+        if component_type == 'usertype':
+            # Remove trailing 'User' or 'UserUser' to get model name
+            model_name = component_name
+            if model_name.endswith('UserUser'):
+                model_name = model_name[:-8]
+            elif model_name.endswith('User'):
+                model_name = model_name[:-4]
+            base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Projects', current_project)
+            model_file = os.path.join(base_dir, 'Model', f"{model_name}.d3e")
+            if not os.path.exists(model_file):
+                print(f"❌ Cannot create/update usertype '{component_name}': Required model '{model_name}.d3e' does not exist.")
+                continue
 
         # For widgets and pages, ensure theme and style references (project-based)
         if component_type in ['widget', 'page']:

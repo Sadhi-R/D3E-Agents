@@ -1,0 +1,137 @@
+[
+    {
+        "name": "DateAndTimeCalendar",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Date",
+                "type": "Date",
+                "internal": true
+            },
+            {
+                "name": "Time",
+                "type": "Time",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Container",
+            "name": "container",
+            "children": [
+                {
+                    "type": "Column",
+                    "name": "welcomeCol",
+                    "children": [
+                        {
+                            "type": "CalenderView",
+                            "name": "dateTimeCalender"
+                        },
+                        {
+                            "type": "TimePicker",
+                            "name": "timePicker",
+                            "data": {
+                                "margin": "10"
+                            }
+                        },
+                        {
+                            "type": "Row",
+                            "name": "RowRef",
+                            "data": {
+                                "mainAxisAlignment": "end",
+                                "padding": "10"
+                            },
+                            "children": [
+                                {
+                                    "type": "Wrap",
+                                    "name": "WrapRef",
+                                    "data": {
+                                        "spacing": "10"
+                                    },
+                                    "children": [
+                                        {
+                                            "type": "Button",
+                                            "name": "CancelRef",
+                                            "child": {
+                                                "type": "TextView",
+                                                "name": "text",
+                                                "data": {
+                                                    "data": "Cancel"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "Button",
+                                            "name": "OkRef",
+                                            "child": {
+                                                "type": "TextView",
+                                                "name": "text",
+                                                "data": {
+                                                    "data": "Ok"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnCalenderEvent",
+                "type": "OnEvent",
+                "on": "dateTimeCalender",
+                "event": "onDateSelected",
+                "block": "```this.date = date;```"
+            },
+            {
+                "name": "OnTimePickerEvent",
+                "type": "OnEvent",
+                "on": "timePicker",
+                "event": "onTimeChange",
+                "block": "```this.time = time;```"
+            },
+            {
+                "name": "OnDateTimeHandler",
+                "params": [
+                    {
+                        "name": "DateValue",
+                        "type": "Date"
+                    },
+                    {
+                        "name": "TimeValue",
+                        "type": "Time"
+                    }
+                ],
+                "block": "```if(dateValue != null && timeValue != null){\n                    onDateTimeChange(DateTime(dateValue.year,dateValue.month,dateValue.day,timeValue.hour,timeValue.minutes,timeValue.seconds));\n                }```"
+            },
+            {
+                "name": "OnDateTimeChangeRef",
+                "type": "OnEvent",
+                "on": "cancelRef",
+                "event": "onPressed",
+                "block": "```this.date = Date.now();\n                this.time = Time.now();\n                onDateTimeHandler(this.date, time);```"
+            },
+            {
+                "name": "OnDateTimeChangeHandler",
+                "type": "OnEvent",
+                "on": "okRef",
+                "event": "onPressed",
+                "block": "```onDateTimeHandler(this.date, time);```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnDateTimeChange",
+                "params": [
+                    {
+                        "name": "DateTime",
+                        "type": "DateTime"
+                    }
+                ]
+            }
+        ]
+    }
+]

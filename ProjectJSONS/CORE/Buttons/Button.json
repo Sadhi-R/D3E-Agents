@@ -1,0 +1,107 @@
+[
+    {
+        "name": "Button",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "defaultVaule": "`false`",
+                "onChange": "onDisabledChanged",
+                "required": true
+            }
+        ],
+        "build": {
+            "component": "Container",
+            "name": "ChildWrapper",
+            "data": {
+                "cursor": "click"
+            },
+            "children": [
+                {
+                    "type": "Center",
+                    "name": "id",
+                    "data": {
+                        "widthFactor": "1.0",
+                        "heightFactor": "1.0"
+                    },
+                    "children": [
+                        {
+                            "type": "CIf",
+                            "name": "id",
+                            "condition": "`childPresent`",
+                            "then": {
+                                "type": "CSlot",
+                                "name": "Child"
+                            },
+                            "else": {
+                                "type": "Container",
+                                "name": "id"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "states": [
+                {
+                    "name": "Focus",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "Disabled",
+                    "type": "Boolean",
+                    "defaultVaule": "`this.disable`"
+                }
+            ],
+            "behaviours": [
+                "Focus",
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnHandleTap",
+                "type": "OnBehaviour",
+                "on": "childWrapper",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if (this.onPressed != null && !childWrapper.disabled) { this.onPressed(); }```"
+            },
+            {
+                "name": "OnHandleLongPress",
+                "type": "OnBehaviour",
+                "on": "childWrapper",
+                "behaviour": "GestureDetector",
+                "event": "onLongPress",
+                "block": "```if (this.onLongPressed != null && !childWrapper.disabled) { this.onLongPressed(); }```"
+            },
+            {
+                "name": "onKey",
+                "type": "OnBehaviour",
+                "on": "childWrapper",
+                "behaviour": "Focus",
+                "event": "onKey",
+                "block": "```if (event is RawKeyDownEvent && !childWrapper.disabled) { if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.space ||  event.logicalKey == LogicalKeyboardKey.numpadEnter) { if (this.onPressed != null) { this.onPressed(); } return KeyEventResult.handled; } } return KeyEventResult.ignored;```",
+                "returnType": "KeyEventResult"
+            },
+            {
+                "name": "onDisabledChanged",
+                "block": "```childWrapper.disabled = this.disable;```"
+            }
+        ],
+        "focusable": true,
+        "slots": [
+            {
+                "name": "Child"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnPressed"
+            },
+            {
+                "name": "OnLongPressed"
+            }
+        ]
+    }
+]

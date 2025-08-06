@@ -1,0 +1,150 @@
+[
+    {
+        "name": "CardCheckbox",
+        "category": "Fields",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Boolean",
+                "onChange": "onValueChanged"
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "onChange": "onDisabledChanged"
+            },
+            {
+                "name": "MousePointerOn",
+                "type": "Boolean",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Column",
+            "name": "Column",
+            "data": {
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "start"
+            },
+            "children": [
+                {
+                    "type": "Container",
+                    "name": "ContainerRef",
+                    "data": {
+                        "height": "20"
+                    },
+                    "child": {
+                        "type": "Checkbox",
+                        "name": "checkBoxRef",
+                        "tags": [
+                            "rounded"
+                        ],
+                        "data": {
+                            "value": "`this.value`",
+                            "visibility": "`this.mousePointerOn || this.value`"
+                        }
+                    }
+                },
+                {
+                    "type": "Container",
+                    "name": "Container",
+                    "data": {
+                        "alignment": "center"
+                    },
+                    "child": {
+                        "type": "CSlot",
+                        "name": "content"
+                    }
+                }
+            ],
+            "states": [
+                {
+                    "name": "Focus",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "Disabled",
+                    "type": "Boolean",
+                    "defaultValue": "`this.disable`"
+                },
+                {
+                    "name": "Active",
+                    "type": "Boolean",
+                    "defaultValue": "`this.value`"
+                }
+            ],
+            "behaviours": [
+                "Focus",
+                "GestureDetector",
+                "MouseRegion"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnCangedPressed",
+                "type": "OnBehaviour",
+                "on": "column",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```\n                if (!this.disable) {\n                    this.onChanged(!this.value);\n                }\n            ```"
+            },
+            {
+                "name": "OnRoundChanged",
+                "type": "OnEvent",
+                "on": "checkBoxRef",
+                "event": "onChanged",
+                "block": "```\n                if (!this.disable) {\n                     this.onChanged(!this.value);\n                 }\n            ```"
+            },
+            {
+                "name": "OnEnterHandler",
+                "type": "OnBehaviour",
+                "on": "column",
+                "behaviour": "MouseRegion",
+                "event": "onEnter",
+                "block": "```\n                this.mousePointerOn = true;\n            ```"
+            },
+            {
+                "name": "OnExitHandler",
+                "type": "OnBehaviour",
+                "on": "column",
+                "behaviour": "MouseRegion",
+                "event": "onExit",
+                "block": "```\n                this.mousePointerOn = false;\n            ```"
+            },
+            {
+                "name": "onValueChanged",
+                "block": "```\n                column.active = this.value;\n            ```"
+            },
+            {
+                "name": "onDisabledChanged",
+                "block": "```\n                column.disabled = this.disable;\n            ```"
+            },
+            {
+                "name": "onKey",
+                "type": "OnBehaviour",
+                "on": "column",
+                "behaviour": "Focus",
+                "event": "onKey",
+                "block": "```\n                if (event is RawKeyDownEvent && !this.disable) {\n                    if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.space ||  event.logicalKey == LogicalKeyboardKey.numpadEnter) {\n                        if (!disable) {\n                            this.onChanged(!this.value);\n                            return KeyEventResult.handled;\n                        }\n                        return KeyEventResult.handled;\n                    }\n                }\n                return KeyEventResult.ignored;\n            ```",
+                "returnType": "KeyEventResult"
+            }
+        ],
+        "slots": [
+            {
+                "name": "Content"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Val",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

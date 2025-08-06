@@ -1,0 +1,164 @@
+[
+    {
+        "name": "Searchable InputField",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "Items",
+                "type": "String",
+                "collection": true,
+                "required": true
+            },
+            {
+                "name": "PopUpWidth",
+                "type": "Double",
+                "internal": true,
+                "defaultValue": "`150.0`"
+            },
+            {
+                "name": "FilteredItems",
+                "type": "String",
+                "collection": true,
+                "internal": true
+            },
+            {
+                "name": "SelectedValue",
+                "type": "String",
+                "internal": true,
+                "defaultValue": "`value`"
+            },
+            {
+                "name": "Active",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "ShouldHide",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "PopupVisible",
+                "type": "Boolean",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "Id2",
+            "data": {
+                "crossAxisAlignment": "start",
+                "mainAxisAlignment": "spaceBetween"
+            },
+            "children": [
+                {
+                    "type": "InputField",
+                    "name": "SearchText",
+                    "data": {
+                        "expand": "true",
+                        "value": "`this.selectedValue != null ? this.selectedValue : ''`"
+                    }
+                }
+            ],
+            "behaviours": [
+                "LayoutAware"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```this.filteredItems = [...items];```"
+            },
+            {
+                "name": "DoFilterItems",
+                "block": "```if (selectedValue == null || selectedValue.isEmpty) {\n    filteredItems = [...items];\n} else {\n    String str = selectedValue.toLowerCase();\n    Map<String, Integer> idx = Map();\n    for(String s in items) {\n        Integer i = s.toLowerCase().indexOf(str);\n        if(i != -1) {\n            idx.set(s, i);\n        }\n    }\n    List<String> fl = idx.keys.toList();\n    fl.sort((a, b) => idx.get(a).compareTo(idx.get(b)));\n    filteredItems = fl;\n}```"
+            },
+            {
+                "name": "OnSearchReferenHandler",
+                "type": "OnEvent",
+                "on": "searchText",
+                "event": "onChanged",
+                "block": "```popupVisible = false;\nthis.selectedValue = text;\ndoFilterItems();\nopenResults();\nonChanged(text);```"
+            },
+            {
+                "name": "OnSearchTapHandler",
+                "type": "OnEvent",
+                "on": "searchText",
+                "event": "onTap",
+                "block": "```doFilterItems();\nopenResults();```"
+            },
+            {
+                "name": "OnSelectListTile",
+                "type": "OnEvent",
+                "popup": "results",
+                "event": "onChanged",
+                "block": "```this.selectedValue = value;\nsearchTextController.text = value;\nonChanged(value);\nthis.active = true;\nthis.shouldHide = true;\ncloseResults();```"
+            },
+            {
+                "name": "OnChangeActive",
+                "type": "OnEvent",
+                "popup": "results",
+                "event": "onChangeActive",
+                "block": "```if (!val) {\n    closeResults();\n}```"
+            },
+            {
+                "name": "OnDropDownBoundsChanges",
+                "type": "OnBehaviour",
+                "on": "id2",
+                "behaviour": "LayoutAware",
+                "event": "onBoundsChange",
+                "block": "```this.popUpWidth = bounds.width;```"
+            },
+            {
+                "name": "OnResultsClose",
+                "type": "OnPopupClose",
+                "popup": "results",
+                "block": "```popupVisible = false;```"
+            },
+            {
+                "name": "OpenResults",
+                "block": "```if (!popupVisible) {\n    popupVisible = true;\n    showResults(autoClose: true);\n}```"
+            },
+            {
+                "name": "CloseResults",
+                "block": "```if (popupVisible) {\n    popupVisible = false;\n    hideResults();\n}```"
+            }
+        ],
+        "popups": [
+            {
+                "name": "Results",
+                "component": "SearchResultView",
+                "side": "Bottom",
+                "tags": [
+                    "resultPopup"
+                ],
+                "data": {
+                    "width": "`popUpWidth`",
+                    "items": "`this.filteredItems`"
+                },
+                "target": "id2"
+            }
+        ],
+        "focusable": true,
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Text",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "OnTap"
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

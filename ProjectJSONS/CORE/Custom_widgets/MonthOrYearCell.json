@@ -1,0 +1,69 @@
+[
+    {
+        "name": "Month Or Year Cell",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "monthOrYear",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "IsSelected",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "required": true
+            }
+        ],
+        "build": {
+            "component": "Container",
+            "name": "Container1",
+            "data": {
+                "height": "35",
+                "constraints": {
+                    "maxWidth": "100"
+                },
+                "alignment": "center",
+                "cursor": "click"
+            },
+            "children": [
+                {
+                    "type": "TextView",
+                    "name": "TextView1",
+                    "data": {
+                        "data": "`this.monthOrYear.isEmpty ? 'January': this.monthOrYear`"
+                    }
+                }
+            ],
+            "behaviours": [
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "onTapcontainer1BehaviourHandler",
+                "type": "OnBehaviour",
+                "on": "container1",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```this.isSelected = true;\nonTapMonthOrYear(monthOrYear);```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnTapMonthOrYear",
+                "params": [
+                    {
+                        "name": "MonthOrYear",
+                        "type": "String"
+                    }
+                ],
+                "required": true
+            }
+        ]
+    }
+]

@@ -1,0 +1,105 @@
+[
+    {
+        "name": "ToggleBase",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Boolean",
+                "onChange": "onValueChanged"
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "onChange": "onDisabledChanged"
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "Row",
+            "data": {
+                "mainAxisSize": "min"
+            },
+            "children": [
+                {
+                    "type": "Container",
+                    "name": "yesContainer",
+                    "child": {
+                        "type": "CSlot",
+                        "name": "yes"
+                    },
+                    "states": [
+                        {
+                            "name": "Active",
+                            "type": "Boolean",
+                            "defaultValue": "`this.value`"
+                        }
+                    ]
+                },
+                {
+                    "type": "Container",
+                    "name": "noContainer",
+                    "child": {
+                        "type": "CSlot",
+                        "name": "no"
+                    },
+                    "states": [
+                        {
+                            "name": "Active",
+                            "type": "Boolean",
+                            "defaultValue": "`!this.value`"
+                        }
+                    ]
+                }
+            ],
+            "states": [
+                {
+                    "name": "Disabled",
+                    "type": "Boolean",
+                    "defaultValue": "`this.disable`"
+                }
+            ],
+            "behaviours": [
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "onActiveRowBehaviourHandler",
+                "type": "OnBehaviour",
+                "on": "row",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if(this.onChanged != null && !this.disable){\n                    onChanged(!value);\n                }```"
+            },
+            {
+                "name": "onValueChanged",
+                "block": "```yesContainer.active = this.value;\n                noContainer.active = !this.value;```"
+            },
+            {
+                "name": "onDisabledChanged",
+                "block": "```row.disabled = this.disable;```"
+            }
+        ],
+        "slots": [
+            {
+                "name": "Yes"
+            },
+            {
+                "name": "No"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

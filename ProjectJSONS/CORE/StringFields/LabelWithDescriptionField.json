@@ -1,0 +1,184 @@
+[
+    {
+        "name": "LabelWithDescriptionField",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Label",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "PlaceHolder",
+                "type": "String"
+            },
+            {
+                "name": "Is Required",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "Value",
+                "type": "String"
+            },
+            {
+                "name": "Errors",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "FocusNode",
+                "type": "FocusNode",
+                "internal": true
+            },
+            {
+                "name": "Active",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "disable",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "MaxLines",
+                "type": "Integer",
+                "defaultValue": "`1`"
+            },
+            {
+                "name": "keyboardType",
+                "type": "TextInputType"
+            },
+            {
+                "name": "Dense",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            }
+        ],
+        "build": {
+            "component": "Column",
+            "data": {
+                "crossAxisAlignment": "start"
+            },
+            "children": [
+                {
+                    "type": "Row",
+                    "data": {
+                        "margin": "0 0 5 0"
+                    },
+                    "children": [
+                        {
+                            "type": "TextView",
+                            "data": {
+                                "data": "`this.label`"
+                            }
+                        },
+                        {
+                            "type": "CIf",
+                            "condition": "`isRequired`",
+                            "then": {
+                                "type": "TextView",
+                                "data": {
+                                    "data": "*",
+                                    "color": "ffd9534f"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "InputField",
+                    "data": {
+                        "value": "`value`",
+                        "focusNode": "`focusNode`",
+                        "placeHolder": "`this.placeHolder`",
+                        "disable": "`disable`",
+                        "maxLines": "`maxLines`",
+                        "dense": "`dense`",
+                        "keyboardType": "multiline"
+                    }
+                },
+                {
+                    "type": "CIf",
+                    "condition": "`this.errors.isNotEmpty`",
+                    "then": {
+                        "type": "Column",
+                        "data": {
+                            "crossAxisAlignment": "start"
+                        },
+                        "children": [
+                            {
+                                "type": "String",
+                                "var": "item",
+                                "items": "`this.errors`",
+                                "item": {
+                                    "type": "TextView",
+                                    "data": {
+                                        "data": "`item`",
+                                        "margin": "5 0 0"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```focusNode = FocusNode();\nfocusNode.addListener(onChangeFocus);```"
+            },
+            {
+                "name": "OnChangeFocus",
+                "block": "```active = focusNode.hasFocus;\nif(active && onTap != null){\n    this.onTap();\n}```"
+            },
+            {
+                "name": "OnChangeText",
+                "type": "OnEvent",
+                "on": "descriptionField",
+                "event": "onChanged",
+                "block": "```if(onChanged != null){\n    onChanged(text);\n}```"
+            },
+            {
+                "name": "onTapHandker",
+                "type": "OnEvent",
+                "on": "descriptionField",
+                "event": "onTap",
+                "block": "```this.errors.clear();\nif(onTap != null){\n    onTap();\n}```"
+            },
+            {
+                "name": "OnSubmiitedTextHandler",
+                "type": "OnEvent",
+                "on": "descriptionField",
+                "event": "onSubmitted",
+                "block": "```if(onSubmitted != null){\n    onSubmitted(text);\n}```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "OnTap"
+            },
+            {
+                "name": "OnSubmitted",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "String"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

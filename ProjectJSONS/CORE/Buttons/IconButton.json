@@ -1,0 +1,57 @@
+[
+    {
+        "name": "IconButton",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Icon",
+                "type": "IconData",
+                "required": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean"
+            }
+        ],
+        "build": {
+            "component": "Button",
+            "name": "Base",
+            "data": {
+                "disable": "`this.disable`"
+            },
+            "children": [
+                {
+                    "type": "IconView",
+                    "name": "IconView",
+                    "data": {
+                        "icon": "`icon`"
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "Base On Pressed",
+                "type": "OnEvent",
+                "on": "base",
+                "event": "onPressed",
+                "block": "```if (this.onPressed != null) {\n    this.onPressed();\n}```"
+            },
+            {
+                "name": "Base On Long Pressed",
+                "type": "OnEvent",
+                "on": "base",
+                "event": "onLongPressed",
+                "block": "```if (this.onLongPressed != null) {\n    this.onLongPressed();\n}```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnPressed"
+            },
+            {
+                "name": "OnLongPressed"
+            }
+        ]
+    }
+]

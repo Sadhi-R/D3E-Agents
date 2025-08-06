@@ -1,0 +1,23 @@
+@Dart('classes/TwiloClient.dart#TwiloClient')
+@TypeScript('classes.TwilioClient')
+client class TwilioClient {
+    String accessToken;
+    String callSid;
+    CallData data;
+    TwilioClient(this.accessToken);
+    void setAccessToken(String token);
+    Future<Boolean> checkMicPermission();
+    Future<Boolean> initialize({Consumer<String> onSuccess, BiConsumer<String, String> onFailure, Consumer<TwilioCall> onIncomingCall, Consumer<String> onTokenWillExpire});
+    Future<Boolean> connectCall(String callId, {Consumer<String> onStatus, BiConsumer<String, String> onFailure});
+    Future<Boolean> disconnect();
+    Boolean isMuted;
+    Future<Boolean> muteCall({Consumer<String> onSuccess, BiConsumer<String, String> onFailure});
+    Future<Boolean> unmuteCall({Consumer<String> onSuccess, BiConsumer<String, String> onFailure});
+    Future<Boolean> makeCall(String from, String to, String ext, { Consumer<String> onStatus, BiConsumer<String, String> onFailure});
+    Future<Boolean> disconnectCall({Consumer<String> onFailure});
+    Future<Boolean> acceptIncomingCall(TwilioCall tCall, {Consumer<String> onStatus, BiConsumer<String, String> onFailure});
+    Future<Boolean> rejectIncomingCall(TwilioCall tCall);
+    static String getPurifiedPhoneNumber(String phoneNumber, {String defaultCountryCode = '+1'});
+    Future<Boolean> updateDeviceToken(String token);
+    void addNotificationListner({BiConsumer<Boolean, String> onNotificationClick});
+}

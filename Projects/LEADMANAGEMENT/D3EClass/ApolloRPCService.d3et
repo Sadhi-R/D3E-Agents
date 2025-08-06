@@ -1,0 +1,26 @@
+
+@RPCService
+server class ApolloRPCService {
+    static List<LeadResultItem> searchLeads(SearchCriteria criteria) {
+        return ApolloService.get().searchLeads(criteria);
+    }
+    static List<String> getJobTitleSuggestions(String jobTitle){
+        return ApolloService.get().getJobTitleSuggestions(jobTitle);
+    }
+    static List<String> getLocationSuggestions(String location){
+        return ApolloService.get().getLocationSuggestions(location);
+    }
+    static List<String> getTechnologySuggestions(String technology){
+        return ApolloService.get().getTechnologySuggestions(technology);
+    }
+    static List<CompanySearchItem> getOrgCompanies(String query){
+        return ApolloService.get().getOrgCompanies(query);
+    }
+    static List<IndustryResultItem> getIndustriesSuggestions(String query){
+        return ApolloService.get().getIndustriesSuggestions(query);
+    }
+
+    static Boolean saveLeads(List<LeadResultItem> leads){
+        return ApolloService.get().saveLeads(leads);
+    }
+}

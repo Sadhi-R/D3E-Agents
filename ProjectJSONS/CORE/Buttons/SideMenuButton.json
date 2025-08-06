@@ -1,0 +1,88 @@
+[
+    {
+        "name": "SideMenuButton",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Title",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "selectedMenu",
+                "type": "String",
+                "required": true,
+                "internal": true,
+                "onChange": "onSelectedMenuChanged"
+            },
+            {
+                "name": "Icon",
+                "type": "IconData"
+            }
+        ],
+        "build": {
+            "component": "Button",
+            "name": "Button",
+            "children": [
+                {
+                    "type": "Row",
+                    "name": "Row2",
+                    "data": {
+                        "mainAxisAlignment": "start"
+                    },
+                    "children": [
+                        {
+                            "type": "CIf",
+                            "name": "IconRef",
+                            "condition": "`icon != null`",
+                            "then": {
+                                "type": "IconView",
+                                "name": "IconRef1",
+                                "data": {
+                                    "icon": "`icon`"
+                                }
+                            }
+                        },
+                        {
+                            "type": "TextView",
+                            "name": "Text",
+                            "data": {
+                                "data": "`title`"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "states": [
+                {
+                    "name": "Selected",
+                    "value": "`selectedMenu.equals(title)`"
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "onPressedButton",
+                "type": "OnEvent",
+                "on": "button",
+                "event": "onPressed",
+                "block": "```if (onClick != null) {\n    onClick(selectedMenu);\n}```"
+            },
+            {
+                "name": "onSelectedMenuChanged",
+                "block": "```button.selected = selectedMenu.equals(title);```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnClick",
+                "params": [
+                    {
+                        "name": "SelectedMenuItem",
+                        "type": "String"
+                    }
+                ]
+            }
+        ]
+    }
+]

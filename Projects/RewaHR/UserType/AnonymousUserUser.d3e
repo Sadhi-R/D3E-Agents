@@ -1,0 +1,56 @@
+UserType {
+    name 'AnonymousUserUser'
+    modelAccess [
+        {
+            model AnonymousUser
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model ChangePasswordRequest
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model EmailMessage
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model OneTimePassword
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model PushNotification
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model SMSMessage
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+        {
+            model VerificationData
+            allowCreate true
+            allowUpdate true
+            allowDelete true
+        }
+       
+    ]
+    userModel AnonymousUser
+    loginSettings {
+    }
+    queries [
+        {
+            query Interactions
+        }
+    ]
+}

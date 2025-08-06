@@ -13,6 +13,42 @@ In D3E Studio, **widgets** are the core building blocks of the user interface. W
     -   D3E provides wide range of widgets for buttons, inputs, lists, tables, etc. So, we can use them directly. No need to create a new widget for that.
 
 ---
+# Native Components
+
+## Layout
+- Center (widthFactor, heightFactor)
+- Container (alignment, foregroundDecoration, transform, clipBehavior)
+- Column (mainAxisAlignment, mainAxisSize, crossAxisAlignment, textDirection, verticalDirection, textBaseline)
+- Row (mainAxisAlignment, mainAxisSize, crossAxisAlignment, textDirection, verticalDirection)
+- Stack (alignment, textDirection, fit, clipBehavior)
+- Wrap (direction, spacing, alignment, runAlignment, runSpacing)
+- Table (defaultColumnWidth, ColumnWidths,textDirection, border, DefaultVerticalAlignment,TextBaseline)
+- TableRow (decoration)
+- TableCell (verticalAlignment)
+- Layout Grid (Areas,GridFit,RowGap,ColumnGap,ColumnSizes,RowSizes)
+
+## UI Base
+- BaseComponent (top, bottom, right, left, padding, margin, visibility, width, height, decoration, expand, vscroll, hscroll, constraints, textStyle, cursor, tooltip)
+- InputField (value, keyboardType, strutStyle, textAlign, textDirection, textCapitalization, autofocus, obscureText, autocorrect, maxLines, minLines, expands, maxLength, maxLengthEnforced, enabled, cursorWidth, cornerRadius, disable, cursorRadius, cursorColor, keyboardAppearance, scrollPadding, padding, enableInteractiveSelection, dragStartBehavior, scrollPhysics, focusNode, readOnly, toolbarOptions, showCursor, enableSuggestions, dense, placeHolder, placeHolderColor, activeColor, inActiveColor, backgroundColor, inputFormatter)
+- TextView (Data,style, textAlign, maxLines, overflow, softWrap,Overflow,TextDirection,BackgroundColor,Color,FontSize,FontWeight,FontStyle,FontFamily,LetterSpacing,WordSpacing,LineSpacing,TextBaseline,TextDecoration)
+- IconView (icon, size, color, textDirection, type)
+- ImageView (imageType (Required), imageUrl (Required), placeHolderUrl, color, colorBlendMode, fit, repeat, filterQuality, cornerRadius, topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius, individualCorners, alignment, width, height)
+- CanvasView (width, height)
+- ListView (scrollDirection, reverse, primary,Physics, shrinkWrap,Padding,ItemExtent,AddAutomaticKeepAlives,AddRepaintBoundaries,AddSemanticIndexes,CacheExtent,DragStartBehavior,ItemCount)
+- Loader (ValueColor,color, BackgroundColor,strokeWidth,StrokeWidth,SemanticsLabel,SemanticsValue)
+- PageRouter (Target)
+
+## Date & Time
+- D3EDateTimeView (initialDate, firstDate, lastDate)
+- D3EDateView (initialDate, firstDate, lastDate)
+- D3ETimeView (initialTime)
+
+## Utils
+- ColorPickerNative (InitialColor)
+- CustomCursor (CursorStyle)
+- PageRouter (initialRoute)
+
+
 # Core Components
 
 Properties listed in brackets () for each component indicate all available properties. Properties marked with (Required) must be provided when using the component, while others are optional.
@@ -79,7 +115,6 @@ Properties listed in brackets () for each component indicate all available prope
 - DateCell (date (Required), isSelected)
 - MonthOrYearCell (value (Required), isSelected)
 
-
 ---
 
 ## 1. Widget Rules and Best Practices
@@ -130,7 +165,7 @@ Widget {
     properties [
         // ... property blocks ...
     ]
-    build <WidgetTree> { ... }
+    build WidgetTree { ... }
     // Optional: slots [ ... ]
     // Optional: eventHandlers [ ... ]
     // Optional: events [ ... ]
@@ -288,15 +323,42 @@ build PopupWrapperView {
 
 The `build` block defines the widget's UI using a tree of components. This is where you compose the visual and interactive structure of your widget.
 
+**Important Syntax Rules for Build Tree:**
+- Use `component` instead of `type` when specifying widget types in build sections
+- Widget types should be unquoted identifiers
+
+**Wrong:**
 ```d3e
-build <WidgetType> {
+build Column {
+    type 'Row'
+    // ...
+}
+```
+
+**Correct:**
+```d3e
+build Column {
+    component Row
+    // ...
+}
+```
+
+Or more commonly, specify the component type directly in the build declaration:
+```d3e
+build Row {
+    // ...
+}
+```
+
+```d3e
+build WidgetType {
     name 'NodeName'
     // Optional: styles [ ... ]
     // Optional: data { ... }
     // Optional: children [ ... ]
     // Optional: conditionals [ ... ]
     // Optional: key `expression`
-    // Optional: child <WidgetType> { ... }
+    // Optional: child WidgetType { ... }
 }
 ```
 
@@ -307,19 +369,135 @@ build <WidgetType> {
 - **conditionals**: Conditional rendering or property overrides.
 - **key**: Unique key for widget instance.
 
+
+**For DropDowns Don't write like this**
+```d3eString {
+                name 'DropDown'
+                data {
+                    placeHolder 'Select'
+                    decoration {
+                        border {
+                            color '@c4'
+                            width '0.0'
+                        }
+                    }
+                    items `[]`
+                    expand 'false'
+                    height '40'
+                }
+                builder TextView {
+                    name 'builder'
+                    data {
+                        data 'builder'
+                    }
+                }
+            }
+```
+
+write like this
+```d3e
+DropDown {
+                name 'DropDownRef'
+                type String || any bindable type
+                data {
+                    placeHolder 'Select'
+                    decoration {
+                        border {
+                            color '@c4'
+                            width '0.0'
+                        }
+                    }
+                    items `[]`
+                    expand 'false'
+                    height '40'
+                }
+                builder TextView {
+                    name 'builder'
+                    data {
+                        data 'builder'
+                    }
+                }
+            }
+```
+
+**For Table Don't write like this**
+```d3e
+      Table {
+        name 'Table'
+        data {
+            defaultColumnWidth '1.flex'
+            columnWidths {
+                columnWidth [
+                    '1.flex'
+                    '1.flex'
+                    '1.flex'
+                    '1.flex'
+                ]
+            }
+        }
+      }
+
+```
+write like this
+```d3e
+      Table {
+        name 'Table'
+        type String || any bindable type
+        data {
+            defaultColumnWidth '1.flex'
+            columnWidths {
+                columnWidth '1.flex'
+                columnWidth '1.flex'
+                columnWidth '1.flex'
+                columnWidth '1.flex'
+            }
+        }
+      }
+```
+
 ---
 
 ## 8. Event Handlers
 
 Widgets can define event handlers for user interactions or lifecycle events:
 
+**Important Syntax Rules for Event Handlers:**
+- Do NOT use quotes around `type`, `on`, and `event` values
+- These should be unquoted identifiers
+
+**Wrong:**
+```d3e
+{
+    name 'onAddNoteButtonPressed'
+    type 'OnEvent'
+    on 'addNoteButton'
+    event 'onPressed'
+    block ```
+        onAddNote(isAdded);
+    ```
+}
+```
+
+**Correct:**
+```d3e
+{
+    name 'onAddNoteButtonPressed'
+    type OnEvent
+    on addNoteButton
+    event onPressed
+    block ```
+        onAddNote(isAdded);
+    ```
+}
+```
+
 ```d3e
 eventHandlers [
     {
         name 'HandlerName'
         type OnEvent // Optional, e.g., OnEvent
-        on <WidgetNodeName>
-        event <EventName>
+        on WidgetNodeName
+        event EventName
         block ```
             // D3E code to execute
         ```
@@ -748,6 +926,192 @@ All widgets can use the following general properties:
 
 Refer to the project's existing widgets for best practices and property usage.
 
+
+**Another Note : **
+In Event Handlers near on, event Don't write in String format. Write it directly
+In editorFor  and editorInput , Don't write in String format. Write it directly
+    Example : Dont' write like this editorFor 'Lead' write like this editorFor Lead
+    Example : Dont' write like this editorInput 'lead' write like this editorInput lead
+In Slot name Don't write in String format. Write it directly
+    Example : Dont' write like this slot 'content' write like this slot content
+
+Don't write like this
+[\' Phone Number is required \']
+write like this
+[Phone Number is required]
+
+In Json we have type type CIF, CFor, CSwtich
+write like this
+
+## ⚠️ CRITICAL RULE FOR CFor STRUCTURES:
+
+**IMPORTANT**: When converting JSON to D3E code, the "DataType" field in CFor structures MUST be converted to the "type" field in D3E code.
+
+Main Rule:
+CFor {
+    name 'CFor'
+    var 'variableName'
+    items `items`
+    type DataTypeValue  // ← CRITICAL: This comes from "DataType" field in JSON
+    item something {
+
+    }
+}
+
+
+**Example:**
+```json
+{
+    "name": "CFor",
+    "DataType": "String",
+    "var": "error",
+    "items": "`errors`"
+}
+```
+
+**Converts to:**
+```d3e
+CFor {
+    name 'CFor'
+    var 'error'
+    items `errors`
+    type String
+    item Column {
+        // item content
+    }
+}
+```
+
+Don't write like this
+String {
+    var 'var'
+    items `items`
+    type In Json we have DataType keyword. Write it as it is. Don't write in string format.
+    item something {
+
+    }
+}
+
+For CIF write like this
+CIf {
+    condition `condition`
+    then something {
+
+    }
+    else somethingElse {
+
+    }
+}
+
+Don't write like this
+CIf {
+    condition `condition`
+    then `something {
+
+    }`
+    else `somethingElse {
+
+    }`
+}
 ---
 
+# 🚨 CRITICAL FIX: CFor Type Field Issue
+
+## Problem Description
+The studio chat bot was generating D3E code for CFor structures without the required `type` field, causing compilation errors. When converting JSON widget structures containing CFor elements with a "DataType" field, the AI was not properly including the `type` field in the generated D3E code.
+
+## Root Cause
+The issue was in the AI system prompts used by the studio chat bot. The context files that guide the AI code generation were missing the specific rules for handling CFor structures with DataType fields.
+
+## Files Fixed
+
+### 1. `context/d3e_frontend_code.md` (Lines 595-639)
+**What was added:**
+- Critical rules for CFor structures
+- Specific instructions for converting JSON "DataType" field to D3E "type" field
+- Examples showing correct conversion
+
+**Key Rules Added:**
+```
+IMPORTANT CFor Rules:
+1. The "DataType" field in JSON should become "type DataTypeValue" in D3E code (without quotes)
+2. Do NOT write "type 'String'" - write "type String"
+3. Do NOT write "type `String`" - write "type String"
+4. The type value should be the exact value from the "DataType" field in JSON
+5. Always include the type field when DataType is present in JSON
+```
+
+### 2. `Prompts/Widgets/STRUCTURE.md` (Lines 857-903)
+**What was added:**
+- Comprehensive documentation of the CFor type field requirement
+- Clear examples showing JSON to D3E conversion
+- Warning section highlighting the critical nature of this rule
+
+### 3. `d3e_converter.py` (Already had correct rules)
+**Status:** This file already contained the correct CFor handling rules in the system prompt (lines 24-46).
+
+## How the Fix Works
+
+### Studio Chat Bot System
+The studio chat bot uses context files from the `context/` directory:
+- `src/studioai.py` loads `context/d3e_frontend_code.md`
+- This context is used when generating Frontend Code through the AI agents
+- The updated context now includes the CFor type field rules
+
+### Template Analysis System
+The template analysis feature uses `d3e_converter.py`:
+- Called from `src/ws.py` line 333
+- Already had the correct CFor rules in place
+- Uses the updated `STRUCTURE.md` file for reference
+
+## Expected Behavior After Fix
+
+### Before Fix:
+```d3e
+CFor {
+    name 'CFor'
+    var 'error'
+    items `errors`
+    item Column {
+        // missing type field!
+    }
+}
+```
+
+### After Fix:
+```d3e
+CFor {
+    name 'CFor'
+    var 'error'
+    items `errors`
+    type String
+    item Column {
+        // content
+    }
+}
+```
+
+## Testing the Fix
+
+1. **Studio Chat Bot**: Create a widget with CFor structure containing DataType field
+2. **Template Analysis**: Use the template analysis feature with JSON containing CFor elements
+3. **Verify**: Check that generated D3E code includes the `type` field
+
+## Important Notes
+
+⚠️ **Critical**: The `type` field value should NEVER be quoted in D3E code
+- ✅ Correct: `type String`
+- ❌ Wrong: `type 'String'`
+- ❌ Wrong: `type "String"`
+
+⚠️ **Context Reload**: If the studio system is running, it may need to be restarted to pick up the updated context files.
+
+## Files That Reference This Fix
+- `context/d3e_frontend_code.md` - Main AI context for frontend code generation
+- `Prompts/Widgets/STRUCTURE.md` - Documentation and examples
+- `d3e_converter.py` - Template analysis system (already correct)
+- `src/studioai.py` - Loads and uses the context files
+
+## Maintenance
+When updating AI prompts or context files in the future, ensure that the CFor type field rules are preserved and consistent across all files.
 

@@ -1,0 +1,104 @@
+[
+    {
+        "name": "TextCheckbox",
+        "category": "Fields",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Boolean",
+                "onChange": "onValueChanged"
+            },
+            {
+                "name": "Yes",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "No",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "onChange": "onDisabledChanged"
+            }
+        ],
+        "build": {
+            "component": "Container",
+            "name": "checkBox",
+            "data": {
+                "alignment": "center",
+                "cursor": "click"
+            },
+            "children": [
+                {
+                    "type": "TextView",
+                    "name": "TextRef",
+                    "data": {
+                        "data": "`this.value ? yes : no`"
+                    }
+                }
+            ],
+            "states": [
+                {
+                    "name": "Focus",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "Disabled",
+                    "type": "Boolean",
+                    "defaultValue": "`this.disable`"
+                },
+                {
+                    "name": "Active",
+                    "type": "Boolean",
+                    "defaultValue": "`this.value`"
+                }
+            ],
+            "behaviours": [
+                "Focus",
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnCangedPressed",
+                "type": "OnBehaviour",
+                "on": "checkBox",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if (!this.disable && this.onChanged != null) { this.onChanged(!this.value); }```"
+            },
+            {
+                "name": "onValueChanged",
+                "block": "```checkBox.active = this.value;```"
+            },
+            {
+                "name": "onDisabledChanged",
+                "block": "```checkBox.disabled = this.disable;```"
+            },
+            {
+                "name": "onKey",
+                "type": "OnBehaviour",
+                "on": "checkBox",
+                "behaviour": "Focus",
+                "event": "onKey",
+                "block": "```if (event is RawKeyDownEvent && !this.disable) { if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.space ||  event.logicalKey == LogicalKeyboardKey.numpadEnter) { if (!disable) { this.onChanged(!this.value); return KeyEventResult.handled; } return KeyEventResult.handled; } } return KeyEventResult.ignored;```",
+                "returnType": "KeyEventResult"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

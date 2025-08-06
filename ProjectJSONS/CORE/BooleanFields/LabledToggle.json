@@ -1,0 +1,137 @@
+[
+    {
+        "name": "LabledToggle",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Label",
+                "type": "String",
+                "required": true
+            },
+            {
+                "name": "Value",
+                "type": "Boolean",
+                "required": true
+            },
+            {
+                "name": "Right",
+                "type": "Boolean"
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "internal": true,
+                "onChange": "onDisabledChanged"
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "row",
+            "data": {
+                "mainAxisAlignment": "spaceBetween"
+            },
+            "children": [
+                {
+                    "component": "CIf",
+                    "name": "CIf",
+                    "condition": "`!right`",
+                    "then": {
+                        "type": "TextView",
+                        "name": "TextView",
+                        "data": {
+                            "data": "`label`",
+                            "margin": "0 0 0 4"
+                        }
+                    }
+                },
+                {
+                    "type": "Toggle",
+                    "name": "Toggle",
+                    "data": {
+                        "value": "`this.value`",
+                        "disable": "`this.disable`"
+                    }
+                },
+                {
+                    "component": "CIf",
+                    "name": "CIf",
+                    "condition": "`right`",
+                    "then": {
+                        "type": "TextView",
+                        "name": "TextView",
+                        "data": {
+                            "data": "`label`",
+                            "margin": "0 0 0 4"
+                        }
+                    }
+                }
+            ],
+            "states": [
+                {
+                    "name": "Focus",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "Disabled",
+                    "type": "Boolean",
+                    "defaultValue": "`this.disable`"
+                },
+                {
+                    "name": "Active",
+                    "type": "Boolean",
+                    "defaultValue": "`this.value`"
+                }
+            ],
+            "behaviours": [
+                "Focus",
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnChange",
+                "type": "OnBehaviour",
+                "on": "row",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if(this.onChanged != null){\n    onChanged(!value);\n}```"
+            },
+            {
+                "name": "Toggle on change",
+                "type": "OnEvent",
+                "on": "toggle",
+                "event": "onChanged",
+                "block": "```if (onChanged != null) {\n    this.onChanged(!this.value);\n}```"
+            },
+            {
+                "name": "onValueChanged",
+                "block": "```row.active = this.value;```"
+            },
+            {
+                "name": "onDisabledChanged",
+                "block": "```row.disabled = this.disable;```"
+            },
+            {
+                "name": "onKey",
+                "type": "OnBehaviour",
+                "on": "row",
+                "behaviour": "Focus",
+                "event": "onKey",
+                "block": "```if (event is RawKeyDownEvent && !this.disable) {\n    if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.space ||  event.logicalKey == LogicalKeyboardKey.numpadEnter) {\n        if (!disable) {\n            this.onChanged(!this.value);\n            return KeyEventResult.handled;\n        }\n        return KeyEventResult.handled;\n    }\n}\nreturn KeyEventResult.ignored;```",
+                "returnType": "KeyEventResult"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

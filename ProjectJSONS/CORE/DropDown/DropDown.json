@@ -1,0 +1,267 @@
+[
+    {
+        "name": "DropDown",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Place Holder",
+                "type": "String"
+            },
+            {
+                "name": "Items",
+                "type": "T",
+                "collection": true,
+                "required": true
+            },
+            {
+                "name": "Max Height",
+                "type": "Double",
+                "defaultValue": "`250.0`"
+            },
+            {
+                "name": "Value",
+                "type": "T"
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "IsExists",
+                "type": "Boolean",
+                "computed": true,
+                "computation": "`this.items.any((element) => element == this.value)`",
+                "internal": true
+            },
+            {
+                "name": "FocusNode",
+                "type": "FocusNode"
+            },
+            {
+                "name": "ItemsShown",
+                "type": "Boolean",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "dropdownRef",
+            "data": {
+                "mainAxisAlignment": "spaceBetween",
+                "crossAxisAlignment": "center"
+            },
+            "children": [
+                {
+                    "condition": "`isExists`",
+                    "then": {
+                        "type": "Container",
+                        "name": "builder",
+                        "data": {
+                            "expand": "true"
+                        },
+                        "child": {
+                            "type": "CBuild",
+                            "name": "dropdownItemBuilder",
+                            "params": [
+                                {
+                                    "name": "Item",
+                                    "value": "`this.value`"
+                                }
+                            ]
+                        }
+                    },
+                    "else": {
+                        "type": "TextView",
+                        "name": "id",
+                        "data": {
+                            "expand": "true",
+                            "data": "`this.placeHolder != null ? this.placeHolder : '--Select--'`",
+                            "overflow": "ellipsis"
+                        }
+                    }
+                },
+                {
+                    "type": "IconView",
+                    "name": "id",
+                    "data": {
+                        "icon": "MaterialIcons.expand_more"
+                    }
+                }
+            ],
+            "key": "`placeHolder`",
+            "states": [
+                {
+                    "name": "Focus",
+                    "type": "Boolean"
+                }
+            ],
+            "behaviours": [
+                "GestureDetector",
+                "Focus"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnShowDropDown",
+                "type": "OnBehaviour",
+                "on": "dropdownRef",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```\n                if(this.items.isNotEmpty && !disable){\n                    if(!itemsShown){\n                        showPopup(autoClose: true);\n                    }else {\n                        hidePopup();\n                    }\n                    itemsShown = !itemsShown;\n                }\n            ```"
+            },
+            {
+                "name": "OnCloseDropDown",
+                "type": "OnEvent",
+                "popup": "popup",
+                "event": "onChanged",
+                "block": "```\n                hidePopup();\n                itemsShown = false;\n                onChanged(value);\n            ```"
+            },
+            {
+                "name": "onKey",
+                "type": "OnBehaviour",
+                "on": "dropdownRef",
+                "behaviour": "Focus",
+                "event": "onKey",
+                "block": "```\n                if (event is RawKeyDownEvent && !disable) {\n                    if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.space ||  event.logicalKey == LogicalKeyboardKey.numpadEnter) {\n                       if(this.items.isNotEmpty && !disable){\n                            itemsShown = true;\n                            showPopup(autoClose: true);\n                        }\n                        return KeyEventResult.handled;\n                    }\n                    if(event is RawKeyDownEvent) {\n                        if(event.logicalKey == LogicalKeyboardKey.arrowDown){\n                            onDownHandler();\n                        } else if (event.logicalKey == LogicalKeyboardKey.arrowUp){\n                            onUpHandler();\n                        } else if (event.logicalKey == LogicalKeyboardKey.escape || event.logicalKey == LogicalKeyboardKey.tab){\n                            hidePopup();\n                            itemsShown = false;\n                        }\n                    }\n                }\n                return KeyEventResult.ignored;\n            ```",
+                "returnType": "KeyEventResult"
+            },
+            {
+                "name": "OnDownHandler",
+                "block": "```\n                if(items.isNotEmpty && !disable){\n                    Integer idx = items.indexOf(value != null ?  value : this.items.first);\n                    Integer nextValue = idx + 1;\n                    if(nextValue >= this.items.length){\n                       return; \n                    }\n                    onChanged(items.elementAt(nextValue));\n                }\n            ```"
+            },
+            {
+                "name": "OnUpHandler",
+                "block": "```\n                if(items.isNotEmpty && !disable){\n                    Integer idx = items.indexOf(value != null ?  value : this.items.first);\n                    Integer nextValue = idx - 1;\n                    if(nextValue < 0){\n                        return; \n                    }\n                    onChanged(items.elementAt(nextValue));\n                }\n            ```"
+            },
+            {
+                "name": "OnDropDownAutoClose",
+                "type": "OnPopupClose",
+                "popup": "popup",
+                "block": "```\n                itemsShown = false;\n            ```"
+            },
+            {
+                "name": "On Init",
+                "block": "```\n                if(false){\n                    FocusNode focusNode111 = this.focusNode;\n                }\n            ```"
+            }
+        ],
+        "popups": [
+            {
+                "name": "Popup",
+                "component": "DropDownPopup",
+                "side": "Bottom",
+                "data": {
+                    "items": "`this.items`",
+                    "currentItem": "`this.value`",
+                    "constraints": {
+                        "maxHeight": "`this.maxHeight`"
+                    }
+                },
+                "target": "dropdownRef"
+            }
+        ],
+        "focusable": true,
+        "generic": true,
+        "builder": {
+            "name": "DropdownItemBuilder",
+            "required": true,
+            "params": [
+                {
+                    "name": "Item",
+                    "type": "T",
+                    "valueFrom": "`items`"
+                }
+            ]
+        },
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "T"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    },
+    {
+        "name": "DropDown Popup",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Items",
+                "type": "T",
+                "collection": true,
+                "required": true
+            },
+            {
+                "name": "CurrentItem",
+                "type": "T",
+                "required": true
+            }
+        ],
+        "build": {
+            "component": "ListView",
+            "name": "id1",
+            "data": {
+                "shrinkWrap": "true",
+                "itemCount": "`this.items.length`"
+            },
+            "builder": {
+                "type": "Container",
+                "name": "DropdownItem",
+                "data": {
+                    "cursor": "click"
+                },
+                "child": {
+                    "type": "CBuild",
+                    "name": "dropdownItemBuilder",
+                    "params": [
+                        {
+                            "name": "Item",
+                            "value": "`this.items[index]`"
+                        }
+                    ]
+                },
+                "behaviours": [
+                    "GestureDetector"
+                ]
+            }
+        },
+        "eventHandlers": [
+            {
+                "name": "OnSelectItem",
+                "type": "OnBehaviour",
+                "on": "dropdownItem",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```\n                onChanged(this.items[index]);\n            ```"
+            }
+        ],
+        "generic": true,
+        "builder": {
+            "name": "DropdownItemBuilder",
+            "required": true,
+            "params": [
+                {
+                    "name": "Item",
+                    "type": "T",
+                    "valueFrom": "`items`"
+                }
+            ]
+        },
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "T"
+                    }
+                ]
+            }
+        ]
+    }
+]

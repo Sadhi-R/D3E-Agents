@@ -1,0 +1,95 @@
+[
+    {
+        "name": "Checkbox",
+        "category": "Fields",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Boolean",
+                "onChange": "onValueChanged"
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "onChange": "onDisabledChanged"
+            }
+        ],
+        "build": {
+            "component": "Container",
+            "name": "checkBox",
+            "data": {
+                "alignment": "center",
+                "cursor": "click"
+            },
+            "children": [
+                {
+                    "type": "IconView",
+                    "name": "IconRef",
+                    "data": {
+                        "icon": "MaterialIcons.done",
+                        "visibility": "`this.value`"
+                    }
+                }
+            ],
+            "states": [
+                {
+                    "name": "Focus",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "Disabled",
+                    "type": "Boolean",
+                    "defaultValue": "`this.disable`"
+                },
+                {
+                    "name": "Active",
+                    "type": "Boolean",
+                    "defaultValue": "`this.value`"
+                }
+            ],
+            "behaviours": [
+                "Focus",
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnCangedPressed",
+                "type": "OnBehaviour",
+                "on": "checkBox",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if (!this.disable) {\n    this.onChanged(!this.value);\n}```"
+            },
+            {
+                "name": "onValueChanged",
+                "block": "```checkBox.active = this.value;```"
+            },
+            {
+                "name": "onDisabledChanged",
+                "block": "```checkBox.disabled = this.disable;```"
+            },
+            {
+                "name": "onKey",
+                "type": "OnBehaviour",
+                "on": "checkBox",
+                "behaviour": "Focus",
+                "event": "onKey",
+                "block": "```if (event is RawKeyDownEvent && !this.disable) {\n    if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.space ||  event.logicalKey == LogicalKeyboardKey.numpadEnter) {\n        if (!disable) {\n            this.onChanged(!this.value);\n            return KeyEventResult.handled;\n        }\n        return KeyEventResult.handled;\n    }\n}\nreturn KeyEventResult.ignored;```",
+                "returnType": "KeyEventResult"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Val",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

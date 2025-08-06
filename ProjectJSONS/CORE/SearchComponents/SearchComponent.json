@@ -1,0 +1,152 @@
+[
+    {
+        "name": "Search Component",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "String"
+            },
+            {
+                "name": "placeholder",
+                "type": "String"
+            },
+            {
+                "name": "FocusNode",
+                "type": "FocusNode",
+                "internal": true
+            },
+            {
+                "name": "disable",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "obscureText",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "autoFocus",
+                "type": "Boolean"
+            },
+            {
+                "name": "HackValue",
+                "type": "Boolean",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "Row",
+            "data": {
+                "mainAxisAlignment": "spaceEvenly"
+            },
+            "children": [
+                {
+                    "type": "IconView",
+                    "name": "Icon",
+                    "data": {
+                        "icon": "MaterialIcons.search",
+                        "padding": "4",
+                        "cursor": "click"
+                    }
+                },
+                {
+                    "type": "InputField",
+                    "name": "SearchField",
+                    "data": {
+                        "placeHolder": "`this.placeholder`",
+                        "expand": "true",
+                        "disable": "`disable`",
+                        "value": "`this.value`",
+                        "focusNode": "`focusNode`",
+                        "autofocus": "`autoFocus`",
+                        "obscureText": "`obscureText`"
+                    }
+                },
+                {
+                    "type": "IconView",
+                    "name": "CloseIcon",
+                    "data": {
+                        "icon": "MaterialIcons.close",
+                        "cursor": "click",
+                        "visibility": "`this.value?.isNotEmpty??false`"
+                    },
+                    "behaviours": [
+                        "GestureDetector"
+                    ]
+                }
+            ],
+            "states": [
+                {
+                    "name": "Active",
+                    "type": "Boolean",
+                    "defaultValue": "`hackValue`"
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```\n                focusNode = FocusNode();\n                focusNode.addListener(onChangeFocus);\n                if(autoFocus){\n                    this.focusNode.requestFocus();\n                    Timer(Duration(milliseconds: 100), (){\n                        searchFieldController.selection = TextSelection(\n                            baseOffset: 0,\n                            extentOffset: value?.length??0,\n                        );\n                    });  \n                }\n            ```"
+            },
+            {
+                "name": "OnChangeFocus",
+                "block": "```\n                row.active = focusNode.hasFocus;\n                if (!row.active) {\n                    searchFieldController.selection =\n                        TextSelection(baseOffset: 0, extentOffset: 0);\n                }\n            ```"
+            },
+            {
+                "name": "OnSearchHandler",
+                "type": "OnEvent",
+                "on": "searchField",
+                "event": "onChanged",
+                "block": "```\n                if(onChanged != null){\n                    onChanged(text);\n                }\n            ```"
+            },
+            {
+                "name": "OnSearchEditingHandler",
+                "type": "OnEvent",
+                "on": "searchField",
+                "event": "onEditingComplete",
+                "block": "```\n                if(onEditingComplete != null){\n                  onEditingComplete(searchFieldController.text);\n                }\n            ```"
+            },
+            {
+                "name": "OnSearchTapHandler",
+                "type": "OnEvent",
+                "on": "searchField",
+                "event": "onTap",
+                "block": "```\n                if(onTap != null){\n                    onTap();\n                }\n            ```"
+            },
+            {
+                "name": "OnCloseHandler",
+                "type": "OnBehaviour",
+                "on": "closeIcon",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```\n                searchFieldController.text = '';\n                 if(onChanged != null){\n                     onChanged(searchFieldController.text);\n                 }\n            ```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "OnEditingComplete",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "OnTap"
+            }
+        ]
+    }
+]

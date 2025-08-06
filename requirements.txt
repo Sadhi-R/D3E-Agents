@@ -2,3 +2,7 @@ aiohttp
 requests
 python-dotenv
 watchdog
+fastapi
+uvicorn
+websockets
+pydantic

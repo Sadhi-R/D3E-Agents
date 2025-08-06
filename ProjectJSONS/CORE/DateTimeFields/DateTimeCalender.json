@@ -1,0 +1,148 @@
+[
+    {
+        "name": "Date Time Calender",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Date",
+                "type": "Date",
+                "internal": true
+            },
+            {
+                "name": "Time",
+                "type": "Time",
+                "internal": true
+            },
+            {
+                "name": "ShowDataView",
+                "type": "Boolean",
+                "defaultValue": "`true`",
+                "internal": true
+            },
+            {
+                "name": "ShowTimeView",
+                "type": "Boolean",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Column",
+            "data": {
+                "crossAxisAlignment": "start"
+            },
+            "children": [
+                {
+                    "type": "Wrap",
+                    "name": "id",
+                    "children": [
+                        {
+                            "type": "Button",
+                            "name": "dateRef",
+                            "child": {
+                                "type": "IconView",
+                                "name": "id",
+                                "data": {
+                                    "icon": "MaterialIcons.perm_contact_calendar"
+                                }
+                            }
+                        },
+                        {
+                            "type": "Button",
+                            "name": "timeRef",
+                            "child": {
+                                "type": "IconView",
+                                "name": "id",
+                                "data": {
+                                    "icon": "MaterialIcons.access_time"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "Container",
+                    "name": "id",
+                    "data": {
+                        "height": "10"
+                    }
+                },
+                {
+                    "component": "CIf",
+                    "name": "id",
+                    "condition": "`showDataView`",
+                    "then": {
+                        "type": "CalenderView",
+                        "name": "calender",
+                        "tags": [
+                            "datePopup"
+                        ]
+                    }
+                },
+                {
+                    "component": "CIf",
+                    "name": "timeView",
+                    "condition": "`showTimeView`",
+                    "then": {
+                        "type": "TimePicker",
+                        "name": "timePicker"
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnTapShowDateView",
+                "type": "OnEvent",
+                "on": "dateRef",
+                "event": "onPressed",
+                "block": "```\n                this.showTimeView = false;\n                this.showDataView = true;\n            ```"
+            },
+            {
+                "name": "OnTapShowTimeView",
+                "type": "OnEvent",
+                "on": "timeRef",
+                "event": "onPressed",
+                "block": "```\n                this.showDataView = false;\n                this.showTimeView = true;\n            ```"
+            },
+            {
+                "name": "OnCalenderEvent",
+                "type": "OnEvent",
+                "on": "calender",
+                "event": "onDateSelected",
+                "block": "```\n                this.date = date;\n                onDateTimeHandler(date, this.time);\n                this.showDataView = false;\n                this.showTimeView = true;\n            ```"
+            },
+            {
+                "name": "OnTimePickerEvent",
+                "type": "OnEvent",
+                "on": "timePicker",
+                "event": "onTimeChange",
+                "block": "```\n                this.time = time;\n                onDateTimeHandler(this.date, time);\n                this.showDataView = false;\n                this.showTimeView = false;\n            ```"
+            },
+            {
+                "name": "OnDateTimeHandler",
+                "params": [
+                    {
+                        "name": "DateValue",
+                        "type": "Date"
+                    },
+                    {
+                        "name": "TimeValue",
+                        "type": "Time"
+                    }
+                ],
+                "block": "```\n                if(dateValue != null && timeValue != null){\n                    onDateTimeChange(DateTime(dateValue.year,dateValue.month,dateValue.day,timeValue.hour,timeValue.minutes,timeValue.seconds));\n                }\n            ```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnDateTimeChange",
+                "params": [
+                    {
+                        "name": "DateTime",
+                        "type": "DateTime"
+                    }
+                ]
+            }
+        ]
+    }
+]

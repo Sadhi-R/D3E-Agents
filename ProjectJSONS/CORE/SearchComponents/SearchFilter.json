@@ -1,0 +1,229 @@
+[
+    {
+        "name": "SearchFilter",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "value",
+                "type": "T",
+                "required": true
+            },
+            {
+                "name": "placeHolder",
+                "type": "String"
+            },
+            {
+                "name": "Items",
+                "type": "T",
+                "collection": true
+            },
+            {
+                "name": "SearchValue",
+                "type": "String",
+                "internal": true
+            },
+            {
+                "name": "PopUpWidth",
+                "type": "Double",
+                "defaultValue": "`150.0`",
+                "internal": true
+            },
+            {
+                "name": "IsExists",
+                "type": "Boolean",
+                "computed": true,
+                "computation": "`this.items.any((element) => element == this.value)`",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "data": {
+                "mainAxisAlignment": "spaceBetween",
+                "width": "`popUpWidth`",
+                "padding": "5"
+            },
+            "children": [
+                {
+                    "type": "Container",
+                    "name": "id",
+                    "data": {
+                        "expand": "true"
+                    },
+                    "child": {
+                        "type": "CIf",
+                        "name": "id",
+                        "condition": "`this.value == '[click]'`",
+                        "then": {
+                            "type": "Container",
+                            "name": "Id1111",
+                            "data": {
+                                "width": "10",
+                                "height": "20"
+                            }
+                        },
+                        "else": {
+                            "type": "CIf",
+                            "name": "id",
+                            "condition": "`isExists`",
+                            "then": {
+                                "type": "Container",
+                                "name": "builder",
+                                "child": {
+                                    "type": "CBuild",
+                                    "name": "dropdownItemBuilder",
+                                    "params": [
+                                        {
+                                            "name": "Item",
+                                            "value": "`this.value`"
+                                        }
+                                    ]
+                                }
+                            },
+                            "else": {
+                                "type": "TextView",
+                                "name": "id",
+                                "data": {
+                                    "data": "`placeHolder`",
+                                    "color": "@c1"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "IconView",
+                    "name": "id",
+                    "data": {
+                        "icon": "MaterialIcons.keyboard_arrow_down",
+                        "size": "19"
+                    }
+                }
+            ],
+            "behaviours": [
+                "LayoutAware",
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "onIdHandler",
+                "type": "OnBehaviour",
+                "on": "id",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if (this.onClick != null) {\n    onClick();\n    showResults(\n        autoClose: true,\n    );\n    searchValue = '';\n}```"
+            },
+            {
+                "name": "OnBackspaceAfterEmpty1",
+                "type": "OnEvent",
+                "popup": "results",
+                "event": "onBackspaceAfterEmpty",
+                "block": "```if(onBackspaceAfterEmpty != null){\n    onBackspaceAfterEmpty();\n}```"
+            },
+            {
+                "name": "OnSelectListTile",
+                "type": "OnEvent",
+                "popup": "results",
+                "event": "onSelectItem",
+                "block": "```this.onChanged(item);```"
+            },
+            {
+                "name": "OnRawKeyPressed",
+                "type": "OnEvent",
+                "popup": "results",
+                "event": "onKey",
+                "block": "```if (this.onKey != null) {\n    this.onKey(key, text);\n}```"
+            },
+            {
+                "name": "OnChangeActive",
+                "type": "OnEvent",
+                "popup": "results",
+                "event": "onChangeActive",
+                "block": "```if (!val) {\n    hideResults();\n}```"
+            },
+            {
+                "name": "onSearchTextHandler",
+                "type": "OnEvent",
+                "popup": "results",
+                "event": "onSearch",
+                "block": "```onSearch(text);```"
+            },
+            {
+                "name": "OnDropDownBoundsChanges",
+                "type": "OnBehaviour",
+                "on": "id",
+                "behaviour": "LayoutAware",
+                "event": "onBoundsChange",
+                "block": "```if(bounds.width > 150.0){\n    this.popUpWidth = bounds.width;\n}```"
+            }
+        ],
+        "popups": [
+            {
+                "name": "Results",
+                "component": "SearchableDropdown",
+                "side": "Bottom",
+                "data": {
+                    "width": "`popUpWidth`",
+                    "items": "`items`"
+                },
+                "target": "id",
+                "tags": [
+                    "searchablePopup"
+                ]
+            }
+        ],
+        "generic": true,
+        "builder": {
+            "name": "DropdownItemBuilder",
+            "required": true,
+            "params": [
+                {
+                    "name": "Item",
+                    "type": "T",
+                    "valueFrom": "`items`"
+                }
+            ]
+        },
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "T"
+                    }
+                ]
+            },
+            {
+                "name": "OnClick"
+            },
+            {
+                "name": "OnKey",
+                "params": [
+                    {
+                        "name": "KeyId",
+                        "type": "LogicalKeyboardKey"
+                    },
+                    {
+                        "name": "Text",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "OnBackspaceAfterEmpty"
+            },
+            {
+                "name": "OnSearch",
+                "params": [
+                    {
+                        "name": "Text",
+                        "type": "String"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

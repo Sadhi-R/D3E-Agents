@@ -84,7 +84,7 @@
             "type": "OnEvent",
             "on": "varifyButton",
             "event": "onPressed",
-            "block": "\n                /* Your code here. */\n            "
+            "block": "```\n                /* Your code here. */\n  ```          "
         }
     ]
 }

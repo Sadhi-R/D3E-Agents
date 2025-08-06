@@ -1,0 +1,230 @@
+[
+    {
+        "name": "Signup View",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "package",
+                "type": "String"
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "Main Row",
+            "data": {
+                "width": "1200",
+                "height": "700"
+            },
+            "children": [
+                {
+                    "type": "Column",
+                    "name": "Column",
+                    "data": {
+                        "expand": "true",
+                        "decoration": {
+                            "color": "@c16"
+                        },
+                        "mainAxisAlignment": "center"
+                    },
+                    "children": [
+                        {
+                            "type": "IconView",
+                            "name": "IconView",
+                            "data": {
+                                "size": "100",
+                                "icon": "MaterialIcons.home_work",
+                                "color": "@c30"
+                            }
+                        },
+                        {
+                            "type": "TextView",
+                            "name": "Title Text View",
+                            "data": {
+                                "data": "Welcome to Invoice Application Simple and fast invoiceing...",
+                                "color": "@c1",
+                                "fontSize": "30",
+                                "fontWeight": "w900",
+                                "softWrap": "true",
+                                "textAlign": "center",
+                                "width": "400"
+                            }
+                        },
+                        {
+                            "type": "TextView",
+                            "name": "Description TextView",
+                            "data": {
+                                "data": "Create, manage and send invoices in seconds. \nStay on top of your business finances with ease.",
+                                "color": "@c1",
+                                "fontSize": "20",
+                                "fontWeight": "w500",
+                                "textAlign": "center"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "name": "Column2",
+                    "data": {
+                        "expand": "true",
+                        "mainAxisAlignment": "center"
+                    },
+                    "children": [
+                        {
+                            "type": "Column",
+                            "name": "Column3",
+                            "data": {
+                                "width": "400",
+                                "padding": "40",
+                                "mainAxisAlignment": "center",
+                                "decoration": {
+                                    "color": "@c1",
+                                    "border": {
+                                        "color": "@c3",
+                                        "width": "0.0"
+                                    },
+                                    "boxShadow": {
+                                        "color": "ff333333",
+                                        "offset": {
+                                            "dx": "1",
+                                            "dy": "1"
+                                        }
+                                    }
+                                }
+                            },
+                            "children": [
+                                {
+                                    "type": "TextView",
+                                    "name": "TextView",
+                                    "data": {
+                                        "data": "Create your account",
+                                        "fontSize": "30",
+                                        "fontWeight": "w800",
+                                        "softWrap": "true"
+                                    }
+                                },
+                                {
+                                    "type": "LabelWithInputField",
+                                    "name": "First Name Field",
+                                    "data": {
+                                        "isRequired": "true",
+                                        "label": "First Name ",
+                                        "placeHolder": "Enter your First Name... "
+                                    }
+                                },
+                                {
+                                    "type": "LabelWithInputField",
+                                    "name": "Middle Name LabelWithInputField",
+                                    "data": {
+                                        "isRequired": "true",
+                                        "width": "400",
+                                        "label": "Middle Name",
+                                        "placeHolder": "Enter your Middle Name"
+                                    }
+                                },
+                                {
+                                    "type": "LabelWithInputField",
+                                    "name": "Last Name LabelWithInputField",
+                                    "data": {
+                                        "isRequired": "true",
+                                        "width": "400",
+                                        "label": "Last Name",
+                                        "placeHolder": "Enter your Last Name..."
+                                    }
+                                },
+                                {
+                                    "type": "LabelWithInputField",
+                                    "name": "Email Field",
+                                    "data": {
+                                        "isRequired": "true",
+                                        "width": "400",
+                                        "label": "Email Field",
+                                        "obscureText": "false",
+                                        "placeHolder": "Enter your Email Field"
+                                    }
+                                },
+                                {
+                                    "type": "LabelWithInputField",
+                                    "name": "Password Field",
+                                    "data": {
+                                        "isRequired": "true",
+                                        "width": "400",
+                                        "label": "Password Field",
+                                        "placeHolder": "Enter your Password Field",
+                                        "obscureText": "true"
+                                    }
+                                },
+                                {
+                                    "type": "Button",
+                                    "name": "Signup Button",
+                                    "data": {
+                                        "decoration": {
+                                            "color": "@c15"
+                                        },
+                                        "padding": "10"
+                                    },
+                                    "child": {
+                                        "type": "TextView",
+                                        "name": "ButtonText",
+                                        "data": {
+                                            "data": "Sign In",
+                                            "color": "@c1"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "Row",
+                                    "name": "Row",
+                                    "data": {
+                                        "mainAxisAlignment": "center",
+                                        "margin": "12 0 0 0"
+                                    },
+                                    "children": [
+                                        {
+                                            "type": "TextView",
+                                            "name": "TextView2",
+                                            "data": {
+                                                "data": "Already have an account"
+                                            }
+                                        },
+                                        {
+                                            "type": "TextView",
+                                            "name": "TextView3",
+                                            "data": {
+                                                "data": "Sign In",
+                                                "fontWeight": "w700",
+                                                "textDecoration": "underline",
+                                                "decorationColor": "@c14",
+                                                "cursor": "click"
+                                            },
+                                            "behaviours": [
+                                                "GestureDetector"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "onPressedSignInButtonHandler",
+                "type": "OnEvent",
+                "on": "signupButton",
+                "event": "onPressed",
+                "block": "```/* Your code here. */```"
+            },
+            {
+                "name": "onTapTextView3BehaviourHandler",
+                "type": "OnBehaviour",
+                "on": "textView3",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```/* Your code here. */```"
+            }
+        ]
+    }
+]

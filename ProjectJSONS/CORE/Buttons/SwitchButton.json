@@ -1,0 +1,58 @@
+[
+    {
+        "name": "Switch Button",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Boolean"
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "id",
+            "data": {
+                "mainAxisAlignment": "start"
+            },
+            "children": [
+                {
+                    "type": "Container",
+                    "name": "CircleIcon",
+                    "behaviours": [
+                        "GestureDetector"
+                    ]
+                }
+            ],
+            "conditionals": [
+                {
+                    "condition": "`value`",
+                    "values": {
+                        "mainAxisAlignment": "end"
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnTapHandler",
+                "type": "OnBehaviour",
+                "on": "circleIcon",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```onChanged(!value);```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Value",
+                        "type": "Boolean"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

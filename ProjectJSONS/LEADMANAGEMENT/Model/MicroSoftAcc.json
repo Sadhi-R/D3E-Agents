@@ -1,0 +1,30 @@
+[
+    {
+        "package": "leadmngm.com",
+        "name": "MicroSoftAcc",
+        "properties": [
+            {
+                "name": "user",
+                "type": "User"
+            },
+            {
+                "name": "accessToken",
+                "type": "String",
+                "longText": true
+            },
+            {
+                "name": "refreshToken",
+                "type": "String",
+                "longText": true
+            },
+            {
+                "name": "tokenExpersAt",
+                "type": "DateTime"
+            },
+            {
+                "name": "oauthStatus",
+                "type": "OAuthCredentialsStatus"
+            }
+        ]
+    }
+]

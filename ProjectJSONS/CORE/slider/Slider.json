@@ -1,0 +1,241 @@
+[
+    {
+        "name": "Slider",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Name",
+                "type": "String"
+            },
+            {
+                "name": "Is Required",
+                "type": "Boolean"
+            },
+            {
+                "name": "Subtext",
+                "type": "String"
+            },
+            {
+                "name": "Max Value",
+                "type": "Integer",
+                "required": true
+            },
+            {
+                "name": "Min Value",
+                "type": "Integer",
+                "required": true
+            },
+            {
+                "name": "Internal Value",
+                "type": "Integer",
+                "internal": true
+            },
+            {
+                "name": "Value",
+                "type": "Integer",
+                "required": true
+            }
+        ],
+        "build": {
+            "component": "Column",
+            "name": "Column",
+            "data": {
+                "decoration": {
+                    "color": "@c1"
+                }
+            },
+            "children": [
+                {
+                    "component": "CIf",
+                    "name": "id2",
+                    "condition": "`this.name != null && this.name.isNotEmpty`",
+                    "then": {
+                        "type": "Row",
+                        "name": "id3",
+                        "data": {
+                            "margin": "0 4 5"
+                        },
+                        "children": [
+                            {
+                                "type": "TextView",
+                                "name": "Nameview",
+                                "data": {
+                                    "data": "`this.name`"
+                                }
+                            },
+                            {
+                                "component": "CIf",
+                                "name": "id4",
+                                "condition": "`isRequired`",
+                                "then": {
+                                    "type": "TextView",
+                                    "name": "id5",
+                                    "data": {
+                                        "data": "*",
+                                        "color": "@c1"
+                                    }
+                                }
+                            },
+                            {
+                                "type": "TextView",
+                                "name": "TextView2",
+                                "data": {
+                                    "data": "`subtext`",
+                                    "color": "@c7",
+                                    "margin": "0 0 0 5"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "Row",
+                    "name": "Row",
+                    "data": {
+                        "margin": "0 4 0"
+                    },
+                    "children": [
+                        {
+                            "type": "Container",
+                            "name": "Container3",
+                            "tags": [
+                                "minValueBox"
+                            ],
+                            "data": {
+                                "alignment": "center"
+                            },
+                            "child": {
+                                "type": "TextView",
+                                "name": "TextView4",
+                                "data": {
+                                    "data": "`minValue.toString()`"
+                                }
+                            }
+                        },
+                        {
+                            "type": "Container",
+                            "name": "Container4",
+                            "data": {
+                                "height": "50",
+                                "width": "220",
+                                "margin": "0 10"
+                            },
+                            "child": {
+                                "type": "Stack",
+                                "name": "Stack",
+                                "data": {
+                                    "alignment": "centerStart"
+                                },
+                                "children": [
+                                    {
+                                        "type": "Container",
+                                        "name": "Container",
+                                        "data": {
+                                            "width": "220",
+                                            "height": "10",
+                                            "decoration": {
+                                                "color": "@c3",
+                                                "borderRadius": "5"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "type": "Container",
+                                        "name": "Container",
+                                        "data": {
+                                            "width": "(`internalValue - minValue) / (maxValue - minValue) * 220.0`",
+                                            "height": "10",
+                                            "decoration": {
+                                                "color": "@c15",
+                                                "borderRadius": "5"
+                                            }
+                                        },
+                                        "key": "`internalValue.toString()`"
+                                    },
+                                    {
+                                        "type": "Container",
+                                        "name": "Container",
+                                        "tags": [
+                                            "roundSlider"
+                                        ],
+                                        "data": {
+                                            "left": "(`internalValue - minValue) / (maxValue - minValue) * 220.0 - 10.0`"
+                                        }
+                                    }
+                                ]
+                            },
+                            "behaviours": [
+                                "GestureDetector"
+                            ]
+                        },
+                        {
+                            "type": "Container",
+                            "name": "Container2",
+                            "tags": [
+                                "maxValueBox"
+                            ],
+                            "child": {
+                                "type": "TextView",
+                                "name": "TextView3",
+                                "data": {
+                                    "data": "`maxValue.toString()`"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "Row",
+                    "name": "Row",
+                    "data": {
+                        "mainAxisAlignment": "center"
+                    },
+                    "children": [
+                        {
+                            "type": "TextView",
+                            "name": "TextView",
+                            "data": {
+                                "data": "`internalValue.toString()`",
+                                "margin": "3 0 0 0"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```internalValue = value != 0 ? value : 50;```"
+            },
+            {
+                "name": "OnSliderChangedHandler",
+                "type": "OnBehaviour",
+                "on": "container4",
+                "behaviour": "GestureDetector",
+                "event": "onHorizontalDragStart",
+                "block": "```// update the value ```"
+            },
+            {
+                "name": "OnSliderChangedHandler1",
+                "type": "OnBehaviour",
+                "on": "container4",
+                "behaviour": "GestureDetector",
+                "event": "onHorizontalDragUpdate",
+                "block": "```Double width = 220.0;\nDouble percentage = details.localPosition.dx / width;\nInteger newValue = (percentage * (this.maxValue - this.minValue)).round() + this.minValue;\nif(newValue < minValue) {\nnewValue = minValue;\n} else if(newValue > maxValue) {\nnewValue = maxValue;\n}\ninternalValue = newValue;\nif(onChanged != null) {\nonChanged(internalValue);\n}```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "value",
+                        "type": "Integer"
+                    }
+                ],
+                "required": true
+            }
+        ]
+    }
+]

@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Date View",
+        "category": "Fields",
+        "properties": [
+            {
+                "name": "Value",
+                "type": "Date"
+            },
+            {
+                "name": "Format",
+                "type": "String",
+                "defaultValue": "`'yyyy-MM-dd'`"
+            },
+            {
+                "name": "Formatter",
+                "type": "DateFormat",
+                "internal": true
+            },
+            {
+                "name": "DisplayValue",
+                "type": "String",
+                "computed": true,
+                "computation": "`formatter == null || value == null ? formatter.format(Date.now().toDateTime()) : formatter.format(value.toDateTime())`",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "TextView",
+            "name": "data",
+            "data": {
+                "data": "`displayValue`"
+            }
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```formatter = DateFormat(format);```"
+            }
+        ]
+    }
+]

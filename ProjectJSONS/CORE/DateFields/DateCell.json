@@ -1,0 +1,69 @@
+[
+    {
+        "name": "Date Cell",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "date",
+                "type": "Date",
+                "required": true
+            },
+            {
+                "name": "Selected",
+                "type": "Boolean",
+                "required": true
+            },
+            {
+                "name": "Month",
+                "type": "Integer",
+                "required": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean"
+            }
+        ],
+        "build": {
+            "component": "Container",
+            "name": "Container1",
+            "data": {
+                "alignment": "center",
+                "width": "35",
+                "height": "35"
+            },
+            "children": [
+                {
+                    "type": "TextView",
+                    "name": "text1",
+                    "data": {
+                        "data": "`date.day.toString()`"
+                    }
+                }
+            ],
+            "behaviours": [
+                "GestureDetector"
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "onTapDateHandler",
+                "type": "OnBehaviour",
+                "on": "container1",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if(!disable){\n    onTapDate(this.date);\n}```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnTapDate",
+                "params": [
+                    {
+                        "name": "Date",
+                        "type": "Date"
+                    }
+                ]
+            }
+        ]
+    }
+]

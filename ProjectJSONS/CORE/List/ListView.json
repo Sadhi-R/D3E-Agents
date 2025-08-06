@@ -1,0 +1,104 @@
+[
+    {
+        "name": "List View",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Scroll Direction",
+                "type": "Axis",
+                "defaultValue": "`vertical`",
+                "stylable": true
+            },
+            {
+                "name": "Reverse",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "Primary",
+                "type": "Boolean"
+            },
+            {
+                "name": "Physics",
+                "type": "ScrollPhysics",
+                "stylable": true
+            },
+            {
+                "name": "Shrink Wrap",
+                "type": "Boolean",
+                "defaultValue": "`false`",
+                "stylable": true
+            },
+            {
+                "name": "Padding",
+                "type": "EdgeInsets"
+            },
+            {
+                "name": "Item Extent",
+                "type": "Double"
+            },
+            {
+                "name": "Add Automatic Keep Alives",
+                "type": "Boolean",
+                "defaultValue": "`true`"
+            },
+            {
+                "name": "Add Repaint Boundaries",
+                "type": "Boolean",
+                "defaultValue": "`true`"
+            },
+            {
+                "name": "Add Semantic Indexes",
+                "type": "Boolean",
+                "defaultValue": "`true`"
+            },
+            {
+                "name": "Cache Extent",
+                "type": "Double"
+            },
+            {
+                "name": "Semantic Child Count",
+                "type": "Integer"
+            },
+            {
+                "name": "Drag Start Behavior",
+                "type": "DragStartBehavior",
+                "defaultValue": "`start`"
+            },
+            {
+                "name": "Item Count",
+                "type": "Integer"
+            }
+        ],
+        "build": {
+            "component": "ScrollController",
+            "slots": [
+                {
+                    "name": "Children",
+                    "collection": true
+                }
+            ],
+            "builder": {
+                "name": "Builder",
+                "params": [
+                    {
+                        "name": "Index",
+                        "type": "Integer",
+                        "valueFrom": "`Range.to(itemCount)`"
+                    }
+                ]
+            }
+        },
+        "native": [
+            {
+                "nativeLang": "TypeScript",
+                "path": "ui@ListView"
+            },
+            {
+                "nativeLang": "Java",
+                "path": "pdf.widgets.ListView"
+            }
+        ],
+        "isNative": true
+    }
+]

@@ -1,0 +1,144 @@
+[
+    {
+        "name": "Date Field",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "value",
+                "type": "Date",
+                "required": true
+            },
+            {
+                "name": "placeHolder",
+                "type": "String"
+            },
+            {
+                "name": "Format",
+                "type": "String",
+                "defaultValue": "`'yyyy-MM-dd'`"
+            },
+            {
+                "name": "FocusNode",
+                "type": "FocusNode",
+                "internal": true
+            },
+            {
+                "name": "Focused",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "DateAsString",
+                "type": "String",
+                "computed": true,
+                "computation": "`CalenderUtils.getFormatedDate(this.value, this.format)`",
+                "internal": true
+            },
+            {
+                "name": "Disable",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            }
+        ],
+        "build": {
+            "component": "Row",
+            "name": "dateRow",
+            "data": {
+                "width": "`Double.infinity`"
+            },
+            "children": [
+                {
+                    "type": "InputField",
+                    "name": "dateInput",
+                    "data": {
+                        "value": "`dateAsString`",
+                        "placeHolder": "`this.placeHolder`",
+                        "focusNode": "`focusNode`",
+                        "disable": "`disable`",
+                        "expand": "'true'",
+                        "inputFormatter": "`r'^[0-9/-]+$'`"
+                    },
+                    "key": "`dateAsString`"
+                },
+                {
+                    "type": "IconView",
+                    "name": "dateIcon",
+                    "data": {
+                        "icon": "'MaterialIcons.edit_calendar'",
+                        "cursor": "'click'"
+                    },
+                    "behaviours": [
+                        "GestureDetector"
+                    ]
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```this.focusNode = FocusNode();\nfocusNode.addListener(focusHandler);```"
+            },
+            {
+                "name": "FocusHandler",
+                "block": "```focused = focusNode.hasFocus;```"
+            },
+            {
+                "name": "OnClickIcon",
+                "type": "OnBehaviour",
+                "on": "dateIcon",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```if(!disable) {\n    showDatePopup(autoClose: true);\n}```"
+            },
+            {
+                "name": "onDateSelected",
+                "type": "OnEvent",
+                "popup": "datePopup",
+                "event": "onDateSelected",
+                "block": "```dateAsString = CalenderUtils.getFormatedDate(date, this.format);\nhideDatePopup();\nonChanged(date);```"
+            },
+            {
+                "name": "OnDateEditingComplete",
+                "type": "OnEvent",
+                "on": "dateInput",
+                "event": "onEditingComplete",
+                "block": "```if(dateAsString != dateInputController.text){\n    DateTime datetime;\n    try {\n        datetime  = DateFormat(this.format).parse(dateInputController.text);\n    }catch(e){\n        datetime = null;\n    }\n    if(datetime != null && onChanged!= null){\n        onChanged(Date.of(datetime.year, datetime.month, datetime.day));\n    }\n    if(datetime == null && onFormatError != null){\n        String expFormat = CalenderUtils.getFormatedDate(Date.now(), this.format);\n        onFormatError('Please enter the date in the format: '+ this.format + ' (Ex: '+expFormat+') only.');\n    }\n}```"
+            }
+        ],
+        "popups": [
+            {
+                "name": "datePopup",
+                "component": "CalenderView",
+                "side": "Bottom",
+                "data": {
+                    "input": "`this.value`"
+                },
+                "target": "dateIcon",
+                "tags": [
+                    "datePopup"
+                ]
+            }
+        ],
+        "events": [
+            {
+                "name": "OnChanged",
+                "params": [
+                    {
+                        "name": "Date",
+                        "type": "Date"
+                    }
+                ]
+            },
+            {
+                "name": "OnFormatError",
+                "params": [
+                    {
+                        "name": "Error",
+                        "type": "String"
+                    }
+                ]
+            }
+        ],
+        "twoWayBinding": true
+    }
+]

@@ -1,0 +1,105 @@
+[
+    {
+        "name": "Interaction",
+        "needCreatedDate": true,
+        "properties": [
+            {
+                "name": "Lead",
+                "type": "Lead"
+            },
+            {
+                "name": "Sid",
+                "type": "String"
+            },
+            {
+                "name": "Type",
+                "type": "InteractionType"
+            },
+            {
+                "name": "Details",
+                "type": "String"
+            },
+            {
+                "name": "toNumber",
+                "type": "String"
+            },
+            {
+                "name": "fromNumber",
+                "type": "String"
+            },
+            {
+                "name": "Recording URL",
+                "type": "String",
+                "longText": true
+            },
+            {
+                "name": "Start Time",
+                "type": "DateTime"
+            },
+            {
+                "name": "End Time",
+                "type": "DateTime"
+            },
+            {
+                "name": "Handled By",
+                "type": "User"
+            },
+            {
+                "name": "Notes",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "Duration",
+                "type": "Duration"
+            },
+            {
+                "name": "Call Status",
+                "type": "CallStatus"
+            },
+            {
+                "name": "File",
+                "type": "DFile"
+            },
+            {
+                "name": "Conversation",
+                "type": "String",
+                "longText": true
+            },
+            {
+                "name": "isIncoming",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "Body",
+                "type": "String",
+                "longText": true
+            },
+            {
+                "name": "Message Status",
+                "type": "MessageStatus"
+            },
+            {
+                "name": "isConference",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "Participants",
+                "type": "String",
+                "collection": true
+            },
+            {
+                "name": "childSid",
+                "type": "String"
+            }
+        ],
+        "actions": [
+            {
+                "name": "OnCreate Interaction",
+                "block": "```\nif(this.lead != null){\n    if(this.isIncoming) {\n        this.lead.hasUnreadInteractions = true;\n    }\n    this.lead.lastInteraction = this;\n    Database.save(this.lead);\n}\n```"
+            }
+        ]
+    }
+]

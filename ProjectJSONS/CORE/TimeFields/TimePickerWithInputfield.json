@@ -1,0 +1,373 @@
+[
+    {
+        "name": "Time Picker With Inputfield",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Time",
+                "type": "Time"
+            },
+            {
+                "name": "value",
+                "type": "Time",
+                "computed": true,
+                "computation": "`time != null ? time : Time.now()`",
+                "internal": true
+            },
+            {
+                "name": "hour",
+                "type": "Integer",
+                "internal": true
+            },
+            {
+                "name": "Minute",
+                "type": "Integer",
+                "internal": true
+            },
+            {
+                "name": "selectedMeridian",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "MilitryTime",
+                "type": "Boolean",
+                "defaultValue": "`false`"
+            },
+            {
+                "name": "HourFocusNode",
+                "type": "FocusNode",
+                "internal": true
+            },
+            {
+                "name": "MinutesFocusNode",
+                "type": "FocusNode",
+                "internal": true
+            },
+            {
+                "name": "HourFocus",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "MinutesFocus",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "HourError",
+                "type": "Boolean",
+                "internal": true
+            },
+            {
+                "name": "MinuteError",
+                "type": "Boolean",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "Column",
+            "name": "Column",
+            "data": {
+                "crossAxisAlignment": "start"
+            },
+            "children": [
+                {
+                    "type": "TextView",
+                    "name": "TextView",
+                    "data": {
+                        "data": "Enter Time"
+                    }
+                },
+                {
+                    "type": "Row",
+                    "name": "Row",
+                    "data": {
+                        "crossAxisAlignment": "start"
+                    },
+                    "children": [
+                        {
+                            "type": "Column",
+                            "name": "Column2",
+                            "data": {
+                                "crossAxisAlignment": "start",
+                                "constraints": {
+                                    "minWidth": "100",
+                                    "maxWidth": "100"
+                                }
+                            },
+                            "children": [
+                                {
+                                    "type": "TextView",
+                                    "name": "TextView1",
+                                    "data": {
+                                        "data": "Hrs"
+                                    }
+                                },
+                                {
+                                    "type": "InputField",
+                                    "name": "hoursField",
+                                    "data": {
+                                        "value": "`hour.toString()`",
+                                        "focusNode": "`hourFocusNode`",
+                                        "inputFormatter": "`r'[0-9]'`",
+                                        "dense": "true",
+                                        "textAlign": "center",
+                                        "width": "30"
+                                    },
+                                    "behaviours": [
+                                        "KeyboardListener"
+                                    ]
+                                },
+                                {
+                                    "type": "TextView",
+                                    "name": "TextView2",
+                                    "data": {
+                                        "data": "`hourError ? 'Enter Valid Time' : ''`"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "TextView",
+                            "name": "colonText",
+                            "data": {
+                                "data": ":",
+                                "margin": "30 15 0 15"
+                            }
+                        },
+                        {
+                            "type": "Column",
+                            "name": "Column3",
+                            "data": {
+                                "crossAxisAlignment": "start",
+                                "constraints": {
+                                    "minWidth": "100",
+                                    "maxWidth": "100"
+                                }
+                            },
+                            "children": [
+                                {
+                                    "type": "TextView",
+                                    "name": "TextView",
+                                    "data": {
+                                        "data": "Min"
+                                    }
+                                },
+                                {
+                                    "type": "InputField",
+                                    "name": "minutesField",
+                                    "data": {
+                                        "value": "`minute.toString()`",
+                                        "focusNode": "`minutesFocusNode`",
+                                        "inputFormatter": "`r'[0-9]'`",
+                                        "dense": "true",
+                                        "textAlign": "center",
+                                        "width": "30"
+                                    },
+                                    "behaviours": [
+                                        "KeyboardListener"
+                                    ]
+                                },
+                                {
+                                    "type": "TextView",
+                                    "name": "TextView3",
+                                    "data": {
+                                        "data": "`minuteError ? 'Enter Valid Time' : ''`"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Column",
+                            "name": "Column3",
+                            "data": {
+                                "crossAxisAlignment": "start",
+                                "visibility": "`!militryTime`"
+                            },
+                            "children": [
+                                {
+                                    "type": "TextView",
+                                    "name": "TextView",
+                                    "data": {
+                                        "data": "Meridian",
+                                        "margin": "0 15"
+                                    }
+                                },
+                                {
+                                    "type": "Row",
+                                    "name": "RowRef",
+                                    "children": [
+                                        {
+                                            "type": "Button",
+                                            "name": "Button",
+                                            "data": {
+                                                "margin": "0 15"
+                                            },
+                                            "child": {
+                                                "type": "TextView",
+                                                "name": "ButtonText",
+                                                "data": {
+                                                    "data": "AM"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "Button",
+                                            "name": "Button2",
+                                            "child": {
+                                                "type": "TextView",
+                                                "name": "ButtonText",
+                                                "data": {
+                                                    "data": "PM"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Row",
+                    "name": "RowRef",
+                    "data": {
+                        "mainAxisAlignment": "end",
+                        "padding": "10"
+                    },
+                    "children": [
+                        {
+                            "type": "Button",
+                            "name": "CancelRef",
+                            "data": {
+                                "margin": "0 10"
+                            },
+                            "child": {
+                                "type": "TextView",
+                                "name": "text",
+                                "data": {
+                                    "data": "Cancel"
+                                }
+                            }
+                        },
+                        {
+                            "type": "Button",
+                            "name": "OkRef",
+                            "child": {
+                                "type": "TextView",
+                                "name": "text",
+                                "data": {
+                                    "data": "Ok"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnInit",
+                "block": "```\n                this.hourFocusNode = FocusNode();\n                this.minutesFocusNode = FocusNode();\n                hourFocusNode.addListener(focusHandler);\n                minutesFocusNode.addListener(focusHandler);\n                if(!militryTime) {\n                    if(value.hour > 12) {\n                      this.hour = value.hour-12;\n                      this.selectedMeridian = false;\n                    }\n                    else {\n                        this.hour =value.hour;\n                    }\n                }else {\n                  this.hour =value.hour;\n                }\n                \n                this.minute = value.minutes;\n            ```"
+            },
+            {
+                "name": "FocusHandler",
+                "block": "```\n                hourFocus = hourFocusNode.hasFocus;\n                minutesFocus = minutesFocusNode.hasFocus;\n            ```"
+            },
+            {
+                "name": "onTapInputFieldHandler",
+                "type": "OnEvent",
+                "on": "hoursField",
+                "event": "onTap",
+                "block": "```\n                this.hourError = false;\n                /* Your code here. */\n            ```"
+            },
+            {
+                "name": "OnHoursChange",
+                "type": "OnEvent",
+                "on": "hoursField",
+                "event": "onChanged",
+                "block": "```\n                if(text.isNotEmpty){\n                    Integer value = Integer.tryParse(text);\n                    if(militryTime ) {\n                        if(value < 23) {\n                            hour = value;\n                        }else {\n                            hourError = true;\n                            return;\n                        }\n                    }else if(value <=12){\n                        hour = value;\n                    }else {\n                        hourError = true;\n                        return;\n                    }\n                }else {\n                    hourError = true;\n                }\n            ```"
+            },
+            {
+                "name": "onChangedInputField2Handler",
+                "type": "OnEvent",
+                "on": "minutesField",
+                "event": "onTap",
+                "block": "```\n                this.minuteError = false;\n                /* Your code here. */\n            ```"
+            },
+            {
+                "name": "OnChangeMinutes",
+                "type": "OnEvent",
+                "on": "minutesField",
+                "event": "onChanged",
+                "block": "```\n                if(text.isNotEmpty) {\n                    Integer value = Integer.tryParse(text);\n                    if(value <= 59) {\n                        minute = value;\n                    }else{\n                        minuteError = true;\n                        return;\n                    }\n                }else {\n                    minuteError = true;\n                }\n            ```"
+            },
+            {
+                "name": "onEditingCompleteInputField2Handler",
+                "type": "OnEvent",
+                "on": "minutesField",
+                "event": "onEditingComplete",
+                "block": "```\n                if(minute > 59){\n                    minuteError = true;\n                    return;\n                }\n            ```"
+            },
+            {
+                "name": "onAmPressedHandler",
+                "type": "OnEvent",
+                "on": "button",
+                "event": "onPressed",
+                "block": "```\n                this.selectedMeridian = true;\n            ```"
+            },
+            {
+                "name": "onPmPressedHandler",
+                "type": "OnEvent",
+                "on": "button2",
+                "event": "onPressed",
+                "block": "```\n                this.selectedMeridian = false;\n            ```"
+            },
+            {
+                "name": "OnArrowDownPressed",
+                "type": "OnBehaviour",
+                "on": "hoursField",
+                "behaviour": "KeyboardListener",
+                "event": "onKey",
+                "block": "```\n                Integer integerNullValue = null;\n                if(event is RawKeyDownEvent) {\n                    if(event.logicalKey == LogicalKeyboardKey.arrowDown){\n                        Integer value = Integer.tryParse(hoursFieldController.text);\n                        if(value == integerNullValue) {\n                            hoursFieldController.text = value.toString();\n                            return;\n                        }\n                        if(militryTime) {\n                            if(value <= 0) {\n                                hour = 23;\n                            }else {\n                                value = value - 1;\n                                hour = value;\n                            }\n                        }else {\n                            if(value <= 0) {\n                                hour = 12;\n                            }else {\n                                value = value - 1;\n                                hour = value;\n                            }\n                        }\n                        hoursFieldController.text = hour.toString();\n                    }\n                    else if(event.logicalKey == LogicalKeyboardKey.arrowUp) {\n                        Integer value = Integer.tryParse(hoursFieldController.text);\n                        if(value == integerNullValue) {\n                            hoursFieldController.text = value.toString();\n                            return;\n                        }\n                        if(militryTime) {\n                            if(value >= 23) {\n                                hour = 0;\n                            }else {\n                                value = value + 1;\n                                hour = value;\n                            }\n                        }else {\n                            if(value >= 12) {\n                                hour = 0;\n                            }else {\n                                value = value + 1;\n                                hour = value;\n                            }\n                        }\n                        hoursFieldController.text = hour.toString();\n                    }\n                }\n            ```"
+            },
+            {
+                "name": "OnArrowMinutesDownPressed",
+                "type": "OnBehaviour",
+                "on": "minutesField",
+                "behaviour": "KeyboardListener",
+                "event": "onKey",
+                "block": "```\n                Integer integerNullValue = null;\n                if(event is RawKeyDownEvent) {\n                    if(event.logicalKey == LogicalKeyboardKey.arrowDown){\n                        Integer value = Integer.tryParse(minutesFieldController.text);\n                        if(value == integerNullValue) {\n                            minutesFieldController.text = value.toString();\n                            return;\n                        }\n                        if(value <= 0 ) {\n                           value = 59;\n                        }else {\n                            value = value - 1;\n                        }\n                        minute = value;\n                        minutesFieldController.text = minute.toString();\n                    }\n                    else if(event.logicalKey == LogicalKeyboardKey.arrowUp) {\n                        Integer value = Integer.tryParse(minutesFieldController.text);\n                        if(value == integerNullValue) {\n                            minutesFieldController.text = '';\n                            return;\n                        }\n                        if(value >= 59) {\n                           minute = 0;\n                        }else {\n                            value = value + 1;\n                            minute = value;\n                        }\n                        minutesFieldController.text = minute.toString();\n                    }\n                }\n            ```"
+            },
+            {
+                "name": "OnCancelHandler",
+                "type": "OnEvent",
+                "on": "cancelRef",
+                "event": "onPressed",
+                "block": "```\n                onCancel();\n            ```"
+            },
+            {
+                "name": "OnSaveHandler",
+                "type": "OnEvent",
+                "on": "okRef",
+                "event": "onPressed",
+                "block": "```\n                Integer hour1 = hour;\n                // \n                if(hoursFieldController.text.isNotEmpty){\n                    if(!militryTime){\n                        if(selectedMeridian){\n                            if(hour1 % 12 ==0){\n                                hour1 = 0;\n                            }\n                        }else{\n                            if(hour1 % 12 !=0){\n                                hour1 = 12+hour1;\n                            }\n                        }\n                        this.hour = hour1;\n                    }\n                    onTimeChange(Time.of(hour,minute,0,0));\n                }\n            ```"
+            }
+        ],
+        "events": [
+            {
+                "name": "OnTimeChange",
+                "params": [
+                    {
+                        "name": "Time",
+                        "type": "Time"
+                    }
+                ]
+            },
+            {
+                "name": "OnCancel"
+            }
+        ]
+    }
+]

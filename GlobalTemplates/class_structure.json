@@ -1,0 +1,48 @@
+[
+    {
+        "annotation": "@RPCService || @Channel",
+        "classAccess": "server || client || both",
+        "className": "ClassName",
+        "extends": "ParentClassName",
+        "implements": "InterfaceName",
+        "variables": [
+            {
+                "name": "variableName",
+                "type": "String || Integer || Boolean || Double || Date || DateTime || Time || Duration || DFile || Geolocation || Object",
+                "static": "true || false",
+                "defaultValue": "defaultValue"
+            }
+        ],
+        "methods": [
+            {
+                "name": "methodName",
+                "static": "true || false",
+                "returnType": "ReturnType",
+                "parameters": [
+                    {
+                        "positionalParameters": [
+                            {
+                                "name": "parameterName",
+                                "type": "ParameterType"
+                            }
+                        ],
+                        "namedParameters": [
+                            {
+                                "name": "parameterName",
+                                "type": "ParameterType"
+                            }
+                        ],
+                        "optionalParameters": [
+                            {
+                                "name": "parameterName",
+                                "type": "ParameterType",
+                                "defaultValue": "defaultValue"
+                            }
+                        ]
+                    }
+                ],
+                "body": "Method body logic here"
+            }
+        ]
+    }
+]

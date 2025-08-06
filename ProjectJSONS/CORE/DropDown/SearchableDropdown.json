@@ -1,0 +1,159 @@
+[
+    {
+        "name": "SearchableDropdown",
+        "category": "UserDefined",
+        "properties": [
+            {
+                "name": "Items",
+                "type": "T",
+                "collection": true
+            },
+            {
+                "name": "SearchValue",
+                "type": "String",
+                "internal": true
+            },
+            {
+                "name": "CloseAfterBackspaceOnEmpty",
+                "type": "Boolean"
+            },
+            {
+                "name": "FilterdValues",
+                "type": "T",
+                "collection": true,
+                "computed": true,
+                "computation": "`this.items.where((i) => i.toString().toLowerCase().startsWith(searchValue.toLowerCase())).toList()`",
+                "internal": true
+            }
+        ],
+        "build": {
+            "component": "ListView",
+            "name": "id",
+            "data": {
+                "shrinkWrap": "true"
+            },
+            "children": [
+                {
+                    "type": "InputField",
+                    "name": "Text1",
+                    "data": {
+                        "padding": "5"
+                    },
+                    "behaviours": [
+                        "KeyboardListener"
+                    ]
+                },
+                {
+                    "component": "CFor",
+                    "name": "Item",
+                    "var": "item",
+                    "items": "`this.filterdValues.toList()`",
+                    "type": "T",
+                    "item": {
+                        "type": "Container",
+                        "name": "OnItem",
+                        "data": {
+                            "cursor": "click",
+                            "padding": "0 0 0 10"
+                        },
+                        "child": {
+                            "type": "CBuild",
+                            "name": "dropdownItemBuilder",
+                            "params": [
+                                {
+                                    "name": "id",
+                                    "value": "`item`"
+                                }
+                            ]
+                        },
+                        "behaviours": [
+                            "GestureDetector"
+                        ]
+                    }
+                }
+            ]
+        },
+        "eventHandlers": [
+            {
+                "name": "OnSelectListTile",
+                "type": "OnBehaviour",
+                "on": "onItem",
+                "behaviour": "GestureDetector",
+                "event": "onTap",
+                "block": "```\nonChangeActive(false);\nthis.onSelectItem(item);\n```"
+            },
+            {
+                "name": "OnSearchReferenHandler",
+                "type": "OnEvent",
+                "on": "text1",
+                "event": "onChanged",
+                "block": "```\nthis.searchValue = text;\nonSearch(text);\nthis.searchValue = '';\n```"
+            },
+            {
+                "name": "OnRawKeyPressed",
+                "type": "OnBehaviour",
+                "on": "text1",
+                "behaviour": "KeyboardListener",
+                "event": "onKey",
+                "block": "```\nif (this.onKey != null) {\n    if (event is RawKeyDownEvent) {\n        this.onKey(event.logicalKey, this.searchValue);\n    }\n}\nif (event is RawKeyDownEvent) {\n    if (event.logicalKey == LogicalKeyboardKey.backspace && this.searchValue == '') {\n        if (this.onBackspaceAfterEmpty != null) {\n            onBackspaceAfterEmpty();\n        }\n        if (closeAfterBackspaceOnEmpty) {\n            onChangeActive(false);\n        }\n    }\n}\n```"
+            }
+        ],
+        "generic": true,
+        "builder": {
+            "name": "DropdownItemBuilder",
+            "required": true,
+            "params": [
+                {
+                    "name": "Item",
+                    "type": "T",
+                    "valueFrom": "`filterdValues`"
+                }
+            ]
+        },
+        "events": [
+            {
+                "name": "OnSelectItem",
+                "params": [
+                    {
+                        "name": "Item",
+                        "type": "T"
+                    }
+                ]
+            },
+            {
+                "name": "OnKey",
+                "params": [
+                    {
+                        "name": "Key",
+                        "type": "LogicalKeyboardKey"
+                    },
+                    {
+                        "name": "Text",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "OnBackspaceAfterEmpty"
+            },
+            {
+                "name": "OnChangeActive",
+                "params": [
+                    {
+                        "name": "Val",
+                        "type": "Boolean"
+                    }
+                ]
+            },
+            {
+                "name": "OnSearch",
+                "params": [
+                    {
+                        "name": "Text",
+                        "type": "String"
+                    }
+                ]
+            }
+        ]
+    }
+]
