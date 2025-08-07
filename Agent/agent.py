@@ -133,7 +133,7 @@ def call_claude(user_prompt):
     }
 
     payload = {
-        "model": "claude-opus-4-20250514",  # ✅ Latest Claude 4 model
+        "model": "claude-3-5-sonnet-20241022",  # ✅ Working Claude model
         "max_tokens": 4096,
         "temperature": 0.7,
         "top_p": 0.95,

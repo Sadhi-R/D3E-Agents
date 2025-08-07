@@ -73,9 +73,10 @@ def main():
         sys.exit(1)
     
     print("\n🎯 Starting D3E Agent application...")
-    print("📡 Backend: http://localhost:8000")
+    backend_port = os.getenv("BACKEND_PORT", "8001")
+    print(f"📡 Backend: http://localhost:{backend_port}")
     print("🎨 Frontend: http://localhost:3000")
-    print("📚 API Docs: http://localhost:8000/docs")
+    print(f"📚 API Docs: http://localhost:{backend_port}/docs")
     print("\nPress Ctrl+C to stop both servers")
     print("=" * 60)
     print()

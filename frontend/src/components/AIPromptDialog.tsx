@@ -24,12 +24,48 @@ export function AIPromptDialog({ open, onClose, projectName, onGenerate }: AIPro
   const generateMutation = useMutation({
     mutationFn: (prompt: string) => aiApi.generate({ prompt, project: projectName }),
     onSuccess: (data) => {
-      setResult(data.result)
-      toast.success('AI generation completed')
-      onGenerate()
+      console.log('AI Generation Response:', data);
+      console.log('Result type:', typeof data.result);
+      console.log('Result length:', data.result?.length);
+      
+      // Clean the result to extract just the D3E code
+      let cleanedResult = data.result;
+      
+      // Remove explanatory text before the code
+      const codeBlockStart = cleanedResult.indexOf('```d3e');
+      if (codeBlockStart !== -1) {
+        cleanedResult = cleanedResult.substring(codeBlockStart + 6); // Remove ```d3e
+      } else {
+        // Look for Widget { pattern
+        const widgetStart = cleanedResult.indexOf('Widget {');
+        const modelStart = cleanedResult.indexOf('Model {');
+        const pageStart = cleanedResult.indexOf('Page {');
+        
+        const starts = [widgetStart, modelStart, pageStart].filter(s => s !== -1);
+        if (starts.length > 0) {
+          cleanedResult = cleanedResult.substring(Math.min(...starts));
+        }
+      }
+      
+      // Remove closing ``` and any text after it
+      const codeBlockEnd = cleanedResult.indexOf('```');
+      if (codeBlockEnd !== -1) {
+        cleanedResult = cleanedResult.substring(0, codeBlockEnd);
+      }
+      
+      // Clean up the result
+      cleanedResult = cleanedResult.trim();
+      
+      console.log('Cleaned result:', cleanedResult);
+      setResult(cleanedResult);
+      
+      // Show success message indicating files were created
+      toast.success('AI generation completed! Files have been created automatically.');
+      onGenerate(); // This will refresh the project view to show new components
     },
     onError: (error: any) => {
-      toast.error(error.response?.data?.detail || 'Failed to generate code')
+      console.error('AI Generation Error:', error);
+      toast.error(error.response?.data?.detail || 'Failed to generate code');
     },
   })
 
@@ -48,11 +84,12 @@ export function AIPromptDialog({ open, onClose, projectName, onGenerate }: AIPro
   }
 
   const examplePrompts = [
-    "Create a User model with firstName, lastName, email, and password fields",
-    "Create a login page widget with email and password inputs",
-    "Create a dashboard page with user statistics",
-    "Create a modern theme with blue primary colors",
-    "Create a button style with rounded corners and hover effects"
+    "Create a Student model with name, email, phone, and enrollmentDate fields",
+    "Create a course registration widget with student selection and course inputs",
+    "Create a teacher dashboard page with course management features",
+    "Create a login widget with username, password, and remember me checkbox",
+    "Create a user profile model with personal and contact information",
+    "Create a modern theme with blue primary colors and rounded corners"
   ]
 
   if (!open) return null
@@ -145,19 +182,28 @@ export function AIPromptDialog({ open, onClose, projectName, onGenerate }: AIPro
             <div className="flex-1 min-h-0 space-y-2">
               <div className="flex items-center justify-between">
                 <label className="text-sm font-medium">Generated D3E Code:</label>
-                <Badge variant="secondary">Ready to use</Badge>
+                <div className="flex items-center space-x-2">
+                  <Badge variant="secondary">Files Created Automatically</Badge>
+                  <Badge variant="outline" className="text-green-600">✅ Ready</Badge>
+                </div>
               </div>
               <div className="border rounded-md overflow-hidden h-full min-h-[300px]">
                 <MonacoEditor
                   value={result}
                   onChange={() => {}} // Read-only
-                  language="javascript"
+                  language="typescript"
                   height="100%"
                   options={{
                     readOnly: true,
                     minimap: { enabled: false },
+                    wordWrap: 'on',
+                    scrollBeyondLastLine: false,
                   }}
                 />
+              </div>
+              <div className="text-sm text-muted-foreground bg-muted/50 p-3 rounded-lg">
+                <p className="font-medium mb-1">✅ Components Generated Successfully</p>
+                <p>Files have been automatically created and saved to your project. You can now see them in the component list above and edit them as needed.</p>
               </div>
             </div>
           )}

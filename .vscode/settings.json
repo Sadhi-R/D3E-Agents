@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./Agent"
+    ],
+    "python.defaultInterpreterPath": "./venv/Scripts/python.exe"
+}

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
+import { Textarea } from '@/components/ui/textarea'
 import { projectsApi, Component } from '@/lib/api'
 import { MonacoEditor } from '@/components/MonacoEditor'
 import toast from 'react-hot-toast'
@@ -19,6 +20,9 @@ interface ComponentEditorProps {
 export function ComponentEditor({ component, projectName, onClose, onSave }: ComponentEditorProps) {
   // Debug logging
   console.log('ComponentEditor received component:', component)
+  console.log('Component content:', component.content)
+  console.log('Component content length:', component.content?.length || 0)
+  console.log('Component content type:', typeof component.content)
   
   const [editedComponent, setEditedComponent] = useState({
     name: component.name,
@@ -26,6 +30,26 @@ export function ComponentEditor({ component, projectName, onClose, onSave }: Com
     content: component.content || '' // Ensure content is never undefined
   })
   const [hasChanges, setHasChanges] = useState(false)
+  const [useTextarea, setUseTextarea] = useState(false)
+
+  // Debug the edited component state
+  console.log('Edited component content:', editedComponent.content)
+
+  useEffect(() => {
+    console.log('Component prop changed, updating state:', component)
+    
+    // Normalize the type name (remove 's' if plural)
+    let normalizedType = component.type;
+    if (normalizedType.endsWith('s')) {
+      normalizedType = normalizedType.slice(0, -1); // Remove 's' from 'widgets' -> 'widget'
+    }
+    
+    setEditedComponent({
+      name: component.name,
+      type: normalizedType,
+      content: component.content || ''
+    })
+  }, [component])
 
   useEffect(() => {
     const hasChanges = 
@@ -78,7 +102,7 @@ export function ComponentEditor({ component, projectName, onClose, onSave }: Com
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-6xl max-h-[90vh] flex flex-col">
+      <Card className="w-full max-w-7xl max-h-[95vh] flex flex-col">
         <CardHeader className="flex-shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -113,7 +137,7 @@ export function ComponentEditor({ component, projectName, onClose, onSave }: Com
           </div>
         </CardHeader>
         
-        <CardContent className="flex-1 flex flex-col space-y-4 min-h-0">
+        <CardContent className="flex-1 flex flex-col space-y-4 min-h-0 p-6">
           {/* Component metadata */}
           <div className="grid grid-cols-2 gap-4 flex-shrink-0">
             <div>
@@ -142,15 +166,54 @@ export function ComponentEditor({ component, projectName, onClose, onSave }: Com
           </div>
 
           {/* Code editor */}
-          <div className="flex-1 min-h-0">
-            <label className="text-sm font-medium mb-2 block">Content</label>
-            <div className="border rounded-md overflow-hidden h-full">
-              <MonacoEditor
-                value={editedComponent.content}
-                onChange={(value) => setEditedComponent(prev => ({ ...prev, content: value || '' }))}
-                language="javascript" // D3E syntax highlighting (closest match)
-                height="100%"
-              />
+          <div className="flex-1 flex flex-col min-h-0">
+            <div className="flex items-center justify-between mb-3">
+              <label className="text-sm font-medium">Content</label>
+              <div className="flex items-center space-x-2">
+                <span className="text-xs text-muted-foreground">
+                  {editedComponent.content.length} characters
+                </span>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => setUseTextarea(!useTextarea)}
+                >
+                  {useTextarea ? 'Monaco Editor' : 'Simple Editor'}
+                </Button>
+              </div>
+            </div>
+            
+            <div className="flex-1 border rounded-md overflow-hidden" style={{ minHeight: '500px' }}>
+              {useTextarea ? (
+                <Textarea
+                  value={editedComponent.content}
+                  onChange={(e) => setEditedComponent(prev => ({ ...prev, content: e.target.value }))}
+                  className="w-full h-full resize-none font-mono text-sm border-0 focus:ring-0"
+                  style={{ minHeight: '500px' }}
+                  placeholder="Enter your D3E component code here..."
+                />
+              ) : (
+                <MonacoEditor
+                  value={editedComponent.content}
+                  onChange={(value) => {
+                    console.log('Monaco editor onChange called with value:', value)
+                    setEditedComponent(prev => ({ ...prev, content: value || '' }))
+                  }}
+                  language="typescript"
+                  height="500px"
+                  options={{
+                    wordWrap: 'on',
+                    scrollBeyondLastLine: false,
+                    minimap: { enabled: true },
+                    fontSize: 14,
+                    automaticLayout: true,
+                    padding: { top: 10, bottom: 10 },
+                    lineNumbers: 'on',
+                    folding: true,
+                    bracketPairColorization: { enabled: true },
+                  }}
+                />
+              )}
             </div>
           </div>
         </CardContent>

@@ -98,10 +98,73 @@ export function ProjectView() {
     }
   }
 
+  const generateD3EStructure = (type: string, name: string, content: string) => {
+    // If content already looks like D3E code, return it as-is
+    if (content.includes('{') && content.includes('}')) {
+      return content
+    }
+
+    // Generate proper D3E structure based on type
+    switch (type.toLowerCase()) {
+      case 'model':
+        return `Model {
+  name "${name}"
+  
+  ${content}
+}`
+
+      case 'widget':
+        return `Widget {
+  name "${name}"
+  
+  ${content}
+}`
+
+      case 'page':
+        return `Page {
+  name "${name}"
+  
+  ${content}
+}`
+
+      case 'style':
+        return `Style {
+  name "${name}"
+  
+  ${content}
+}`
+
+      case 'theme':
+        return `StyleTheme {
+  name "${name}"
+  
+  ${content}
+}`
+
+      case 'optionset':
+        return `OptionSet {
+  name "${name}"
+  
+  ${content}
+}`
+
+      default:
+        return content
+    }
+  }
+
   const handleCreateComponent = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!newComponent.name.trim() || !newComponent.content.trim()) return
-    createComponentMutation.mutate(newComponent)
+    if (!newComponent.name.trim()) return
+    
+    // Generate D3E structure even if content is empty
+    const content = newComponent.content.trim() || '// Add your D3E code here'
+    const d3eContent = generateD3EStructure(newComponent.type, newComponent.name, content)
+    
+    createComponentMutation.mutate({
+      ...newComponent,
+      content: d3eContent
+    })
   }
 
   if (!projectName) {
@@ -194,16 +257,19 @@ export function ProjectView() {
               <div>
                 <label className="text-sm font-medium mb-2 block">Content</label>
                 <Textarea
-                  placeholder="D3E code content..."
+                  placeholder="Enter D3E code content (optional - structure will be auto-generated)..."
                   value={newComponent.content}
                   onChange={(e) => setNewComponent(prev => ({ ...prev, content: e.target.value }))}
                   rows={10}
                 />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Leave empty to auto-generate basic D3E structure, or add your own content
+                </p>
               </div>
               <div className="flex gap-2">
                 <Button 
                   type="submit" 
-                  disabled={!newComponent.name.trim() || !newComponent.content.trim() || createComponentMutation.isPending}
+                  disabled={!newComponent.name.trim() || createComponentMutation.isPending}
                 >
                   {createComponentMutation.isPending ? 'Creating...' : 'Create'}
                 </Button>

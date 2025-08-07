@@ -10,6 +10,14 @@ import subprocess
 import time
 from pathlib import Path
 
+# Load environment variables from .env file
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    print("⚠️ python-dotenv not found. Install with: pip install python-dotenv")
+    print("⚠️ Environment variables will be read from system only")
+
 def check_dependencies():
     """Check if required dependencies are installed"""
     try:
@@ -69,7 +77,7 @@ def start_backend():
         ]
         
         print(f"📡 Backend will be available at: http://{host}:{port}")
-        print("📚 API documentation: http://localhost:8000/docs")
+        print(f"📚 API documentation: http://localhost:{port}/docs")
         print("🔄 Auto-reload enabled for development")
         print("\nPress Ctrl+C to stop the server\n")
         

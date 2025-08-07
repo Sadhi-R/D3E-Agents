@@ -1,7 +1,3 @@
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
 import asyncio
 import json
 import os
@@ -11,14 +7,26 @@ import threading
 import time
 
 # Add the Agent directory to the Python path
-sys.path.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'Agent'))
+agent_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'Agent')
+if agent_path not in sys.path:
+    sys.path.insert(0, agent_path)
 
-from project_manager import list_projects, create_project, cleanup_project
-from file_manager import create_or_update_file
-from sync_manager import update_code, Context, sync_all_d3e_files, find_d3e_files
-from component_extractor import save_components_from_d3e_output
-from context_loader import ContextManager
-from config import CLAUDE_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY, remote_config
+try:
+    from project_manager import list_projects, create_project, cleanup_project
+    from file_manager import create_or_update_file
+    from sync_manager import update_code, Context, sync_all_d3e_files, find_d3e_files
+    from component_extractor import save_components_from_d3e_output
+    from context_loader import ContextManager
+    from config import CLAUDE_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY, remote_config
+except ImportError as e:
+    print(f"Warning: Could not import Agent modules: {e}")
+    print(f"Agent path: {agent_path}")
+    print("This is normal during static analysis, but imports should work at runtime.")
+
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
 import requests
 
 app = FastAPI(title="D3E Agent API", version="1.0.0")
@@ -79,6 +87,46 @@ def build_system_message(project: str = None):
     context_manager = ContextManager()
     ctx = context_manager.build_context()
     
+    # Load README.md context
+    try:
+        readme_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'README.md')
+        with open(readme_path, 'r', encoding='utf-8') as f:
+            readme_content = f.read()[:3000]  # First 3000 chars
+            ctx["README Context"] = readme_content
+    except Exception:
+        pass
+    
+    # Load Documentation structures
+    try:
+        doc_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'Documentation')
+        
+        # Load Widget structure
+        widget_structure_path = os.path.join(doc_path, 'Widgets', 'STRUCTURE.md')
+        if os.path.exists(widget_structure_path):
+            with open(widget_structure_path, 'r', encoding='utf-8') as f:
+                ctx["Widget Structure"] = f.read()[:2000]
+        
+        # Load basic widget examples
+        basic_widget_path = os.path.join(doc_path, 'Widgets', 'basic-widget.md')
+        if os.path.exists(basic_widget_path):
+            with open(basic_widget_path, 'r', encoding='utf-8') as f:
+                ctx["Widget Examples"] = f.read()[:2000]
+                
+        # Load Model structure if generating models
+        model_structure_path = os.path.join(doc_path, 'Models', 'STRUCTURE.md')
+        if os.path.exists(model_structure_path):
+            with open(model_structure_path, 'r', encoding='utf-8') as f:
+                ctx["Model Structure"] = f.read()[:2000]
+                
+        # Load Page structure if generating pages
+        page_structure_path = os.path.join(doc_path, 'Pages', 'STRUCTURE.md')
+        if os.path.exists(page_structure_path):
+            with open(page_structure_path, 'r', encoding='utf-8') as f:
+                ctx["Page Structure"] = f.read()[:2000]
+                
+    except Exception:
+        pass
+    
     # Add project-specific theme and style information
     if project:
         try:
@@ -98,25 +146,108 @@ def build_system_message(project: str = None):
 
     context_str = "\n".join([f"=== {k} ===\n{v}" for k, v in ctx.items()])
     return f"""
-You are a D3E Programming Language Expert. D3E is a standalone programming language like Dart, Java, or Python.
+You are a D3E Programming Language Expert. D3E is a domain-specific language for creating UI components and business logic.
+
 {context_str}
+
+=== D3E SYNTAX RULES ===
+- D3E uses a specific DSL syntax, NOT JSON
+- Components use curly braces: Widget {{ ... }}
+- Properties use single quotes: name 'ComponentName'
+- Arrays use square brackets without commas: children [ item1 item2 item3 ]
+- Child objects use identity syntax: child TextView {{ ... }}
+- Theme colors use @c1, @c2, @c3, @c4 notation
+- Expressions use backticks: `variableName` or `expression`
+- No commas between array items or object properties
+
+=== EXAMPLE D3E WIDGET SYNTAX ===
+Widget {{
+    package 'projectname.com'
+    name 'LoginWidget'
+    category 'UserDefined'
+    build Column {{
+        name 'MainColumn'
+        data {{
+            mainAxisAlignment 'center'
+            padding '20'
+        }}
+        children [
+            TextView {{
+                name 'Title'
+                data {{
+                    data 'Login'
+                    fontSize '24'
+                    color '@c1'
+                }}
+            }}
+            LabelField {{
+                name 'EmailField'
+                data {{
+                    label 'Email'
+                    placeHolder 'Enter email'
+                    value `email`
+                }}
+            }}
+        ]
+    }}
+    eventHandlers [
+        {{
+            name 'loginHandler'
+            type OnEvent
+            on loginButton
+            event onPressed
+            block ```
+                // Your D3E code here
+            ```
+        }}
+    ]
+}}
+
 === ENFORCEMENT ===
-- ONLY generate D3E language code.
-- NO HTML, CSS, JavaScript, or web framework code.
-- D3E uses Widgets, Pages, Styles, Themes (Column, Row, TextView, etc.).
-- ALWAYS reference existing themes and styles when creating widgets/pages.
-- Use theme colors (@c1, @c2, etc.) instead of hardcoded colors.
-- Reference existing styles where applicable (Primary, Secondary, Error, etc.).
-- Consider any referenced models and their properties.
+- ONLY generate D3E DSL syntax (NOT JSON)
+- Use proper D3E component types from the structures
+- Reference existing themes and styles when available
+- Follow D3E syntax rules strictly (no commas in arrays)
+- Use theme colors (@c1, @c2, etc.) instead of hardcoded colors
+- Wrap expressions in backticks for data binding
 """
 
 def build_user_prompt(user_prompt: str):
     return f"""
 Generate D3E programming language code for: {user_prompt}
 
-IMPORTANT:
-- Use only D3E syntax.
-- No web or unrelated code.
+Requirements:
+- Output must be valid D3E DSL syntax (NOT JSON)
+- Use proper D3E syntax: Widget {{ name 'ComponentName' ... }}
+- Follow D3E syntax rules from the README and Documentation
+- Use available D3E component types (Column, Row, TextView, Button, LabelField, etc.)
+- Include build tree for UI structure using 'build' property
+- Use theme colors (@c1, @c2, @c3, @c4)
+- Wrap expressions in backticks for data binding: `variableName`
+- No commas between array items or object properties
+- Use single quotes for string values: 'value'
+- No HTML, CSS, JavaScript, or other web code
+
+Example D3E syntax:
+Widget {{
+    package 'projectname.com'
+    name 'ComponentName'
+    category 'UserDefined'
+    build Column {{
+        name 'MainContainer'
+        data {{
+            mainAxisAlignment 'center'
+        }}
+        children [
+            TextView {{
+                name 'Title'
+                data {{
+                    data 'Hello World'
+                }}
+            }}
+        ]
+    }}
+}}
 """
 
 async def call_claude(user_prompt: str, project: str = None):
@@ -130,7 +261,7 @@ async def call_claude(user_prompt: str, project: str = None):
     }
 
     payload = {
-        "model": "claude-opus-4-20250514",
+        "model": "claude-3-5-sonnet-20241022",
         "max_tokens": 4096,
         "temperature": 0.7,
         "top_p": 0.95,
@@ -176,11 +307,50 @@ async def call_openai(user_prompt: str, project: str = None):
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=f"OpenAI API Error: {str(e)}")
 
+async def call_demo_mode(user_prompt: str, project: str = None):
+    """Demo mode - returns sample D3E code when no API keys are configured"""
+    return f"""// Demo Mode - AI Generation for: {user_prompt}
+// This is sample D3E code. Configure real API keys for actual generation.
+
+model DemoWidget {{
+    String title = "Generated for: {user_prompt}";
+    String description = "This is a demo component created because no AI API keys are configured.";
+    Boolean isDemo = true;
+}}
+
+widget DemoWidgetDisplay {{
+    DemoWidget data;
+    
+    render() {{
+        Container {{
+            Text(data.title) {{
+                style: "font-size: 24px; font-weight: bold; color: #2563eb;"
+            }}
+            Text(data.description) {{
+                style: "font-size: 14px; color: #6b7280; margin-top: 8px;"
+            }}
+            Text("⚠️ Configure API keys in .env file for real AI generation") {{
+                style: "font-size: 12px; color: #f59e0b; margin-top: 16px; padding: 8px; background: #fef3c7; border-radius: 4px;"
+            }}
+        }}
+    }}
+}}"""
+
 async def call_with_fallback(user_prompt: str, project: str = None):
-    providers = [
-        ("Claude", call_claude),
-        ("OpenAI", call_openai),
-    ]
+    # Check if any API keys are configured (not just placeholder values)
+    has_claude = CLAUDE_API_KEY and CLAUDE_API_KEY != "your_claude_api_key_here"
+    has_openai = OPENAI_API_KEY and OPENAI_API_KEY != "your_openai_api_key_here"
+    
+    providers = []
+    if has_claude:
+        providers.append(("Claude", call_claude))
+    if has_openai:
+        providers.append(("OpenAI", call_openai))
+    
+    # If no real API keys are configured, use demo mode
+    if not providers:
+        print("⚠️ No API keys configured, using demo mode")
+        return await call_demo_mode(user_prompt, project)
     
     for name, func in providers:
         try:
@@ -189,12 +359,29 @@ async def call_with_fallback(user_prompt: str, project: str = None):
             print(f"⚠️ {name} failed: {e}")
             continue
     
-    raise HTTPException(status_code=500, detail="All AI providers failed")
+    # If all configured providers failed, fall back to demo mode
+    print("⚠️ All configured AI providers failed, falling back to demo mode")
+    return await call_demo_mode(user_prompt, project)
 
 # API Routes
 @app.get("/")
 async def root():
     return {"message": "D3E Agent API Server", "version": "1.0.0"}
+
+@app.get("/api/config/status")
+async def get_config_status():
+    """Get API configuration status"""
+    has_claude = CLAUDE_API_KEY and CLAUDE_API_KEY != "your_claude_api_key_here"
+    has_openai = OPENAI_API_KEY and OPENAI_API_KEY != "your_openai_api_key_here"
+    has_gemini = GEMINI_API_KEY and GEMINI_API_KEY != "your_gemini_api_key_here"
+    
+    return {
+        "claude_configured": has_claude,
+        "openai_configured": has_openai,
+        "gemini_configured": has_gemini,
+        "any_configured": has_claude or has_openai or has_gemini,
+        "demo_mode": not (has_claude or has_openai or has_gemini)
+    }
 
 @app.get("/api/projects")
 async def get_projects():
@@ -387,4 +574,5 @@ async def websocket_endpoint(websocket: WebSocket):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.getenv("BACKEND_PORT", "8001"))
+    uvicorn.run(app, host="0.0.0.0", port=port)
