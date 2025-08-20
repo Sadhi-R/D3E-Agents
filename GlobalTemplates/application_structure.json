@@ -1,0 +1,10 @@
+[
+	{
+		"name": "ApplicationName",
+		"package": "package.name (optional)",
+		"target": "FlutterFrontEnd | ReactFrontEnd",
+		"root": "RootPageName",
+		"defaultTheme": "ThemeName",
+		"description": "Brief description of the application (optional)"
+	}
+]
